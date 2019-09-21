@@ -3,11 +3,17 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://s4nchez.github.io/categories/</loc>
+    <loc>https://s4nchez.github.io/about/</loc>
+    <lastmod>2019-09-21T11:04:37+01:00</lastmod>
   </url>
   
   <url>
     <loc>https://s4nchez.github.io/</loc>
+    <lastmod>2019-09-21T11:04:37+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://s4nchez.github.io/categories/</loc>
   </url>
   
   <url>
