@@ -3,12 +3,17 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://isanchez.net/about/</loc>
-    <lastmod>2019-09-24T21:03:59+01:00</lastmod>
+    <loc>https://isanchez.net/</loc>
+    <lastmod>2019-09-24T21:48:15+01:00</lastmod>
   </url>
   
   <url>
-    <loc>https://isanchez.net/</loc>
+    <loc>https://isanchez.net/training/</loc>
+    <lastmod>2019-09-24T21:48:15+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://isanchez.net/about/</loc>
     <lastmod>2019-09-24T21:03:59+01:00</lastmod>
   </url>
   
