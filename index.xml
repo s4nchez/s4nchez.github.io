@@ -5,20 +5,11 @@
     <link>https://s4nchez.github.io/</link>
     <description>Recent content on Ivan Sanchez</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Sat, 21 Sep 2019 11:04:37 +0100</lastBuildDate>
+    <language>en-gb</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
     
 	<atom:link href="https://s4nchez.github.io/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>About</title>
-      <link>https://s4nchez.github.io/about/</link>
-      <pubDate>Sat, 21 Sep 2019 11:04:37 +0100</pubDate>
-      
-      <guid>https://s4nchez.github.io/about/</guid>
-      <description>Hi, I&amp;rsquo;m Ivan Sanchez.</description>
-    </item>
     
   </channel>
 </rss>
