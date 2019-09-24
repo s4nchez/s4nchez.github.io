@@ -28,6 +28,26 @@
   </url>
   
   <url>
+    <loc>https://isanchez.net/posts/2014-12-06-diamond-kata-using-clojure-and-tdd/</loc>
+    <lastmod>2014-12-06T21:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://isanchez.net/posts/2014-12-01-closing-the-loop/</loc>
+    <lastmod>2014-12-01T21:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://isanchez.net/posts/2014-10-09-coaching-at-codebar/</loc>
+    <lastmod>2014-10-09T10:00:00+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://isanchez.net/posts/2014-10-03-3-skills-for-software-design/</loc>
+    <lastmod>2014-10-03T16:30:00+01:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://isanchez.net/posts/2012-02-28-git-will-start-asking-people-to-explain-their/</loc>
     <lastmod>2012-02-28T22:01:02+00:00</lastmod>
   </url>
@@ -273,27 +293,7 @@
   </url>
   
   <url>
-    <loc>https://isanchez.net/posts/2014-10-03-3-skills-for-software-design/</loc>
-  </url>
-  
-  <url>
-    <loc>https://isanchez.net/posts/2014-10-03-back-from-the-ashes/</loc>
-  </url>
-  
-  <url>
     <loc>https://isanchez.net/categories/</loc>
-  </url>
-  
-  <url>
-    <loc>https://isanchez.net/posts/2014-12-01-closing-the-loop/</loc>
-  </url>
-  
-  <url>
-    <loc>https://isanchez.net/posts/2014-10-09-coaching-at-codebar/</loc>
-  </url>
-  
-  <url>
-    <loc>https://isanchez.net/posts/2014-12-06-diamond-kata-using-clojure-and-tdd/</loc>
   </url>
   
   <url>

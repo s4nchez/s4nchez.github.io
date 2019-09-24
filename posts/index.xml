@@ -103,6 +103,292 @@ As developers, we tend to see source control as the official history of a codeba
 		</item>
 		
 		<item>
+			<title>Diamond Kata using Clojure and TDD</title>
+			<link>https://isanchez.net/posts/2014-12-06-diamond-kata-using-clojure-and-tdd/</link>
+			<pubDate>Sat, 06 Dec 2014 21:00:00 +0100</pubDate>
+			
+			<guid>https://isanchez.net/posts/2014-12-06-diamond-kata-using-clojure-and-tdd/</guid>
+			<description>After seeing Ron Jeffries&amp;rsquo; post about different takes on the Diamond Kata, I&amp;rsquo;ve decided to try it as well.
+This comment on Philip Schwarz&amp;rsquo; solution in particular got my attention:
+ I don’t know Clojure, which certainly made Philip’s solution harder to grok, but one can sort of read it. He added some tests later, which certainly helps.
+ Would a solution driven by tests be easier to understand? I&amp;rsquo;ll let you be the judge.</description>
+			<content type="html"><![CDATA[
+
+<p>After seeing <a href="http://ronjeffries.com/articles/diamond3/three-of-diamonds.html">Ron Jeffries&rsquo; post</a> about different takes on the Diamond Kata, I&rsquo;ve decided to try it as well.</p>
+
+<p>This comment on <a href="https://github.com/philipschwarz/diamond-problem-in-clojure">Philip Schwarz&rsquo; solution</a> in particular got my attention:</p>
+
+<blockquote>
+<p>I don’t know Clojure, which certainly made Philip’s solution harder to grok, but one can sort of read it. He added some tests later, which certainly helps.</p>
+</blockquote>
+
+<p>Would a solution driven by tests be easier to understand? I&rsquo;ll let you be the judge. Check out <a href="https://github.com/s4nchez/diamond-kata-clojure-tdd">my solution on GitHub</a> now, or keep reading for a detailed description (spoilers) of how I got to it.</p>
+
+<h2 id="my-solution-step-by-step">My solution step-by-step</h2>
+
+<p>To avoid spoiling my take on it, I decided not to read other solutions beforehand. I used <a href="http://claysnow.co.uk/recycling-tests-in-tdd/">Seb Rose&rsquo;s initial article</a> as a reference and tried to start with the simplest test I could think of:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">deftest</span> <span class="nv">diamond-building</span>
+  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;Diamond for A&#34;</span>
+    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="o">&#39;</span><span class="p">(</span><span class="s">&#34;A&#34;</span><span class="p">)</span> <span class="p">(</span><span class="nf">diamond</span> <span class="s">&#34;A&#34;</span><span class="p">)))))</span></code></pre></div>
+<p>Followed by a fake implementation:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">diamond</span> <span class="p">[</span><span class="nv">letter</span><span class="p">]</span> <span class="o">&#39;</span><span class="p">(</span><span class="s">&#34;A&#34;</span><span class="p">))</span></code></pre></div>
+<p>So with my initial test passing I tried to jump to something a bit more meaningful like:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;Diamond for B&#34;</span>
+    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="o">&#39;</span><span class="p">(</span><span class="s">&#34;-A-&#34;</span>, <span class="s">&#34;B-B&#34;</span>, <span class="s">&#34;-A-&#34;</span><span class="p">)</span> <span class="p">(</span><span class="nf">diamond</span> <span class="s">&#34;B&#34;</span><span class="p">))))</span></code></pre></div>
+<p>And that was enough to get me stuck! I felt overwhelmed by the amount of complexity that the proper solution for the second test required and saw myself forced to step back and try to break the problem into smaller parts that I could fit into my head.</p>
+
+<p>To decide how to split the problem, I&rsquo;ve looked at another example, the diamond for <code>C</code>:</p>
+
+<pre><code>--A--
+-B-B-
+C---C
+-B-B-
+--A--
+</code></pre>
+
+<p>I noticed I could try to tackle a few parts of the problem independently:</p>
+
+<ol>
+<li>The amount of spaces outside the diamond for each letter</li>
+<li>The amount of spaces inside the diamond for each letter</li>
+<li>Putting a line of the diamond together</li>
+<li>The letter sequence to compose the rows diamond</li>
+</ol>
+
+<p>I&rsquo;ve decided to start with #2 because it looked simpler than #1: the inner part of the diamond does not depend on the size of the diamond itself (e.g. <code>B-B</code> and <code>C---C</code> will always have the same amount of spaces inside).</p>
+
+<h3 id="the-inner-part-of-the-diamond">The inner part of the diamond</h3>
+
+<p>It also happens that the number of spaces inside the diamond follow a simple formula: <code>(2 * n) - 1</code>, where <code>n</code> is the index of the letter in the diamond. The only exception is the letter <code>A</code> that doesn&rsquo;t contain any space and is not repeated on its line.</p>
+
+<p>So I&rsquo;ve parked my initial tests and wrote a new one to help me implement just the inner part of a line:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">deftest</span> <span class="nv">inner-part-building</span>  
+  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;A&#34;</span>
+    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="s">&#34;A&#34;</span> <span class="p">(</span><span class="nf">inner-part</span> <span class="s">&#34;A&#34;</span><span class="p">))))</span></code></pre></div>
+<p>That was easy enough to fake as well:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">inner-part</span> <span class="p">[</span><span class="nv">letter</span><span class="p">]</span> <span class="s">&#34;A&#34;</span><span class="p">)</span></code></pre></div>
+<p>So again, I&rsquo;ve added a few more test cases:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">deftest</span> <span class="nv">inner-part-building</span>
+  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;A&#34;</span>
+    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="s">&#34;A&#34;</span> <span class="p">(</span><span class="nf">inner-part</span> <span class="s">&#34;A&#34;</span><span class="p">))))</span>
+  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;B&#34;</span>
+    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="s">&#34;B-B&#34;</span> <span class="p">(</span><span class="nf">inner-part</span> <span class="s">&#34;B&#34;</span><span class="p">)))))</span></code></pre></div>
+<p>Then I could start splitting the logic for <code>A</code> and the other letters by introducing a conditional:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">inner-part</span> <span class="p">[</span><span class="nv">letter</span><span class="p">]</span>
+  <span class="p">(</span><span class="nb">cond </span><span class="p">(</span><span class="nb">= </span><span class="s">&#34;A&#34;</span> <span class="nv">letter</span><span class="p">)</span> <span class="nv">letter</span>
+        <span class="ss">:else</span> <span class="s">&#34;B-B&#34;</span><span class="p">)</span></code></pre></div>
+<p>At this point I decided to replace the <code>B-B</code> from my solution by the actual implementation.</p>
+
+<p>So I added the test case for <code>C</code> and realised I still didn&rsquo;t have a function to give me the index of a particular letter (<code>A -&gt; 0</code>, <code>B -&gt; 1</code>, <code>C -&gt; 2</code> and so on) to use in the formula mentioned above.</p>
+
+<p>After a few more red-green cycles (which I&rsquo;ll omit from now on as it gets boring really quickly), I&rsquo;ve ended up with this two functions:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">char-index</span> <span class="p">[</span><span class="nv">letter</span><span class="p">]</span> <span class="p">(</span><span class="nb">- </span><span class="p">(</span><span class="nb">int </span><span class="p">(</span><span class="nb">first </span><span class="p">(</span><span class="nf">char-array</span> <span class="nv">letter</span><span class="p">)))</span> <span class="mi">65</span><span class="p">))</span>
+
+<span class="p">(</span><span class="kd">defn </span><span class="nv">inner-part</span> <span class="p">[</span><span class="nv">letter</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nb">index </span><span class="p">(</span><span class="nf">char-index</span> <span class="nv">letter</span><span class="p">)]</span>
+    <span class="p">(</span><span class="nb">cond </span><span class="p">(</span><span class="nb">= </span><span class="mi">0</span> <span class="nv">index</span><span class="p">)</span> <span class="nv">letter</span>
+          <span class="ss">:else</span> <span class="p">(</span><span class="nb">str </span><span class="nv">letter</span> <span class="p">(</span><span class="nf">string/join</span> <span class="s">&#34;&#34;</span> <span class="p">(</span><span class="nb">repeat </span><span class="p">(</span><span class="nb">- </span><span class="p">(</span><span class="nb">* </span><span class="mi">2</span> <span class="nv">index</span><span class="p">)</span> <span class="mi">1</span><span class="p">)</span> <span class="s">&#34;-&#34;</span><span class="p">))</span> <span class="nv">letter</span><span class="p">))))</span></code></pre></div>
+<p>The <code>char-index</code> function calculates the index of the letter by converting it to int and using the difference from the int value of <code>A</code> which is 65.</p>
+
+<p>The inner part is then created by concatenating the <code>letter</code> + <code>((2 * n) -1) dashes</code> + <code>letter</code>.</p>
+
+<h3 id="the-outer-part-of-the-diamond">The outer part of the diamond</h3>
+
+<p>To calculate the outer part of the diamond I started once more with the simplest case:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">deftest</span> <span class="nv">outer-part-building</span>
+  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;A for A diamond&#34;</span>
+    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="s">&#34;&#34;</span> <span class="p">(</span><span class="nf">outer-part</span> <span class="s">&#34;A&#34;</span> <span class="s">&#34;A&#34;</span><span class="p">))))</span></code></pre></div>
+<p>In this case I&rsquo;ve used two parameters: one to represent the letter of the line, another one to represent the letter of the diamond. Again, the first implementation was pretty much a stub:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">outer-part</span> <span class="p">[</span><span class="nv">current-letter</span> <span class="nv">diamond-letter</span><span class="p">]</span> <span class="s">&#34;&#34;</span><span class="p">)</span></code></pre></div>
+<p>Then I&rsquo;ve moved to more test cases for the letter <code>A</code>:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">deftest</span> <span class="nv">outer-part-building</span>
+  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;A for A diamond&#34;</span>
+    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="s">&#34;&#34;</span> <span class="p">(</span><span class="nf">outer-part</span> <span class="s">&#34;A&#34;</span> <span class="s">&#34;A&#34;</span><span class="p">))))</span>
+  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;A for B diamond&#34;</span>
+    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="s">&#34;-&#34;</span> <span class="p">(</span><span class="nf">outer-part</span> <span class="s">&#34;A&#34;</span> <span class="s">&#34;B&#34;</span><span class="p">))))</span>
+  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;A for C diamond&#34;</span>
+    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="s">&#34;--&#34;</span> <span class="p">(</span><span class="nf">outer-part</span> <span class="s">&#34;A&#34;</span> <span class="s">&#34;C&#34;</span><span class="p">)))))</span></code></pre></div>
+<p>At this point I could tell that the number of spaces depended on the second parameter, so I&rsquo;ve implemented it accordingly:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">outer-part</span> <span class="p">[</span><span class="nv">current-letter</span> <span class="nv">diamond-letter</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">final-index</span> <span class="p">(</span><span class="nf">char-index</span> <span class="nv">diamond-letter</span><span class="p">)]</span>
+    <span class="p">(</span><span class="nf">string/join</span> <span class="s">&#34;&#34;</span> <span class="p">(</span><span class="nb">repeat </span><span class="nv">final-index</span> <span class="s">&#34;-&#34;</span><span class="p">))))</span></code></pre></div>
+<p>All the tests were passing but I was pretty sure it wouldn&rsquo;t work for other letters, so I&rsquo;ve added another test to show I needed to use the formula <code>index of diamond letter - index of current letter</code> to figure out the correct number of spaces:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;B for F diamond&#34;</span>
+    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="s">&#34;----&#34;</span> <span class="p">(</span><span class="nf">outer-part</span> <span class="s">&#34;B&#34;</span> <span class="s">&#34;F&#34;</span><span class="p">))))</span></code></pre></div>
+<p>Surely enough it failed because my function was just using the diamond index.</p>
+
+<p>By fixing that I&rsquo;ve ended up with the final version of the function:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">outer-part</span> <span class="p">[</span><span class="nv">current-letter</span> <span class="nv">diamond-letter</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">current-index</span> <span class="p">(</span><span class="nf">char-index</span> <span class="nv">current-letter</span><span class="p">)</span>
+        <span class="nv">final-index</span> <span class="p">(</span><span class="nf">char-index</span> <span class="nv">diamond-letter</span><span class="p">)]</span>
+    <span class="p">(</span><span class="nf">string/join</span> <span class="s">&#34;&#34;</span> <span class="p">(</span><span class="nb">repeat </span><span class="p">(</span><span class="nb">- </span><span class="nv">final-index</span> <span class="nv">current-index</span><span class="p">)</span> <span class="s">&#34;-&#34;</span><span class="p">))))</span></code></pre></div>
+<h3 id="creating-the-rows">Creating the rows</h3>
+
+<p>With the basic parts of my solution implemented, now it was time to start putting the pieces together. I&rsquo;ve started by the simplest case of single diamond line. The test ended up like:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">deftest</span> <span class="nv">line-building</span>
+  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;A for A diamond&#34;</span>
+    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="s">&#34;A&#34;</span> <span class="p">(</span><span class="nf">line-for</span> <span class="s">&#34;A&#34;</span> <span class="s">&#34;A&#34;</span><span class="p">))))</span>
+  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;A for C diamond&#34;</span>
+    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="s">&#34;--A--&#34;</span> <span class="p">(</span><span class="nf">line-for</span> <span class="s">&#34;A&#34;</span> <span class="s">&#34;C&#34;</span><span class="p">))))</span>
+  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;C for C diamond&#34;</span>
+    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="s">&#34;C---C&#34;</span> <span class="p">(</span><span class="nf">line-for</span> <span class="s">&#34;C&#34;</span> <span class="s">&#34;C&#34;</span><span class="p">)))))</span></code></pre></div>
+<p>And the implementation was very simple:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">line-for</span> <span class="p">[</span><span class="nv">current-letter</span> <span class="nv">diamond-letter</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">outer</span> <span class="p">(</span><span class="nf">outer-part</span> <span class="nv">current-letter</span> <span class="nv">diamond-letter</span><span class="p">)</span>
+        <span class="nv">inner</span> <span class="p">(</span><span class="nf">inner-part</span> <span class="nv">current-letter</span><span class="p">)]</span>
+    <span class="p">(</span><span class="nb">str </span><span class="nv">outer</span> <span class="nv">inner</span> <span class="nv">outer</span><span class="p">)))</span></code></pre></div>
+<h3 id="the-diamond-letter-sequence">The diamond letter sequence</h3>
+
+<p>Now the final big challenge was to create the sequence of the letters for the diamond. I wanted something to produce:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">deftest</span> <span class="nv">diamond-letters-building</span>
+  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;A diamond&#34;</span>
+    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="o">&#39;</span><span class="p">(</span><span class="s">&#34;A&#34;</span><span class="p">)</span> <span class="p">(</span><span class="nf">letter-sequence</span> <span class="s">&#34;A&#34;</span><span class="p">))))</span>
+  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;D diamond&#34;</span>
+    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="o">&#39;</span><span class="p">(</span><span class="s">&#34;A&#34;</span> <span class="s">&#34;B&#34;</span> <span class="s">&#34;C&#34;</span> <span class="s">&#34;D&#34;</span> <span class="s">&#34;C&#34;</span> <span class="s">&#34;B&#34;</span> <span class="s">&#34;A&#34;</span><span class="p">)</span> <span class="p">(</span><span class="nf">letter-sequence</span> <span class="s">&#34;D&#34;</span><span class="p">)))))</span></code></pre></div>
+<p>Once again the easiest way I could find to achieve that was to use <code>char -&gt; int</code> conversions, which allowed me to create the following function:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">letter-sequence</span> <span class="p">[</span><span class="nv">diamond-letter</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">value-a</span> <span class="mi">65</span>
+        <span class="nv">value-letter</span> <span class="p">(</span><span class="nb">+ </span><span class="nv">value-a</span> <span class="p">(</span><span class="nf">char-index</span> <span class="nv">diamond-letter</span><span class="p">))]</span>
+    <span class="p">(</span><span class="nb">map </span><span class="o">#</span><span class="p">(</span><span class="nb">str </span><span class="p">(</span><span class="nb">char </span><span class="nv">%</span><span class="p">))</span> <span class="p">(</span><span class="nb">concat </span><span class="p">(</span><span class="nb">range </span><span class="nv">value-a</span> <span class="nv">value-letter</span><span class="p">)</span> <span class="p">(</span><span class="nb">range </span><span class="nv">value-letter</span> <span class="p">(</span><span class="nb">- </span><span class="nv">value-a</span> <span class="mi">1</span><span class="p">)</span> <span class="mi">-1</span><span class="p">)))))</span></code></pre></div>
+<p>The result is created by:</p>
+
+<ul>
+<li>Creating a first list of ints, from <code>A</code> up to one letter before the diamond letter (<code>(range value-a value-letter)</code> part)</li>
+<li>Creating a second list from the diamond letter back to <code>A</code> (<code>(range value-letter (- value-a 1) -1))</code>)</li>
+<li>Merge the two lists using <code>concat</code></li>
+<li>Use <code>map</code> to convert the ints back to strings.</li>
+</ul>
+
+<h3 id="putting-everything-together">Putting everything together</h3>
+
+<p>At this stage I could go back to my initial tests:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">deftest</span> <span class="nv">diamond-building</span>
+  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;Diamond for A&#34;</span>
+    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="o">&#39;</span><span class="p">(</span><span class="s">&#34;A&#34;</span><span class="p">)</span> <span class="p">(</span><span class="nf">diamond</span> <span class="s">&#34;A&#34;</span><span class="p">))))</span>
+  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;Diamond for B&#34;</span>
+    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="o">&#39;</span><span class="p">(</span><span class="s">&#34;-A-&#34;</span>, <span class="s">&#34;B-B&#34;</span>, <span class="s">&#34;-A-&#34;</span><span class="p">)</span> <span class="p">(</span><span class="nf">diamond</span> <span class="s">&#34;B&#34;</span><span class="p">))))</span>
+  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;Diamond for C&#34;</span>
+    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="o">&#39;</span><span class="p">(</span><span class="s">&#34;--A--&#34;</span>, <span class="s">&#34;-B-B-&#34;</span>, <span class="s">&#34;C---C&#34;</span>, <span class="s">&#34;-B-B-&#34;</span>, <span class="s">&#34;--A--&#34;</span><span class="p">)</span> <span class="p">(</span><span class="nf">diamond</span> <span class="s">&#34;C&#34;</span><span class="p">))))</span></code></pre></div>
+<p>The implementation of the <code>diamond</code> function became trivial:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">diamond</span> <span class="p">[</span><span class="nv">letter</span><span class="p">]</span>
+  <span class="p">(</span><span class="nb">map </span><span class="o">#</span><span class="p">(</span><span class="nf">line-for</span> <span class="nv">%</span> <span class="nv">letter</span><span class="p">)</span> <span class="p">(</span><span class="nf">letter-sequence</span> <span class="nv">letter</span><span class="p">)))</span></code></pre></div>
+<p>And that was it. By mapping the <code>line-for</code> function to each of the letters produced by <code>letter-sequence</code> I could create the final structure of the diamond.</p>
+
+<h3 id="conclusion">Conclusion</h3>
+
+<p>Using TDD forced me to realise early on that the problem was not as simple as I thought initially. Using output examples helped me to understand the problem a bit more and breaking it into smaller parts made the red-green-refactor flow very easy.</p>
+
+<p>It was specially fun to see the problem become simpler and simpler as the parts of it were being implemented.</p>
+
+<p>The final solution also became simpler than I expected. Comparing to <a href="https://github.com/philipschwarz/diamond-problem-in-clojure">Philip&rsquo;s solution</a> it&rsquo;s also required half of his lines of code.</p>
+
+<p>I can&rsquo;t decide if that was just luck on my approach or was a side-effect of TDD. It was definitely not because my Clojure skills, as I&rsquo;m relatively new to the language.</p>
+
+<p>Overall it was a very fun exercise. Now is time to go back and read how other people have done it.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Closing the Loop</title>
+			<link>https://isanchez.net/posts/2014-12-01-closing-the-loop/</link>
+			<pubDate>Mon, 01 Dec 2014 21:00:00 +0100</pubDate>
+			
+			<guid>https://isanchez.net/posts/2014-12-01-closing-the-loop/</guid>
+			<description>As developers we should be experts in feedback: we want to learn about the consequences of our code changes as quickly as possible. For instance:
+ The editor can tell if the new syntax is correct. Unit tests can tell if basic logic and interactions are as expected. Integration and Acceptance tests can tell how the change will affect the rest of the system. Continuous integration can tell if changes coming from different developers will work together.</description>
+			<content type="html"><![CDATA[<p>As developers we should be experts in feedback: we want to learn about the consequences of our code changes as quickly as possible. For instance:</p>
+
+<ul>
+<li>The editor can tell if the new syntax is correct.</li>
+<li>Unit tests can tell if basic logic and interactions are as expected.</li>
+<li>Integration and Acceptance tests can tell how the change will affect the rest of the system.</li>
+<li>Continuous integration can tell if changes coming from different developers will work together.</li>
+<li>Build pipeline can tell if the changed system can be deployed and run after each change.</li>
+<li>Production monitoring can tell if the system is healthy and alert us otherwise.</li>
+</ul>
+
+<p>Those are great techniques for <strong>building things right</strong>, but they don&rsquo;t tell if we are <strong>building the right things</strong>.</p>
+
+<p>For that we should be trying harder to close the feedback loop of <strong>Planning, Building, Measuring and Learning</strong>. So far I&rsquo;ve noticed the following approaches have the tendency to help:</p>
+
+<ul>
+<li>Make sure requirements are created from meaningful conversations (<a href="http://www.impactmapping.org">Impact Mapping</a>)</li>
+<li>Include relevant data gathering into each feature (<a href="http://www.amazon.co.uk/How-Measure-Anything-Intangibles-Business/dp/0470539399">How to Measure Anything</a>) and make business key performance indicators (KPI) part of the system monitoring</li>
+<li>Use <a href="http://retrospectivewiki.org/index.php?title=Main_Page">Retrospectives</a> to reflect on the data collected and general KPIs.</li>
+<li>Question any feature about to be built if it doesn&rsquo;t carry a clear purpose.</li>
+</ul>
+
+<p>Unfortunately the most important feedback loop in software development is not purely technical, thus developers should have a more active role trying to make sure the loop is always closed.</p>
+
+<p>I&rsquo;d be interest to hear what other people are trying on that front.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Coaching at codebar.io</title>
+			<link>https://isanchez.net/posts/2014-10-09-coaching-at-codebar/</link>
+			<pubDate>Thu, 09 Oct 2014 10:00:00 +0100</pubDate>
+			
+			<guid>https://isanchez.net/posts/2014-10-09-coaching-at-codebar/</guid>
+			<description>Last night I had a chance to coach at a Codebar event for the first time. They offer free basic programming and web development workshops to people who are underrepresented in the tech industry.
+For me it was a great reminder of how difficult it is to learn how to code. Even though my student was following a &amp;ldquo;getting started&amp;rdquo; tutorial, the amount and complexity of new concepts involved was overwhelming at times.</description>
+			<content type="html"><![CDATA[<p>Last night I had a chance to coach at a <a href="http://codebar.io/">Codebar</a> event for the first time. They offer free basic programming and web development workshops to people who are underrepresented in the tech industry.</p>
+
+<p>For me it was a great reminder of how difficult it is to learn how to code. Even though my student was following a &ldquo;getting started&rdquo; <a href="http://tutorials.jumpstartlab.com/projects/ruby_in_100_minutes.html">tutorial</a>, the amount and complexity of new concepts involved was overwhelming at times. Luckily there were always small rewards (for both of us, mind) when each new concept &ldquo;clicked&rdquo; after getting a particular set of commands working.</p>
+
+<p>For example:</p>
+<div class="highlight"><pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="n">basket</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&#34;apple&#34;</span> <span class="o">=&gt;</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&#34;banana&#34;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">}</span>
+<span class="n">cities</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&#34;London&#34;</span><span class="p">,</span> <span class="s2">&#34;New York&#34;</span><span class="o">]</span>
+
+<span class="nb">puts</span> <span class="n">basket</span><span class="o">[</span><span class="s2">&#34;apple&#34;</span><span class="o">]</span>
+<span class="nb">puts</span> <span class="n">cities</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>
+
+<span class="n">cities</span><span class="o">.</span><span class="n">each</span> <span class="p">{</span> <span class="o">|</span><span class="n">city</span><span class="o">|</span> <span class="nb">puts</span> <span class="n">city</span> <span class="p">}</span></code></pre></div>
+<p>Looking at this simple piece of code, there are many syntax concepts we just take for granted:</p>
+
+<ul>
+<li>The <code>[</code> and <code>]</code> can be used to define an Array and to access elements in both Arrays and Hashes.</li>
+<li>Sometimes <code>{</code> and <code>}</code> are used to define Hashes. Other times those are actually blocks.</li>
+<li>The <code>|city|</code> is a parameter to that block, but for methods we define parameters using <code>(</code> and <code>)</code>.</li>
+</ul>
+
+<p>Even the words I&rsquo;ve just used to describe them (access, element, define, parameter, block etc) are a whole new vocabulary to people new to programming. The tutorials do their best to introduce them gently, but there&rsquo;s no escape that programming at the beginning will be challenging.</p>
+
+<p>I can&rsquo;t remember the last time I had a chance to see someone take their first steps in programming but being there to make their path easier was definitely worth it.</p>
+
+<p>Also, thanks to <a href="https://twitter.com/samirtalwar">Samir</a> for mentioning it and <a href="https://twitter.com/despo">despo</a> for organising it. I hope to be able to do it again soon.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>3 key skills for software design</title>
+			<link>https://isanchez.net/posts/2014-10-03-3-skills-for-software-design/</link>
+			<pubDate>Fri, 03 Oct 2014 16:30:00 +0100</pubDate>
+			
+			<guid>https://isanchez.net/posts/2014-10-03-3-skills-for-software-design/</guid>
+			<description>On his talk at the Java Zone 2014, Kent Beck listed what he considers to be key skills in software design. According to him, they don&amp;rsquo;t come naturally to programmers, but can be learned. Those skills are:
+Tolerance for ambiguity Developers must be able to accept that their design will never be completely clean. There&amp;rsquo;ll always be forces pulling it in different directions and assuming there&amp;rsquo;s only one &amp;ldquo;correct&amp;rdquo; solution will most likely just lead to frustration.</description>
+			<content type="html"><![CDATA[
+
+<p>On his <a href="http://vimeo.com/105771493">talk at the Java Zone 2014</a>, Kent Beck listed what he considers to be key skills in software design. According to him, they don&rsquo;t come naturally to programmers, but can be learned. Those skills are:</p>
+
+<h2 id="tolerance-for-ambiguity">Tolerance for ambiguity</h2>
+
+<p>Developers must be able to accept that their design will never be completely <strong><em>clean</em></strong>. There&rsquo;ll always be forces pulling it in different directions and assuming there&rsquo;s only one &ldquo;correct&rdquo; solution will most likely just lead to frustration.</p>
+
+<h2 id="ability-to-wait">Ability to wait</h2>
+
+<p>Ambiguity can only be tolerated when developers are able to postpone a design decision to the last responsible moment. Many will be tempted to jump to a particular design change too soon. Or worse, ignore relevant design aspects completely.</p>
+
+<h2 id="treating-design-as-a-social-process">Treating design as a social process</h2>
+
+<p>That&rsquo;s what Kent considers to be the biggest cosmical joke on programmers. Effective design requires an understanding of the human side of software. The skills and dynamics of the team will inevitably affect how software is made. And grasping what the next person is going to think when they see the solution requires as much social as technical skills.</p>
+
+<p>Personally, I&rsquo;m not sure if the first two can exist separately. The last I consider to be the most important, and definitely the hardest.</p>
+]]></content>
+		</item>
+		
+		<item>
 			<title>Git will start asking people to explain their merges. Finally!</title>
 			<link>https://isanchez.net/posts/2012-02-28-git-will-start-asking-people-to-explain-their/</link>
 			<pubDate>Tue, 28 Feb 2012 22:01:02 +0000</pubDate>
@@ -1408,316 +1694,6 @@ Well, this sounds obvious, but the problem is that people most of the time confu
 
 <p>Is the word &ldquo;agile&rdquo;
 <a href="http://jchyip.blogspot.com/2007/05/agility-is-not-point.html">good enough</a> to represent all this? I don&rsquo;t know. And to be honest, I think we really shouldn&rsquo;t care. As long as people get what it stands for, the word &ldquo;agile&rdquo; is getting the job done.</p>
-]]></content>
-		</item>
-		
-		<item>
-			<title>3 key skills for software design</title>
-			<link>https://isanchez.net/posts/2014-10-03-3-skills-for-software-design/</link>
-			<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-			
-			<guid>https://isanchez.net/posts/2014-10-03-3-skills-for-software-design/</guid>
-			<description>On his talk at the Java Zone 2014, Kent Beck listed what he considers to be key skills in software design. According to him, they don&amp;rsquo;t come naturally to programmers, but can be learned. Those skills are:
-Tolerance for ambiguity Developers must be able to accept that their design will never be completely clean. There&amp;rsquo;ll always be forces pulling it in different directions and assuming there&amp;rsquo;s only one &amp;ldquo;correct&amp;rdquo; solution will most likely just lead to frustration.</description>
-			<content type="html"><![CDATA[
-
-<p>On his <a href="http://vimeo.com/105771493">talk at the Java Zone 2014</a>, Kent Beck listed what he considers to be key skills in software design. According to him, they don&rsquo;t come naturally to programmers, but can be learned. Those skills are:</p>
-
-<h2 id="tolerance-for-ambiguity">Tolerance for ambiguity</h2>
-
-<p>Developers must be able to accept that their design will never be completely <strong><em>clean</em></strong>. There&rsquo;ll always be forces pulling it in different directions and assuming there&rsquo;s only one &ldquo;correct&rdquo; solution will most likely just lead to frustration.</p>
-
-<h2 id="ability-to-wait">Ability to wait</h2>
-
-<p>Ambiguity can only be tolerated when developers are able to postpone a design decision to the last responsible moment. Many will be tempted to jump to a particular design change too soon. Or worse, ignore relevant design aspects completely.</p>
-
-<h2 id="treating-design-as-a-social-process">Treating design as a social process</h2>
-
-<p>That&rsquo;s what Kent considers to be the biggest cosmical joke on programmers. Effective design requires an understanding of the human side of software. The skills and dynamics of the team will inevitably affect how software is made. And grasping what the next person is going to think when they see the solution requires as much social as technical skills.</p>
-
-<p>Personally, I&rsquo;m not sure if the first two can exist separately. The last I consider to be the most important, and definitely the hardest.</p>
-]]></content>
-		</item>
-		
-		<item>
-			<title>Back from the ashes</title>
-			<link>https://isanchez.net/posts/2014-10-03-back-from-the-ashes/</link>
-			<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-			
-			<guid>https://isanchez.net/posts/2014-10-03-back-from-the-ashes/</guid>
-			<description>It&amp;rsquo;s been over two and a half years I don&amp;rsquo;t post anything here. In the meantime I&amp;rsquo;ve used Github Pages and Jekyll mainly as a backup of my old posts.
-Today I&amp;rsquo;ve found that I was running a version so old of Jekyll that it was breaking this site almost completely, so I&amp;rsquo;ve decided to upgrade it and apply the Lanyon theme so it looks at least half decent.
-All the old posts are still available in the Archive page.</description>
-			<content type="html"><![CDATA[<p>It&rsquo;s been over two and a half years I don&rsquo;t post anything here. In the meantime I&rsquo;ve used <a href="https://pages.github.com/">Github Pages</a> and <a href="http://jekyllrb.com">Jekyll</a> mainly as a backup of my old posts.</p>
-
-<p>Today I&rsquo;ve found that I was running a version so old of Jekyll that it was breaking this site almost completely, so I&rsquo;ve decided to upgrade it and apply the <a href="https://github.com/poole/lanyon">Lanyon</a> theme so it looks at least half decent.</p>
-
-<p>All the old posts are still available in the <a href="archive.html">Archive</a> page.</p>
-
-<p>If you saw this post in your RSS reader:</p>
-
-<ol>
-<li>Thank you for staying around (or for just not cleaning up your feed that often)</li>
-<li>Let me know if anything breaks!</li>
-</ol>
-]]></content>
-		</item>
-		
-		<item>
-			<title>Closing the Loop</title>
-			<link>https://isanchez.net/posts/2014-12-01-closing-the-loop/</link>
-			<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-			
-			<guid>https://isanchez.net/posts/2014-12-01-closing-the-loop/</guid>
-			<description>As developers we should be experts in feedback: we want to learn about the consequences of our code changes as quickly as possible. For instance:
- The editor can tell if the new syntax is correct. Unit tests can tell if basic logic and interactions are as expected. Integration and Acceptance tests can tell how the change will affect the rest of the system. Continuous integration can tell if changes coming from different developers will work together.</description>
-			<content type="html"><![CDATA[<p>As developers we should be experts in feedback: we want to learn about the consequences of our code changes as quickly as possible. For instance:</p>
-
-<ul>
-<li>The editor can tell if the new syntax is correct.</li>
-<li>Unit tests can tell if basic logic and interactions are as expected.</li>
-<li>Integration and Acceptance tests can tell how the change will affect the rest of the system.</li>
-<li>Continuous integration can tell if changes coming from different developers will work together.</li>
-<li>Build pipeline can tell if the changed system can be deployed and run after each change.</li>
-<li>Production monitoring can tell if the system is healthy and alert us otherwise.</li>
-</ul>
-
-<p>Those are great techniques for <strong>building things right</strong>, but they don&rsquo;t tell if we are <strong>building the right things</strong>.</p>
-
-<p>For that we should be trying harder to close the feedback loop of <strong>Planning, Building, Measuring and Learning</strong>. So far I&rsquo;ve noticed the following approaches have the tendency to help:</p>
-
-<ul>
-<li>Make sure requirements are created from meaningful conversations (<a href="http://www.impactmapping.org">Impact Mapping</a>)</li>
-<li>Include relevant data gathering into each feature (<a href="http://www.amazon.co.uk/How-Measure-Anything-Intangibles-Business/dp/0470539399">How to Measure Anything</a>) and make business key performance indicators (KPI) part of the system monitoring</li>
-<li>Use <a href="http://retrospectivewiki.org/index.php?title=Main_Page">Retrospectives</a> to reflect on the data collected and general KPIs.</li>
-<li>Question any feature about to be built if it doesn&rsquo;t carry a clear purpose.</li>
-</ul>
-
-<p>Unfortunately the most important feedback loop in software development is not purely technical, thus developers should have a more active role trying to make sure the loop is always closed.</p>
-
-<p>I&rsquo;d be interest to hear what other people are trying on that front.</p>
-]]></content>
-		</item>
-		
-		<item>
-			<title>Coaching at codebar.io</title>
-			<link>https://isanchez.net/posts/2014-10-09-coaching-at-codebar/</link>
-			<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-			
-			<guid>https://isanchez.net/posts/2014-10-09-coaching-at-codebar/</guid>
-			<description>Last night I had a chance to coach at a Codebar event for the first time. They offer free basic programming and web development workshops to people who are underrepresented in the tech industry.
-For me it was a great reminder of how difficult it is to learn how to code. Even though my student was following a &amp;ldquo;getting started&amp;rdquo; tutorial, the amount and complexity of new concepts involved was overwhelming at times.</description>
-			<content type="html"><![CDATA[<p>Last night I had a chance to coach at a <a href="http://codebar.io/">Codebar</a> event for the first time. They offer free basic programming and web development workshops to people who are underrepresented in the tech industry.</p>
-
-<p>For me it was a great reminder of how difficult it is to learn how to code. Even though my student was following a &ldquo;getting started&rdquo; <a href="http://tutorials.jumpstartlab.com/projects/ruby_in_100_minutes.html">tutorial</a>, the amount and complexity of new concepts involved was overwhelming at times. Luckily there were always small rewards (for both of us, mind) when each new concept &ldquo;clicked&rdquo; after getting a particular set of commands working.</p>
-
-<p>For example:</p>
-<div class="highlight"><pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="n">basket</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&#34;apple&#34;</span> <span class="o">=&gt;</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&#34;banana&#34;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">}</span>
-<span class="n">cities</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&#34;London&#34;</span><span class="p">,</span> <span class="s2">&#34;New York&#34;</span><span class="o">]</span>
-
-<span class="nb">puts</span> <span class="n">basket</span><span class="o">[</span><span class="s2">&#34;apple&#34;</span><span class="o">]</span>
-<span class="nb">puts</span> <span class="n">cities</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>
-
-<span class="n">cities</span><span class="o">.</span><span class="n">each</span> <span class="p">{</span> <span class="o">|</span><span class="n">city</span><span class="o">|</span> <span class="nb">puts</span> <span class="n">city</span> <span class="p">}</span></code></pre></div>
-<p>Looking at this simple piece of code, there are many syntax concepts we just take for granted:</p>
-
-<ul>
-<li>The <code>[</code> and <code>]</code> can be used to define an Array and to access elements in both Arrays and Hashes.</li>
-<li>Sometimes <code>{</code> and <code>}</code> are used to define Hashes. Other times those are actually blocks.</li>
-<li>The <code>|city|</code> is a parameter to that block, but for methods we define parameters using <code>(</code> and <code>)</code>.</li>
-</ul>
-
-<p>Even the words I&rsquo;ve just used to describe them (access, element, define, parameter, block etc) are a whole new vocabulary to people new to programming. The tutorials do their best to introduce them gently, but there&rsquo;s no escape that programming at the beginning will be challenging.</p>
-
-<p>I can&rsquo;t remember the last time I had a chance to see someone take their first steps in programming but being there to make their path easier was definitely worth it.</p>
-
-<p>Also, thanks to <a href="https://twitter.com/samirtalwar">Samir</a> for mentioning it and <a href="https://twitter.com/despo">despo</a> for organising it. I hope to be able to do it again soon.</p>
-]]></content>
-		</item>
-		
-		<item>
-			<title>Diamond Kata using Clojure and TDD</title>
-			<link>https://isanchez.net/posts/2014-12-06-diamond-kata-using-clojure-and-tdd/</link>
-			<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-			
-			<guid>https://isanchez.net/posts/2014-12-06-diamond-kata-using-clojure-and-tdd/</guid>
-			<description>After seeing Ron Jeffries&amp;rsquo; post about different takes on the Diamond Kata, I&amp;rsquo;ve decided to try it as well.
-This comment on Philip Schwarz&amp;rsquo; solution in particular got my attention:
- I don’t know Clojure, which certainly made Philip’s solution harder to grok, but one can sort of read it. He added some tests later, which certainly helps.
- Would a solution driven by tests be easier to understand? I&amp;rsquo;ll let you be the judge.</description>
-			<content type="html"><![CDATA[
-
-<p>After seeing <a href="http://ronjeffries.com/articles/diamond3/three-of-diamonds.html">Ron Jeffries&rsquo; post</a> about different takes on the Diamond Kata, I&rsquo;ve decided to try it as well.</p>
-
-<p>This comment on <a href="https://github.com/philipschwarz/diamond-problem-in-clojure">Philip Schwarz&rsquo; solution</a> in particular got my attention:</p>
-
-<blockquote>
-<p>I don’t know Clojure, which certainly made Philip’s solution harder to grok, but one can sort of read it. He added some tests later, which certainly helps.</p>
-</blockquote>
-
-<p>Would a solution driven by tests be easier to understand? I&rsquo;ll let you be the judge. Check out <a href="https://github.com/s4nchez/diamond-kata-clojure-tdd">my solution on GitHub</a> now, or keep reading for a detailed description (spoilers) of how I got to it.</p>
-
-<h2 id="my-solution-step-by-step">My solution step-by-step</h2>
-
-<p>To avoid spoiling my take on it, I decided not to read other solutions beforehand. I used <a href="http://claysnow.co.uk/recycling-tests-in-tdd/">Seb Rose&rsquo;s initial article</a> as a reference and tried to start with the simplest test I could think of:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">deftest</span> <span class="nv">diamond-building</span>
-  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;Diamond for A&#34;</span>
-    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="o">&#39;</span><span class="p">(</span><span class="s">&#34;A&#34;</span><span class="p">)</span> <span class="p">(</span><span class="nf">diamond</span> <span class="s">&#34;A&#34;</span><span class="p">)))))</span></code></pre></div>
-<p>Followed by a fake implementation:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">diamond</span> <span class="p">[</span><span class="nv">letter</span><span class="p">]</span> <span class="o">&#39;</span><span class="p">(</span><span class="s">&#34;A&#34;</span><span class="p">))</span></code></pre></div>
-<p>So with my initial test passing I tried to jump to something a bit more meaningful like:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;Diamond for B&#34;</span>
-    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="o">&#39;</span><span class="p">(</span><span class="s">&#34;-A-&#34;</span>, <span class="s">&#34;B-B&#34;</span>, <span class="s">&#34;-A-&#34;</span><span class="p">)</span> <span class="p">(</span><span class="nf">diamond</span> <span class="s">&#34;B&#34;</span><span class="p">))))</span></code></pre></div>
-<p>And that was enough to get me stuck! I felt overwhelmed by the amount of complexity that the proper solution for the second test required and saw myself forced to step back and try to break the problem into smaller parts that I could fit into my head.</p>
-
-<p>To decide how to split the problem, I&rsquo;ve looked at another example, the diamond for <code>C</code>:</p>
-
-<pre><code>--A--
--B-B-
-C---C
--B-B-
---A--
-</code></pre>
-
-<p>I noticed I could try to tackle a few parts of the problem independently:</p>
-
-<ol>
-<li>The amount of spaces outside the diamond for each letter</li>
-<li>The amount of spaces inside the diamond for each letter</li>
-<li>Putting a line of the diamond together</li>
-<li>The letter sequence to compose the rows diamond</li>
-</ol>
-
-<p>I&rsquo;ve decided to start with #2 because it looked simpler than #1: the inner part of the diamond does not depend on the size of the diamond itself (e.g. <code>B-B</code> and <code>C---C</code> will always have the same amount of spaces inside).</p>
-
-<h3 id="the-inner-part-of-the-diamond">The inner part of the diamond</h3>
-
-<p>It also happens that the number of spaces inside the diamond follow a simple formula: <code>(2 * n) - 1</code>, where <code>n</code> is the index of the letter in the diamond. The only exception is the letter <code>A</code> that doesn&rsquo;t contain any space and is not repeated on its line.</p>
-
-<p>So I&rsquo;ve parked my initial tests and wrote a new one to help me implement just the inner part of a line:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">deftest</span> <span class="nv">inner-part-building</span>  
-  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;A&#34;</span>
-    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="s">&#34;A&#34;</span> <span class="p">(</span><span class="nf">inner-part</span> <span class="s">&#34;A&#34;</span><span class="p">))))</span></code></pre></div>
-<p>That was easy enough to fake as well:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">inner-part</span> <span class="p">[</span><span class="nv">letter</span><span class="p">]</span> <span class="s">&#34;A&#34;</span><span class="p">)</span></code></pre></div>
-<p>So again, I&rsquo;ve added a few more test cases:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">deftest</span> <span class="nv">inner-part-building</span>
-  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;A&#34;</span>
-    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="s">&#34;A&#34;</span> <span class="p">(</span><span class="nf">inner-part</span> <span class="s">&#34;A&#34;</span><span class="p">))))</span>
-  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;B&#34;</span>
-    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="s">&#34;B-B&#34;</span> <span class="p">(</span><span class="nf">inner-part</span> <span class="s">&#34;B&#34;</span><span class="p">)))))</span></code></pre></div>
-<p>Then I could start splitting the logic for <code>A</code> and the other letters by introducing a conditional:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">inner-part</span> <span class="p">[</span><span class="nv">letter</span><span class="p">]</span>
-  <span class="p">(</span><span class="nb">cond </span><span class="p">(</span><span class="nb">= </span><span class="s">&#34;A&#34;</span> <span class="nv">letter</span><span class="p">)</span> <span class="nv">letter</span>
-        <span class="ss">:else</span> <span class="s">&#34;B-B&#34;</span><span class="p">)</span></code></pre></div>
-<p>At this point I decided to replace the <code>B-B</code> from my solution by the actual implementation.</p>
-
-<p>So I added the test case for <code>C</code> and realised I still didn&rsquo;t have a function to give me the index of a particular letter (<code>A -&gt; 0</code>, <code>B -&gt; 1</code>, <code>C -&gt; 2</code> and so on) to use in the formula mentioned above.</p>
-
-<p>After a few more red-green cycles (which I&rsquo;ll omit from now on as it gets boring really quickly), I&rsquo;ve ended up with this two functions:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">char-index</span> <span class="p">[</span><span class="nv">letter</span><span class="p">]</span> <span class="p">(</span><span class="nb">- </span><span class="p">(</span><span class="nb">int </span><span class="p">(</span><span class="nb">first </span><span class="p">(</span><span class="nf">char-array</span> <span class="nv">letter</span><span class="p">)))</span> <span class="mi">65</span><span class="p">))</span>
-
-<span class="p">(</span><span class="kd">defn </span><span class="nv">inner-part</span> <span class="p">[</span><span class="nv">letter</span><span class="p">]</span>
-  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nb">index </span><span class="p">(</span><span class="nf">char-index</span> <span class="nv">letter</span><span class="p">)]</span>
-    <span class="p">(</span><span class="nb">cond </span><span class="p">(</span><span class="nb">= </span><span class="mi">0</span> <span class="nv">index</span><span class="p">)</span> <span class="nv">letter</span>
-          <span class="ss">:else</span> <span class="p">(</span><span class="nb">str </span><span class="nv">letter</span> <span class="p">(</span><span class="nf">string/join</span> <span class="s">&#34;&#34;</span> <span class="p">(</span><span class="nb">repeat </span><span class="p">(</span><span class="nb">- </span><span class="p">(</span><span class="nb">* </span><span class="mi">2</span> <span class="nv">index</span><span class="p">)</span> <span class="mi">1</span><span class="p">)</span> <span class="s">&#34;-&#34;</span><span class="p">))</span> <span class="nv">letter</span><span class="p">))))</span></code></pre></div>
-<p>The <code>char-index</code> function calculates the index of the letter by converting it to int and using the difference from the int value of <code>A</code> which is 65.</p>
-
-<p>The inner part is then created by concatenating the <code>letter</code> + <code>((2 * n) -1) dashes</code> + <code>letter</code>.</p>
-
-<h3 id="the-outer-part-of-the-diamond">The outer part of the diamond</h3>
-
-<p>To calculate the outer part of the diamond I started once more with the simplest case:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">deftest</span> <span class="nv">outer-part-building</span>
-  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;A for A diamond&#34;</span>
-    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="s">&#34;&#34;</span> <span class="p">(</span><span class="nf">outer-part</span> <span class="s">&#34;A&#34;</span> <span class="s">&#34;A&#34;</span><span class="p">))))</span></code></pre></div>
-<p>In this case I&rsquo;ve used two parameters: one to represent the letter of the line, another one to represent the letter of the diamond. Again, the first implementation was pretty much a stub:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">outer-part</span> <span class="p">[</span><span class="nv">current-letter</span> <span class="nv">diamond-letter</span><span class="p">]</span> <span class="s">&#34;&#34;</span><span class="p">)</span></code></pre></div>
-<p>Then I&rsquo;ve moved to more test cases for the letter <code>A</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">deftest</span> <span class="nv">outer-part-building</span>
-  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;A for A diamond&#34;</span>
-    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="s">&#34;&#34;</span> <span class="p">(</span><span class="nf">outer-part</span> <span class="s">&#34;A&#34;</span> <span class="s">&#34;A&#34;</span><span class="p">))))</span>
-  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;A for B diamond&#34;</span>
-    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="s">&#34;-&#34;</span> <span class="p">(</span><span class="nf">outer-part</span> <span class="s">&#34;A&#34;</span> <span class="s">&#34;B&#34;</span><span class="p">))))</span>
-  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;A for C diamond&#34;</span>
-    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="s">&#34;--&#34;</span> <span class="p">(</span><span class="nf">outer-part</span> <span class="s">&#34;A&#34;</span> <span class="s">&#34;C&#34;</span><span class="p">)))))</span></code></pre></div>
-<p>At this point I could tell that the number of spaces depended on the second parameter, so I&rsquo;ve implemented it accordingly:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">outer-part</span> <span class="p">[</span><span class="nv">current-letter</span> <span class="nv">diamond-letter</span><span class="p">]</span>
-  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">final-index</span> <span class="p">(</span><span class="nf">char-index</span> <span class="nv">diamond-letter</span><span class="p">)]</span>
-    <span class="p">(</span><span class="nf">string/join</span> <span class="s">&#34;&#34;</span> <span class="p">(</span><span class="nb">repeat </span><span class="nv">final-index</span> <span class="s">&#34;-&#34;</span><span class="p">))))</span></code></pre></div>
-<p>All the tests were passing but I was pretty sure it wouldn&rsquo;t work for other letters, so I&rsquo;ve added another test to show I needed to use the formula <code>index of diamond letter - index of current letter</code> to figure out the correct number of spaces:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;B for F diamond&#34;</span>
-    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="s">&#34;----&#34;</span> <span class="p">(</span><span class="nf">outer-part</span> <span class="s">&#34;B&#34;</span> <span class="s">&#34;F&#34;</span><span class="p">))))</span></code></pre></div>
-<p>Surely enough it failed because my function was just using the diamond index.</p>
-
-<p>By fixing that I&rsquo;ve ended up with the final version of the function:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">outer-part</span> <span class="p">[</span><span class="nv">current-letter</span> <span class="nv">diamond-letter</span><span class="p">]</span>
-  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">current-index</span> <span class="p">(</span><span class="nf">char-index</span> <span class="nv">current-letter</span><span class="p">)</span>
-        <span class="nv">final-index</span> <span class="p">(</span><span class="nf">char-index</span> <span class="nv">diamond-letter</span><span class="p">)]</span>
-    <span class="p">(</span><span class="nf">string/join</span> <span class="s">&#34;&#34;</span> <span class="p">(</span><span class="nb">repeat </span><span class="p">(</span><span class="nb">- </span><span class="nv">final-index</span> <span class="nv">current-index</span><span class="p">)</span> <span class="s">&#34;-&#34;</span><span class="p">))))</span></code></pre></div>
-<h3 id="creating-the-rows">Creating the rows</h3>
-
-<p>With the basic parts of my solution implemented, now it was time to start putting the pieces together. I&rsquo;ve started by the simplest case of single diamond line. The test ended up like:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">deftest</span> <span class="nv">line-building</span>
-  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;A for A diamond&#34;</span>
-    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="s">&#34;A&#34;</span> <span class="p">(</span><span class="nf">line-for</span> <span class="s">&#34;A&#34;</span> <span class="s">&#34;A&#34;</span><span class="p">))))</span>
-  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;A for C diamond&#34;</span>
-    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="s">&#34;--A--&#34;</span> <span class="p">(</span><span class="nf">line-for</span> <span class="s">&#34;A&#34;</span> <span class="s">&#34;C&#34;</span><span class="p">))))</span>
-  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;C for C diamond&#34;</span>
-    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="s">&#34;C---C&#34;</span> <span class="p">(</span><span class="nf">line-for</span> <span class="s">&#34;C&#34;</span> <span class="s">&#34;C&#34;</span><span class="p">)))))</span></code></pre></div>
-<p>And the implementation was very simple:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">line-for</span> <span class="p">[</span><span class="nv">current-letter</span> <span class="nv">diamond-letter</span><span class="p">]</span>
-  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">outer</span> <span class="p">(</span><span class="nf">outer-part</span> <span class="nv">current-letter</span> <span class="nv">diamond-letter</span><span class="p">)</span>
-        <span class="nv">inner</span> <span class="p">(</span><span class="nf">inner-part</span> <span class="nv">current-letter</span><span class="p">)]</span>
-    <span class="p">(</span><span class="nb">str </span><span class="nv">outer</span> <span class="nv">inner</span> <span class="nv">outer</span><span class="p">)))</span></code></pre></div>
-<h3 id="the-diamond-letter-sequence">The diamond letter sequence</h3>
-
-<p>Now the final big challenge was to create the sequence of the letters for the diamond. I wanted something to produce:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">deftest</span> <span class="nv">diamond-letters-building</span>
-  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;A diamond&#34;</span>
-    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="o">&#39;</span><span class="p">(</span><span class="s">&#34;A&#34;</span><span class="p">)</span> <span class="p">(</span><span class="nf">letter-sequence</span> <span class="s">&#34;A&#34;</span><span class="p">))))</span>
-  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;D diamond&#34;</span>
-    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="o">&#39;</span><span class="p">(</span><span class="s">&#34;A&#34;</span> <span class="s">&#34;B&#34;</span> <span class="s">&#34;C&#34;</span> <span class="s">&#34;D&#34;</span> <span class="s">&#34;C&#34;</span> <span class="s">&#34;B&#34;</span> <span class="s">&#34;A&#34;</span><span class="p">)</span> <span class="p">(</span><span class="nf">letter-sequence</span> <span class="s">&#34;D&#34;</span><span class="p">)))))</span></code></pre></div>
-<p>Once again the easiest way I could find to achieve that was to use <code>char -&gt; int</code> conversions, which allowed me to create the following function:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">letter-sequence</span> <span class="p">[</span><span class="nv">diamond-letter</span><span class="p">]</span>
-  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">value-a</span> <span class="mi">65</span>
-        <span class="nv">value-letter</span> <span class="p">(</span><span class="nb">+ </span><span class="nv">value-a</span> <span class="p">(</span><span class="nf">char-index</span> <span class="nv">diamond-letter</span><span class="p">))]</span>
-    <span class="p">(</span><span class="nb">map </span><span class="o">#</span><span class="p">(</span><span class="nb">str </span><span class="p">(</span><span class="nb">char </span><span class="nv">%</span><span class="p">))</span> <span class="p">(</span><span class="nb">concat </span><span class="p">(</span><span class="nb">range </span><span class="nv">value-a</span> <span class="nv">value-letter</span><span class="p">)</span> <span class="p">(</span><span class="nb">range </span><span class="nv">value-letter</span> <span class="p">(</span><span class="nb">- </span><span class="nv">value-a</span> <span class="mi">1</span><span class="p">)</span> <span class="mi">-1</span><span class="p">)))))</span></code></pre></div>
-<p>The result is created by:</p>
-
-<ul>
-<li>Creating a first list of ints, from <code>A</code> up to one letter before the diamond letter (<code>(range value-a value-letter)</code> part)</li>
-<li>Creating a second list from the diamond letter back to <code>A</code> (<code>(range value-letter (- value-a 1) -1))</code>)</li>
-<li>Merge the two lists using <code>concat</code></li>
-<li>Use <code>map</code> to convert the ints back to strings.</li>
-</ul>
-
-<h3 id="putting-everything-together">Putting everything together</h3>
-
-<p>At this stage I could go back to my initial tests:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">deftest</span> <span class="nv">diamond-building</span>
-  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;Diamond for A&#34;</span>
-    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="o">&#39;</span><span class="p">(</span><span class="s">&#34;A&#34;</span><span class="p">)</span> <span class="p">(</span><span class="nf">diamond</span> <span class="s">&#34;A&#34;</span><span class="p">))))</span>
-  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;Diamond for B&#34;</span>
-    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="o">&#39;</span><span class="p">(</span><span class="s">&#34;-A-&#34;</span>, <span class="s">&#34;B-B&#34;</span>, <span class="s">&#34;-A-&#34;</span><span class="p">)</span> <span class="p">(</span><span class="nf">diamond</span> <span class="s">&#34;B&#34;</span><span class="p">))))</span>
-  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;Diamond for C&#34;</span>
-    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="o">&#39;</span><span class="p">(</span><span class="s">&#34;--A--&#34;</span>, <span class="s">&#34;-B-B-&#34;</span>, <span class="s">&#34;C---C&#34;</span>, <span class="s">&#34;-B-B-&#34;</span>, <span class="s">&#34;--A--&#34;</span><span class="p">)</span> <span class="p">(</span><span class="nf">diamond</span> <span class="s">&#34;C&#34;</span><span class="p">))))</span></code></pre></div>
-<p>The implementation of the <code>diamond</code> function became trivial:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">diamond</span> <span class="p">[</span><span class="nv">letter</span><span class="p">]</span>
-  <span class="p">(</span><span class="nb">map </span><span class="o">#</span><span class="p">(</span><span class="nf">line-for</span> <span class="nv">%</span> <span class="nv">letter</span><span class="p">)</span> <span class="p">(</span><span class="nf">letter-sequence</span> <span class="nv">letter</span><span class="p">)))</span></code></pre></div>
-<p>And that was it. By mapping the <code>line-for</code> function to each of the letters produced by <code>letter-sequence</code> I could create the final structure of the diamond.</p>
-
-<h3 id="conclusion">Conclusion</h3>
-
-<p>Using TDD forced me to realise early on that the problem was not as simple as I thought initially. Using output examples helped me to understand the problem a bit more and breaking it into smaller parts made the red-green-refactor flow very easy.</p>
-
-<p>It was specially fun to see the problem become simpler and simpler as the parts of it were being implemented.</p>
-
-<p>The final solution also became simpler than I expected. Comparing to <a href="https://github.com/philipschwarz/diamond-problem-in-clojure">Philip&rsquo;s solution</a> it&rsquo;s also required half of his lines of code.</p>
-
-<p>I can&rsquo;t decide if that was just luck on my approach or was a side-effect of TDD. It was definitely not because my Clojure skills, as I&rsquo;m relatively new to the language.</p>
-
-<p>Overall it was a very fun exercise. Now is time to go back and read how other people have done it.</p>
 ]]></content>
 		</item>
 		

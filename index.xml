@@ -42,6 +42,48 @@ As developers, we tend to see source control as the official history of a codeba
     </item>
     
     <item>
+      <title>Diamond Kata using Clojure and TDD</title>
+      <link>https://isanchez.net/posts/2014-12-06-diamond-kata-using-clojure-and-tdd/</link>
+      <pubDate>Sat, 06 Dec 2014 21:00:00 +0100</pubDate>
+      
+      <guid>https://isanchez.net/posts/2014-12-06-diamond-kata-using-clojure-and-tdd/</guid>
+      <description>After seeing Ron Jeffries&amp;rsquo; post about different takes on the Diamond Kata, I&amp;rsquo;ve decided to try it as well.
+This comment on Philip Schwarz&amp;rsquo; solution in particular got my attention:
+ I don’t know Clojure, which certainly made Philip’s solution harder to grok, but one can sort of read it. He added some tests later, which certainly helps.
+ Would a solution driven by tests be easier to understand? I&amp;rsquo;ll let you be the judge.</description>
+    </item>
+    
+    <item>
+      <title>Closing the Loop</title>
+      <link>https://isanchez.net/posts/2014-12-01-closing-the-loop/</link>
+      <pubDate>Mon, 01 Dec 2014 21:00:00 +0100</pubDate>
+      
+      <guid>https://isanchez.net/posts/2014-12-01-closing-the-loop/</guid>
+      <description>As developers we should be experts in feedback: we want to learn about the consequences of our code changes as quickly as possible. For instance:
+ The editor can tell if the new syntax is correct. Unit tests can tell if basic logic and interactions are as expected. Integration and Acceptance tests can tell how the change will affect the rest of the system. Continuous integration can tell if changes coming from different developers will work together.</description>
+    </item>
+    
+    <item>
+      <title>Coaching at codebar.io</title>
+      <link>https://isanchez.net/posts/2014-10-09-coaching-at-codebar/</link>
+      <pubDate>Thu, 09 Oct 2014 10:00:00 +0100</pubDate>
+      
+      <guid>https://isanchez.net/posts/2014-10-09-coaching-at-codebar/</guid>
+      <description>Last night I had a chance to coach at a Codebar event for the first time. They offer free basic programming and web development workshops to people who are underrepresented in the tech industry.
+For me it was a great reminder of how difficult it is to learn how to code. Even though my student was following a &amp;ldquo;getting started&amp;rdquo; tutorial, the amount and complexity of new concepts involved was overwhelming at times.</description>
+    </item>
+    
+    <item>
+      <title>3 key skills for software design</title>
+      <link>https://isanchez.net/posts/2014-10-03-3-skills-for-software-design/</link>
+      <pubDate>Fri, 03 Oct 2014 16:30:00 +0100</pubDate>
+      
+      <guid>https://isanchez.net/posts/2014-10-03-3-skills-for-software-design/</guid>
+      <description>On his talk at the Java Zone 2014, Kent Beck listed what he considers to be key skills in software design. According to him, they don&amp;rsquo;t come naturally to programmers, but can be learned. Those skills are:
+Tolerance for ambiguity Developers must be able to accept that their design will never be completely clean. There&amp;rsquo;ll always be forces pulling it in different directions and assuming there&amp;rsquo;s only one &amp;ldquo;correct&amp;rdquo; solution will most likely just lead to frustration.</description>
+    </item>
+    
+    <item>
       <title>Git will start asking people to explain their merges. Finally!</title>
       <link>https://isanchez.net/posts/2012-02-28-git-will-start-asking-people-to-explain-their/</link>
       <pubDate>Tue, 28 Feb 2012 22:01:02 +0000</pubDate>
@@ -555,59 +597,6 @@ Let&amp;rsquo;s face it. Software requirements always change. But it doesn&amp;r
       <guid>https://isanchez.net/posts/2007-05-18-agile-another-word-for-good-sense/</guid>
       <description>Today a lot of people wants to become agile. Well, not agile in the sense of mentally or physically quick, but Agile (yes, with capital &amp;ldquo;A&amp;rdquo;) as written in the Agile Manifesto. Why? Because it seems like a better way of doing things. This way involves:
  Empower people Deliver business value Get the client involved Embrace changes  Is the word &amp;ldquo;agile&amp;rdquo; good enough to represent all this? I don&amp;rsquo;t know.</description>
-    </item>
-    
-    <item>
-      <title>3 key skills for software design</title>
-      <link>https://isanchez.net/posts/2014-10-03-3-skills-for-software-design/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://isanchez.net/posts/2014-10-03-3-skills-for-software-design/</guid>
-      <description>On his talk at the Java Zone 2014, Kent Beck listed what he considers to be key skills in software design. According to him, they don&amp;rsquo;t come naturally to programmers, but can be learned. Those skills are:
-Tolerance for ambiguity Developers must be able to accept that their design will never be completely clean. There&amp;rsquo;ll always be forces pulling it in different directions and assuming there&amp;rsquo;s only one &amp;ldquo;correct&amp;rdquo; solution will most likely just lead to frustration.</description>
-    </item>
-    
-    <item>
-      <title>Back from the ashes</title>
-      <link>https://isanchez.net/posts/2014-10-03-back-from-the-ashes/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://isanchez.net/posts/2014-10-03-back-from-the-ashes/</guid>
-      <description>It&amp;rsquo;s been over two and a half years I don&amp;rsquo;t post anything here. In the meantime I&amp;rsquo;ve used Github Pages and Jekyll mainly as a backup of my old posts.
-Today I&amp;rsquo;ve found that I was running a version so old of Jekyll that it was breaking this site almost completely, so I&amp;rsquo;ve decided to upgrade it and apply the Lanyon theme so it looks at least half decent.
-All the old posts are still available in the Archive page.</description>
-    </item>
-    
-    <item>
-      <title>Closing the Loop</title>
-      <link>https://isanchez.net/posts/2014-12-01-closing-the-loop/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://isanchez.net/posts/2014-12-01-closing-the-loop/</guid>
-      <description>As developers we should be experts in feedback: we want to learn about the consequences of our code changes as quickly as possible. For instance:
- The editor can tell if the new syntax is correct. Unit tests can tell if basic logic and interactions are as expected. Integration and Acceptance tests can tell how the change will affect the rest of the system. Continuous integration can tell if changes coming from different developers will work together.</description>
-    </item>
-    
-    <item>
-      <title>Coaching at codebar.io</title>
-      <link>https://isanchez.net/posts/2014-10-09-coaching-at-codebar/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://isanchez.net/posts/2014-10-09-coaching-at-codebar/</guid>
-      <description>Last night I had a chance to coach at a Codebar event for the first time. They offer free basic programming and web development workshops to people who are underrepresented in the tech industry.
-For me it was a great reminder of how difficult it is to learn how to code. Even though my student was following a &amp;ldquo;getting started&amp;rdquo; tutorial, the amount and complexity of new concepts involved was overwhelming at times.</description>
-    </item>
-    
-    <item>
-      <title>Diamond Kata using Clojure and TDD</title>
-      <link>https://isanchez.net/posts/2014-12-06-diamond-kata-using-clojure-and-tdd/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://isanchez.net/posts/2014-12-06-diamond-kata-using-clojure-and-tdd/</guid>
-      <description>After seeing Ron Jeffries&amp;rsquo; post about different takes on the Diamond Kata, I&amp;rsquo;ve decided to try it as well.
-This comment on Philip Schwarz&amp;rsquo; solution in particular got my attention:
- I don’t know Clojure, which certainly made Philip’s solution harder to grok, but one can sort of read it. He added some tests later, which certainly helps.
- Would a solution driven by tests be easier to understand? I&amp;rsquo;ll let you be the judge.</description>
     </item>
     
   </channel>
