@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Tue, 24 Sep 2019 21:03:59 +0100</lastBuildDate>
+    <lastBuildDate>Tue, 24 Sep 2019 21:24:03 +0100</lastBuildDate>
     
 	<atom:link href="https://isanchez.net/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Deployments vs Releases</title>
+      <link>https://isanchez.net/posts/2018-10-30-deployments-vs-releases/</link>
+      <pubDate>Tue, 24 Sep 2019 21:24:03 +0100</pubDate>
+      
+      <guid>https://isanchez.net/posts/2018-10-30-deployments-vs-releases/</guid>
+      <description>When a team is looking to move towards Continuous Delivery, it comes a time when it’s essential to differentiate deployment from release.
+Traditionally, new versions of the software are built, tested, and made available to users in cycles that vary from once every few days to every few months. In that context, each new version will most likely contain some visible impact to the user, so the words release and deployment tend to be used interchangeably to express when a new version has reached users.</description>
+    </item>
     
     <item>
       <title>About</title>
