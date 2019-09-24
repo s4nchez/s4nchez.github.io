@@ -41,5 +41,574 @@ Traditionally, new versions of the software are built, tested, and made availabl
 As developers, we tend to see source control as the official history of a codebase. Unfortunately, just looking at the previous commits, no matter how well organised they are, is barely enough to understand the decisions that shaped the system.</description>
     </item>
     
+    <item>
+      <title>Git will start asking people to explain their merges. Finally!</title>
+      <link>https://isanchez.net/posts/2012-02-28-git-will-start-asking-people-to-explain-their/</link>
+      <pubDate>Tue, 28 Feb 2012 22:01:02 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2012-02-28-git-will-start-asking-people-to-explain-their/</guid>
+      <description>Annoyed by too many pointless merges in your git history? So here&amp;rsquo;s some good news for you:
+ [&amp;hellip;] in 1.7.10 and later, the git merge command [&amp;hellip;] will open an editor before creating a commit to record the merge result, to give the user a chance to explain the merge, just like the git commit command the user runs after resolving a conflicted merge already does.
+ My hope is that this simple change will make people start thinking twice before merging, instead of just doing it because git makes it easy.</description>
+    </item>
+    
+    <item>
+      <title>Considering migrating from svn to git?</title>
+      <link>https://isanchez.net/posts/2011-02-21-migrating-from-svn-to-git/</link>
+      <pubDate>Mon, 21 Feb 2011 21:10:00 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2011-02-21-migrating-from-svn-to-git/</guid>
+      <description>In December last year we decided to migrate our whole codebase from Subversion to git. Here is a few tips I&amp;rsquo;d give to someone considering taking the same route:
+Evaluate the reasons for the migration. Think about specific scenarios where Subversion is not meeting your project&amp;rsquo;s requirements. Check if too much time is being spent trying to make the current version control work with your workflow. There must be an opportunity to make things simpler or more efficient by switching to git in order to justify the switch.</description>
+    </item>
+    
+    <item>
+      <title>Newbie&#39;s reviews</title>
+      <link>https://isanchez.net/posts/2010-04-28-newbies-reviews/</link>
+      <pubDate>Wed, 28 Apr 2010 15:13:00 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2010-04-28-newbies-reviews/</guid>
+      <description>It’s been a long time since I had to help a new team member to get familiar with a codebase I’ve been working on for a while. And although this process tends to slow development, I’m really liking the kind of feedback that can emerge from this fresh look at our existing code.
+After months of pairing the team developed a common understand of the system that makes sense for everyone involved, but can be really hard to grasp by an outsider.</description>
+    </item>
+    
+    <item>
+      <title>The Joys of the Craft</title>
+      <link>https://isanchez.net/posts/2010-02-22-the-joys-of-the-craft/</link>
+      <pubDate>Mon, 22 Feb 2010 04:26:00 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2010-02-22-the-joys-of-the-craft/</guid>
+      <description>The Mythical Man-Month is a great book not only because of its insights about software projects. Fred Brooks also writes about the &amp;ldquo;The Joys of the Craft&amp;ldquo;:
+ Why is programming fun? What delights may its practitioner expects as his reward?
+ The first is the sheer joy of making things. [&amp;hellip;] Second is the pleasure of making things that are useful to other people. [&amp;hellip;] Third is the fascination of fashioning complex puzzle-like objects of interlocking moving parts and watching them work in subtle cycles, playing out the consequences of principles built in from the beginning.</description>
+    </item>
+    
+    <item>
+      <title>Pomodoro Technique: are we using it wrong?</title>
+      <link>https://isanchez.net/posts/2009-11-26-pomodoro-technique-are-we-using-it-wrong/</link>
+      <pubDate>Thu, 26 Nov 2009 16:29:38 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2009-11-26-pomodoro-technique-are-we-using-it-wrong/</guid>
+      <description>The Pomodoro Techinique has received a lot of attention lately. The reason is simple: it works. It improves focus, removes anxiety because of time and, most of all, help us getting things done.
+But the greatest benefit of the technique in my point of view is that it exposes all the interruptions and bad habits we have when doing our jobs. And that&amp;rsquo;s my reason to believe it should be used as a learning tool instead of a new way of working.</description>
+    </item>
+    
+    <item>
+      <title>Behind green bars</title>
+      <link>https://isanchez.net/posts/2009-11-13-behind-green-bars/</link>
+      <pubDate>Fri, 13 Nov 2009 16:40:09 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2009-11-13-behind-green-bars/</guid>
+      <description>Another day of coding is over and you produced some beautiful code. Now what? Do you know exactly how long it will take until that brand-new feature gets to its intended user? A week? A month? Never?
+It&amp;rsquo;s a shame that most code produced out there will park for all that time until is released. Maybe that was normal when it would take days just to compile the whole system. But today, even with all the processing power and automation, new releases are always delayed by deadlines, testing stages, approvals, sign-offs or any other form of bureaucracy.</description>
+    </item>
+    
+    <item>
+      <title>Coding dojo etiquette</title>
+      <link>https://isanchez.net/posts/2009-11-06-coding-dojo-etiquette/</link>
+      <pubDate>Fri, 06 Nov 2009 16:32:24 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2009-11-06-coding-dojo-etiquette/</guid>
+      <description>At the Ágiles2009 coding dojo, instead of trying to explain the whole concept of coding dojo, I jumped straight to a quick list of items that attendees should bear in mind during the session:
+ If you know how to code, you should code. If you&amp;rsquo;re coding, everyone else has to understand what you&amp;rsquo;re doing. If you&amp;rsquo;re the next to code, avoid breaking the flow. If you&amp;rsquo;re not coding, don&amp;rsquo;t disturb who is.</description>
+    </item>
+    
+    <item>
+      <title>Impressions from my first Pair Programming Tour</title>
+      <link>https://isanchez.net/posts/2009-10-27-impressions-from-my-first-pair-programming-tour/</link>
+      <pubDate>Tue, 27 Oct 2009 20:57:58 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2009-10-27-impressions-from-my-first-pair-programming-tour/</guid>
+      <description>It&amp;rsquo;s been exactly one week since I came back from Brazil and now it&amp;rsquo;s time to share some of what happened there. Like I said before, this tour supposed to be a &amp;ldquo;mini&amp;rdquo; tour of three days in companies from Florianópolis, city hosting the Agiles2009 conference. Here are some of my findings:
+It doesn&amp;rsquo;t take long to get to know a company My biggest fear was that the time wouldn&amp;rsquo;t be enough to really get to see people working, but fortunately I was proven wrong.</description>
+    </item>
+    
+    <item>
+      <title>Next time you check-in code, think about it</title>
+      <link>https://isanchez.net/posts/2009-10-22-next-time-you-check-in-code-think-about-it/</link>
+      <pubDate>Thu, 22 Oct 2009 15:18:13 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2009-10-22-next-time-you-check-in-code-think-about-it/</guid>
+      <description>Writing check-in messages is normally a reflection time for me. And lately I&amp;rsquo;ve been inclined to describe why I changed the code, instead of just describing what I&amp;rsquo;ve changed.
+I know I have to consider that all the time, but it can still serve as a last sanity check. It makes me think: &amp;ldquo;Am I really adding a valuable change to the codebase?&amp;rdquo;
+Do you agree with this approach? Think about it next time you check-in and then let me know in the comments.</description>
+    </item>
+    
+    <item>
+      <title>The business minded programmer</title>
+      <link>https://isanchez.net/posts/2009-10-16-the-business-minded-programmer/</link>
+      <pubDate>Fri, 16 Oct 2009 01:49:41 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2009-10-16-the-business-minded-programmer/</guid>
+      <description>Most of recent software development approaches bring code closer to business. According to Agile we should write software with customer collaboration, responding to changes and constantly delivering business value.
+Lean is all about creating a flow of business value and removing waste. Even Domain-Driven Design advocates having an ubiquitous language between programmers and business people.
+It&amp;rsquo;s interesting how most of state-of-art approaches to software development are focusing on business, programming itself is still seen by many as a completely technical discipline.</description>
+    </item>
+    
+    <item>
+      <title>Pair Programming (mini) Tour in Brazil</title>
+      <link>https://isanchez.net/posts/2009-09-29-pair-programming-mini-tour-in-brazil/</link>
+      <pubDate>Tue, 29 Sep 2009 15:44:31 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2009-09-29-pair-programming-mini-tour-in-brazil/</guid>
+      <description>Tomorrow I&amp;rsquo;m flying to Brazil and will have a chance to do do something I wanted for a long time: a pair programming tour. The goal is simple: work with people in their companies. Not speaking, consulting or running coding dojos. I want to experience the everyday routine, learning their ways and hopefully contributing with some of my skills too.
+This idea came from Corey Haines&amp;rsquo;s programming tours and the work of other craftsmen like Enrique Riepenhausen, Dave Hoover and Antony Marcano from PairWith.</description>
+    </item>
+    
+    <item>
+      <title>LRUG Coding Dojo</title>
+      <link>https://isanchez.net/posts/2009-09-14-lrug-coding-dojo/</link>
+      <pubDate>Mon, 14 Sep 2009 01:18:55 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2009-09-14-lrug-coding-dojo/</guid>
+      <description>This week I had the chance to help the guys from the London Ruby User Group running a coding dojo for ~50 people. It was the largest dojo I&amp;rsquo;ve been involved so far and it was really interesting.
+To allow everyone to participate, the attendees were divided in three groups: Ninjas, Pirates and Zombies. Each group would solve the minesweeper challenge using the randori approach and at the end each group had a chance to show their solutions.</description>
+    </item>
+    
+    <item>
+      <title>Don&#39;t try to redefine &#39;done&#39;</title>
+      <link>https://isanchez.net/posts/2009-08-30-dont-try-to-redefine-done/</link>
+      <pubDate>Sun, 30 Aug 2009 18:20:41 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2009-08-30-dont-try-to-redefine-done/</guid>
+      <description>Many people tried different ways to define what &amp;ldquo;done&amp;rdquo; means in a software project (as you can see here, here and here).
+My experience, however, is making me believe that the problem may be in the word itself.
+Saying something is &amp;ldquo;done&amp;rdquo; always creates different expectations depending on who we&amp;rsquo;re talking to. And having to create a specific definition for a word means it will only be valid for the people who agree on it, and as long as they remember it.</description>
+    </item>
+    
+    <item>
+      <title>Coding dojo at the Agiles2009</title>
+      <link>https://isanchez.net/posts/2009-08-18-coding-dojo-at-the-agiles2009/</link>
+      <pubDate>Tue, 18 Aug 2009 03:37:42 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2009-08-18-coding-dojo-at-the-agiles2009/</guid>
+      <description>On October I&amp;rsquo;ll have another great reason to travel: running a coding dojo at the Latin-American Conference on Agile Development Methodologies (or simply Ágiles2009). And if having an event like that in back in Brazil wasn&amp;rsquo;t good enough, the conference will be in Florianópolis, the city where I studied and used to work before moving to London. How cool is that?
+For this session, it seems like once more the challenge will be how to prepare a session for more people than we&amp;rsquo;re used to.</description>
+    </item>
+    
+    <item>
+      <title>Stand-up meeting smells</title>
+      <link>https://isanchez.net/posts/2009-06-04-stand-up-meeting-smells/</link>
+      <pubDate>Thu, 04 Jun 2009 04:13:14 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2009-06-04-stand-up-meeting-smells/</guid>
+      <description>After working with stand-up meetings for a while I feel that this practice acts like a thermometer for an agile team. As a constant status report, it demonstrates how most of the other practices are being applied and how good is the team communication in general.
+That&amp;rsquo;s why I believe is important to be conscious about what happens during them. A stand-up meeting may hide problems if:
+ It doesn&amp;rsquo;t have an exact time to start It doesn&amp;rsquo;t happen because someone is not present It&amp;rsquo;s a trigger for technical discussions It&amp;rsquo;s not focused on to the plan It doesn&amp;rsquo;t contribute to continuous improvement It&amp;rsquo;s a report for a single person, not the team People don&amp;rsquo;t stay close to each other It&amp;rsquo;s frequently interrupted It doesn&amp;rsquo;t include the whole team People don&amp;rsquo;t remember what they did on the last day It&amp;rsquo;s moment where most of the problems are raised It takes more than 15 minutes It doesn&amp;rsquo;t happen every day It doesn&amp;rsquo;t feel good  These are all simple issues which can easily be addressed.</description>
+    </item>
+    
+    <item>
+      <title>ThoughtWorks office in Brazil</title>
+      <link>https://isanchez.net/posts/2009-06-03-thoughtworks-office-in-brazil/</link>
+      <pubDate>Wed, 03 Jun 2009 14:57:34 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2009-06-03-thoughtworks-office-in-brazil/</guid>
+      <description>On the last April&amp;rsquo;s fool, Philip Calcado announced that ThoughtWorks was about to start an office in Brazil.
+At few months later and this message on Martin Fowler&amp;rsquo;s twitter proves the affirmation was not that far from reality:
+ &amp;ldquo;My colleague Sid Pinney is investigating setting up a ThoughtWorks office in Brazil - talk to him at [&amp;hellip;]&amp;rdquo;
+ The interesting thing about this is not the fact itself, but the reaction it&amp;rsquo;s causing.</description>
+    </item>
+    
+    <item>
+      <title>The three stone cutters</title>
+      <link>https://isanchez.net/posts/2009-06-03-the-three-stone-cutters/</link>
+      <pubDate>Wed, 03 Jun 2009 14:25:26 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2009-06-03-the-three-stone-cutters/</guid>
+      <description>The following parable has made me think about the different views on the software development work:
+ A traveler came across three individuals working with stones. When asked about what he was doing, the first one replied, &amp;ldquo;I&amp;rsquo;m a stone cutter. I cut stones because I need the money to support my family&amp;rdquo;.
+The traveler then decided to ask the second worker, who answered, &amp;ldquo;I&amp;rsquo;m a great stone cutter. I can use all my techniques to produce the best shaped stone&amp;rdquo;.</description>
+    </item>
+    
+    <item>
+      <title>Ruby coding dojo this week</title>
+      <link>https://isanchez.net/posts/2009-04-20-ruby-coding-dojo-this-week/</link>
+      <pubDate>Mon, 20 Apr 2009 07:19:59 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2009-04-20-ruby-coding-dojo-this-week/</guid>
+      <description>This Wednesday (April 22nd) we&amp;rsquo;ll have another coding dojo at Skillsmatter. This time the challenge will be the Poker Hands:
+ [&amp;hellip;] Your job is to compare several pairs of poker hands and to indicate which, if either, has a higher rank.
+ Here&amp;rsquo;s some initial code generated at a previous dojo that may serve as starting point for the solution. The session format will be a Randori, which means everyone is welcome to code.</description>
+    </item>
+    
+    <item>
+      <title>Dodging booleans</title>
+      <link>https://isanchez.net/posts/2009-04-11-dodging-booleans/</link>
+      <pubDate>Sat, 11 Apr 2009 19:12:09 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2009-04-11-dodging-booleans/</guid>
+      <description>Reading Mark Needham&amp;rsquo;s post about how inexpressive an API can be when using booleans in method parameters, another clear example came to my mind.
+A few weeks ago we were using a method similar to the following:
+public List listUsers(boolean showDisabled); We&amp;rsquo;d expect that once you call this method passing false, it would return all enabled users and if the parameter is true it included all the disabled users in this list, right?</description>
+    </item>
+    
+    <item>
+      <title>Language wars</title>
+      <link>https://isanchez.net/posts/2009-04-09-language-wars/</link>
+      <pubDate>Thu, 09 Apr 2009 03:19:21 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2009-04-09-language-wars/</guid>
+      <description>Is it just me who&amp;rsquo;s loving this whole Ruby vs. Scala debate going on lately? So far it shows that:
+ No language can prevent bad code. There will be never an ultimate language, but there will always be people to defend the one they are using. Java (the language, not the platform) is dead.  I know it&amp;rsquo;s not the first time we have a language war and I have to confess I was missing that a little.</description>
+    </item>
+    
+    <item>
+      <title>Refactoring dojo at Skillsmatter</title>
+      <link>https://isanchez.net/posts/2009-03-19-refactoring-dojo-at-skillsmatter/</link>
+      <pubDate>Thu, 19 Mar 2009 19:39:57 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2009-03-19-refactoring-dojo-at-skillsmatter/</guid>
+      <description>For this dojo, instead of working on a challenge from scratch, we&amp;rsquo;ll start from an existing solution and try to improve it.
+The starting point will be the Minesweeper implementation created on a previous coding dojo. It contains only 272 lines of Java code (source + tests) and a lot of room for improvement.
+Some guidelines for the session:
+ Two programmers will work on the code for 7 minutes. After this period, one of them switch his place with someone from the audience.</description>
+    </item>
+    
+    <item>
+      <title>Time to raise the bar</title>
+      <link>https://isanchez.net/posts/2009-03-08-time-to-raise-the-bar/</link>
+      <pubDate>Sun, 08 Mar 2009 08:02:11 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2009-03-08-time-to-raise-the-bar/</guid>
+      <description>We had some years to digest the Agile Manifesto. Now it seems like the next step is being defined in the Software Craftsmanship Manifesto:
+ As aspiring Software Craftsmen we are raising the bar of professional software development by practicing it and helping others learn the craft. Through this work we have come to value:
+ Not only working software, but also well-crafted software Not only responding to change, but also steadily adding value Not only individuals and interactions, but also a community of professionals Not only customer collaboration, but also productive partnerships  That is, in pursuit of the items on the left we have found the items on the right to be indispensable.</description>
+    </item>
+    
+    <item>
+      <title>Some reflection about frameworks</title>
+      <link>https://isanchez.net/posts/2009-03-06-some-reflection-about-frameworks/</link>
+      <pubDate>Fri, 06 Mar 2009 04:23:27 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2009-03-06-some-reflection-about-frameworks/</guid>
+      <description>One of the highlights of the Software Craftsmanship Conference 2009 came from outside the original programme. Someone had the excellent idea of proposing the following topic for an open space session: &amp;ldquo;Why I hate frameworks&amp;rdquo;. It was enough to get my attention and before I realised the room was so full that people had to sit on the floor to be able to participate.
+The discussion obviously started with frameworks for Java.</description>
+    </item>
+    
+    <item>
+      <title>Links and slides from my session at the Software Craftsmanship 2009</title>
+      <link>https://isanchez.net/posts/2009-03-04-links-and-slides-from-my-session-at-the-software-craftsmanship-2009/</link>
+      <pubDate>Wed, 04 Mar 2009 16:28:06 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2009-03-04-links-and-slides-from-my-session-at-the-software-craftsmanship-2009/</guid>
+      <description>This session was a mix of talk and coding dojo, in order to give a hands on experience following the rest of this conference&amp;rsquo;s approach. As a result, this 45-minute dojo became the shortest coding dojo I&amp;rsquo;ve organised so far.
+It was also the first time I&amp;rsquo;ve tried to start a dojo with an existing piece of code. This code was simple, incomplete, naive and desperately asking for refactoring. It helped keeping the session flow since the first minute, mainly because it took only a couple of seconds for the first pair to learn the code and figure out ways to improve it.</description>
+    </item>
+    
+    <item>
+      <title>Next coding dojo</title>
+      <link>https://isanchez.net/posts/2009-03-02-next-coding-dojo-2/</link>
+      <pubDate>Mon, 02 Mar 2009 21:08:26 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2009-03-02-next-coding-dojo-2/</guid>
+      <description>The next open coding dojo at Skillsmatter will happen on 9th March (Monday).
+The registration is already open and the discussion about the coding challenge will take place on the mailing list.</description>
+    </item>
+    
+    <item>
+      <title>Coding dojo at the Software Craftsmanship 2009</title>
+      <link>https://isanchez.net/posts/2009-02-23-coding-dojo-at-the-software-craftsmanship-2009/</link>
+      <pubDate>Mon, 23 Feb 2009 16:58:20 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2009-02-23-coding-dojo-at-the-software-craftsmanship-2009/</guid>
+      <description>Next Thursday I&amp;rsquo;ll be running a coding dojo at the Software Craftsmanship 2009. My goal is to discuss why people should organise dojos at their companies and learn more about alternative approaches people are using to improve programming skills.
+It seems like it&amp;rsquo;ll be an interesting event:
+ This conference is all about the principles and practices, and the disciplines and habits, that distinguish the best 10% of software professionals from the 90% who are failing their customers and failing their profession by taking no care or pride in their work and delivering buggy, unreliable and unmaintainable code.</description>
+    </item>
+    
+    <item>
+      <title>Next coding dojo</title>
+      <link>https://isanchez.net/posts/2009-02-10-next-coding-dojo/</link>
+      <pubDate>Tue, 10 Feb 2009 05:54:30 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2009-02-10-next-coding-dojo/</guid>
+      <description>For the people wanting to practice their programming skills, the next open coding dojo will be this Thursday (12th) at the Skillsmatter office.
+After presenting a very interesting kata on the last session, Danilo Sato will be facilitating this dojo.
+Don&amp;rsquo;t forget to register on their website and join our mailing list if you want to know more about the challenge and the session format for this session.</description>
+    </item>
+    
+    <item>
+      <title>Next open coding dojos</title>
+      <link>https://isanchez.net/posts/2009-01-16-next-open-coding-dojos/</link>
+      <pubDate>Fri, 16 Jan 2009 01:32:13 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2009-01-16-next-open-coding-dojos/</guid>
+      <description>Yesterday we had our first dojo in 2009 and once more people asked me when are the next sessions. So here they are:
+ Wednesday, January 28th Thursday, February 12th Wednesday, February 25th Monday, March 9th Wednesday, March 25th  The dates may change (they already did), so that&amp;rsquo;s one more reason to join our group or [subscribe to this blog]() to be informed if that happens.</description>
+    </item>
+    
+    <item>
+      <title>Programming by Intention</title>
+      <link>https://isanchez.net/posts/2008-12-06-programming-by-intention/</link>
+      <pubDate>Sat, 06 Dec 2008 12:54:55 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2008-12-06-programming-by-intention/</guid>
+      <description>In an area dominated by acronyms like DRY, YAGNI, FIRST, SMART, KISS or catchy expressions such as Fake It Till You Make It and Baby Steps, a very important practice which is becoming forgotten is Programming By Intention:
+ This is the practice of pretending that classes, functions, procedures etc. exist (even though they do not) as you structure and write your code. This helps a developer think about the overall process and larger steps of software rather than the small details.</description>
+    </item>
+    
+    <item>
+      <title>Impressions of the first open coding dojo at Skillsmatter</title>
+      <link>https://isanchez.net/posts/2008-12-06-impressions-of-the-first-open-coding-dojo/</link>
+      <pubDate>Sat, 06 Dec 2008 03:28:31 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2008-12-06-impressions-of-the-first-open-coding-dojo/</guid>
+      <description>Last Monday we had our first open coding dojo at Skillsmatter. Although we didn&amp;rsquo;t manage to decide all the details beforehand on the mailing list, I believe it worked pretty well for a first session.
+With 11 people attending, this dojo was challenging in different ways. The problem we tried to solve was the BankOCR, which only two or three people had tried to solve beforehand. The language was Ruby, which most people didn&amp;rsquo;t have tried before.</description>
+    </item>
+    
+    <item>
+      <title>It&#39;s all about making yourself accountable</title>
+      <link>https://isanchez.net/posts/2008-11-15-its-all-about-making-yourself-accountable/</link>
+      <pubDate>Sat, 15 Nov 2008 19:01:54 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2008-11-15-its-all-about-making-yourself-accountable/</guid>
+      <description>How do you tell if a team is agile? If the last years trying to follow the principles of the manifesto taught me something is that in a good software project people want to be accountable.
+We&amp;rsquo;re knowledge workers. What we deliver is a direct result of the perception of the problems we are exposed to. Yet, there are a lot of people trying to escape from the responsibilities our job requires.</description>
+    </item>
+    
+    <item>
+      <title>Open coding dojo in London</title>
+      <link>https://isanchez.net/posts/2008-11-09-open-coding-dojo-in-london/</link>
+      <pubDate>Sun, 09 Nov 2008 20:16:37 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2008-11-09-open-coding-dojo-in-london/</guid>
+      <description>Thanks to Gojko and the guys from Skillsmatter I&amp;rsquo;ll be running a regular coding dojo in London. The challenges, languages, session formats and any other related topic will be discussed in the new coding-dojo-london group, so if you&amp;rsquo;re interested in attending any session or learning more about how the dojo works, it&amp;rsquo;s a good idea to subscribe.
+My idea with this group is also help people interested in running other dojos in the city.</description>
+    </item>
+    
+    <item>
+      <title>Do you think you have problems writing software? Think again.</title>
+      <link>https://isanchez.net/posts/2008-10-22-do-you-think-you-have-problems-writing-software-think-again/</link>
+      <pubDate>Wed, 22 Oct 2008 06:11:22 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2008-10-22-do-you-think-you-have-problems-writing-software-think-again/</guid>
+      <description>After using TextMate in the last weeks I still miss some Eclipse shortcuts. I want to do a specific task and don&amp;rsquo;t know an easy way to do it without using the mouse or navigating through the menu to find if such shortcut exists. Then today I read an article (in Portuguese) about a blind programmer. Yes, a blind programmer.
+Can you imagine how hard it would be trying to develop a software without seeing it?</description>
+    </item>
+    
+    <item>
+      <title>Looking for a new way to practice TDD?</title>
+      <link>https://isanchez.net/posts/2008-09-28-looking-for-a-new-way-to-practice-tdd/</link>
+      <pubDate>Sun, 28 Sep 2008 06:53:17 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2008-09-28-looking-for-a-new-way-to-practice-tdd/</guid>
+      <description>Then is time to visit TDD Problems:
+ The aim of this site is to contain a growing collection of software problems well-suited for the TDD-beginner to learn Test-Driven Development through problem solving.
+ Today the site contains 20 different &amp;ldquo;real-life&amp;rdquo; problems, which is probably enough to keep anyone busy for a long time. And since it was announced in the testdrivendevelopment list only a few days ago, it&amp;rsquo;s very likely the list will keep growing.</description>
+    </item>
+    
+    <item>
+      <title>Starting a Coding Dojo</title>
+      <link>https://isanchez.net/posts/2008-09-01-starting-a-coding-dojo/</link>
+      <pubDate>Mon, 01 Sep 2008 06:50:30 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2008-09-01-starting-a-coding-dojo/</guid>
+      <description>In the last months I&amp;rsquo;ve been in touch with a lot of people trying to start their own coding dojos. Here&amp;rsquo;s some tips for those who already started or are considering it:
+Setting up You don&amp;rsquo;t need much more than a place with one computer connected to a projector and enough sits for people attending. A timer to keep track of the pair rotation and a white board or flip chart to discuss the problem are also very useful.</description>
+    </item>
+    
+    <item>
+      <title>Slides from my talk at SkillsMatter</title>
+      <link>https://isanchez.net/posts/2008-08-29-slides-from-my-talk-at-skillsmatter/</link>
+      <pubDate>Fri, 29 Aug 2008 15:54:05 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2008-08-29-slides-from-my-talk-at-skillsmatter/</guid>
+      <description>If you&amp;rsquo;re interested on the slides I&amp;rsquo;ve used on yesterday&amp;rsquo;s presentation about my tips on Selenium RC, you can download them here.
+If you want to learn more about the practices I mentioned, here are some useful links:
+ The Page Object design pattern in details How to use Selenium Grid on the Amazon EC2 Configuring tests to run in parallel using TestNG  </description>
+    </item>
+    
+    <item>
+      <title>Craftmanship</title>
+      <link>https://isanchez.net/posts/2008-08-15-craftmanship/</link>
+      <pubDate>Fri, 15 Aug 2008 04:15:12 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2008-08-15-craftmanship/</guid>
+      <description>In his talk at the Agile2008, Bob Martin proposed an addition to the Agile Manifesto:
+ Craftsmanship over Crap.
+ Although most of us can identify with that statement, it&amp;rsquo;s probably not easy to sell the idea put that way. But now he rephrased it to:
+ Craftsmanship over Execution.
+ I confess the first time a thought about software development being a craft was in a Joel Spolsky&amp;rsquo;s article disagreeing with the use of this term.</description>
+    </item>
+    
+    <item>
+      <title>5 reasons to have a coding dojo at your company</title>
+      <link>https://isanchez.net/posts/2008-07-15-5-reasons-to-have-a-coding-dojo-at-your-company/</link>
+      <pubDate>Tue, 15 Jul 2008 07:06:00 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2008-07-15-5-reasons-to-have-a-coding-dojo-at-your-company/</guid>
+      <description>1. Is the easiest and cheapest way to invest in training To run a coding dojo people don&amp;rsquo;t need much more than a computer and a projector. Paying for the pizza and some beers for the end of the meetings is not expensive either, and is surely welcome. But if the company is really cool, some dojos can take place during work time to get more developers involved. Note that none of those items take lots of money nor is too complicated.</description>
+    </item>
+    
+    <item>
+      <title>Ruby on Rails 2.1 - What’s new</title>
+      <link>https://isanchez.net/posts/2008-06-10-ruby-on-rails-21-whats-new/</link>
+      <pubDate>Tue, 10 Jun 2008 14:29:01 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2008-06-10-ruby-on-rails-21-whats-new/</guid>
+      <description>Carlos Brando released the first book on RoR 2.1.
+More information and download here.</description>
+    </item>
+    
+    <item>
+      <title>How to measure velocity in software projects</title>
+      <link>https://isanchez.net/posts/2008-03-18-how-to-measure-velocity-in-software-projects/</link>
+      <pubDate>Tue, 18 Mar 2008 20:31:26 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2008-03-18-how-to-measure-velocity-in-software-projects/</guid>
+      <description>Three simple steps to measure velocity in a software project:
+ Estimate your requirements using a size metric. Agree on the concept of done. Define a timebox size.  Then we just need the formula:
+Velocity = Points done / Timebox</description>
+    </item>
+    
+    <item>
+      <title>Integration versus Integration</title>
+      <link>https://isanchez.net/posts/2008-03-18-integration-versus-integration/</link>
+      <pubDate>Tue, 18 Mar 2008 20:24:53 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2008-03-18-integration-versus-integration/</guid>
+      <description>Just to clarify:
+ Integration test: modules of the system are tested together, as a group.
+ Integration build: modifications made by developers are consolidated through a full build.
+  Although the integration build may include running integration tests, they&amp;rsquo;re are clearly two separate problems.</description>
+    </item>
+    
+    <item>
+      <title>Building self managed teams</title>
+      <link>https://isanchez.net/posts/2008-01-10-building-self-managed-teams/</link>
+      <pubDate>Thu, 10 Jan 2008 07:56:04 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2008-01-10-building-self-managed-teams/</guid>
+      <description>Sometimes in a project:
+ People are treated as mere &amp;ldquo;resources&amp;rdquo;, being part of the project only to work on predefined activities and nothing else. The managers want to be sure that everyone is doing exactly what they think it&amp;rsquo;s the best, and forget that people can have good ideas. People prefer to work on tasks defined by someone else because they don&amp;rsquo;t want to be responsible for their work.</description>
+    </item>
+    
+    <item>
+      <title>Looking for testing mantras?</title>
+      <link>https://isanchez.net/posts/2008-01-07-looking-for-some-testing-mantra/</link>
+      <pubDate>Mon, 07 Jan 2008 05:52:42 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2008-01-07-looking-for-some-testing-mantra/</guid>
+      <description>Then it&amp;rsquo;s time to try the Way of Testivus:
+ If you write code, write tests. Don’t get stuck on unit testing dogma. Embrace unit testing karma. Think of code and test as one. The test is more important than the unit. The best time to test is when the code is fresh. Tests not run waste away. An imperfect test today is better than a perfect test someday. An ugly test is better than no test.</description>
+    </item>
+    
+    <item>
+      <title>Deploying Ruby on Rails as J2EE application</title>
+      <link>https://isanchez.net/posts/2008-01-02-deploying-ruby-on-rails-as-j2ee-application/</link>
+      <pubDate>Wed, 02 Jan 2008 09:55:42 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2008-01-02-deploying-ruby-on-rails-as-j2ee-application/</guid>
+      <description>If you haven&amp;rsquo;t tried Ruby on Rails because was too busy developing your J2EE applications, now you have no more excuses! It&amp;rsquo;s possible (and surprisingly simple) to deploy a RoR application in your favorite J2EE server just by following these few steps:
+1. Install JRuby on Rails Get JRuby and install the Ruby on Rails gem:
+gem install rails --include-dependencies --no-rdoc --no-ri 2. Create a simple test application Run the following commands to set up your new application:</description>
+    </item>
+    
+    <item>
+      <title>Dealing with Software Failures</title>
+      <link>https://isanchez.net/posts/2007-06-21-dealing-with-software-failures/</link>
+      <pubDate>Thu, 21 Jun 2007 20:32:23 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2007-06-21-dealing-with-software-failures/</guid>
+      <description>Reading about several things they don&amp;rsquo;t teach you in school, one that sounded me very important is how to deal with failure:
+In school, kid’s learn that “failure” is a negative term. However, it is nothing of the sort. There has never been a single successful person who hasn’t failed numerous times on their journey to success.
+In fact, the most successful people in life are those who have failed the most.</description>
+    </item>
+    
+    <item>
+      <title>Coding Dojo</title>
+      <link>https://isanchez.net/posts/2007-06-12-coding-dojo/</link>
+      <pubDate>Tue, 12 Jun 2007 19:23:58 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2007-06-12-coding-dojo/</guid>
+      <description>For the last year I&amp;rsquo;ve been involved with the organization of Coding Dojo meetings in Florianopolis/Brazil. This kind of &amp;ldquo;coding meetings&amp;rdquo; started in France and spread to Finland, United States ( Pittsburgh and Houston), United Kingdom, Canada, Brazil and Sweden.
+The sessions are basically about solving a programming challenges using Pair Programming and Test-Driven Development. Everyone is welcome since there&amp;rsquo;s no skill prerequisites for attendees. The main goal is simple: improve coding skills through practice.</description>
+    </item>
+    
+    <item>
+      <title>Distributed Agile</title>
+      <link>https://isanchez.net/posts/2007-05-24-distributed-agile/</link>
+      <pubDate>Thu, 24 May 2007 21:32:02 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2007-05-24-distributed-agile/</guid>
+      <description>The first agile principle is about &amp;ldquo;individuals and interactions over processes and tools&amp;rdquo;. How can it be managed when people are not all in the same place?
+Dave Churchville wrote about it and classified distributed team as:
+ Type A: All developers are together, all customers are remote Type B: Multiple development teams in different locations (but each team is together) Type C: &amp;ldquo;Virtual&amp;rdquo; team where nearly everyone works remotely (e.</description>
+    </item>
+    
+    <item>
+      <title>Flexible Software Contracts</title>
+      <link>https://isanchez.net/posts/2007-05-23-flexible-software-contracts/</link>
+      <pubDate>Wed, 23 May 2007 20:41:39 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2007-05-23-flexible-software-contracts/</guid>
+      <description>Software contracts that define all software requirements up-front make your project half-way to failure. The software company will try to do exactly what is in it, and the client will try to believe that none of those requirements will change. And at certain part of the project both will realize they were wrong.
+Let&amp;rsquo;s face it. Software requirements always change. But it doesn&amp;rsquo;t mean that people got they wrong, it means that after seeing a piece of working software people learn more about it and they will always have a lot of new ideas to improve it.</description>
+    </item>
+    
+    <item>
+      <title>Agile: another word for good sense?</title>
+      <link>https://isanchez.net/posts/2007-05-18-agile-another-word-for-good-sense/</link>
+      <pubDate>Fri, 18 May 2007 00:38:14 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2007-05-18-agile-another-word-for-good-sense/</guid>
+      <description>Today a lot of people wants to become agile. Well, not agile in the sense of mentally or physically quick, but Agile (yes, with capital &amp;ldquo;A&amp;rdquo;) as written in the Agile Manifesto. Why? Because it seems like a better way of doing things. This way involves:
+ Empower people Deliver business value Get the client involved Embrace changes  Is the word &amp;ldquo;agile&amp;rdquo; good enough to represent all this? I don&amp;rsquo;t know.</description>
+    </item>
+    
+    <item>
+      <title>3 key skills for software design</title>
+      <link>https://isanchez.net/posts/2014-10-03-3-skills-for-software-design/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2014-10-03-3-skills-for-software-design/</guid>
+      <description>On his talk at the Java Zone 2014, Kent Beck listed what he considers to be key skills in software design. According to him, they don&amp;rsquo;t come naturally to programmers, but can be learned. Those skills are:
+Tolerance for ambiguity Developers must be able to accept that their design will never be completely clean. There&amp;rsquo;ll always be forces pulling it in different directions and assuming there&amp;rsquo;s only one &amp;ldquo;correct&amp;rdquo; solution will most likely just lead to frustration.</description>
+    </item>
+    
+    <item>
+      <title>Back from the ashes</title>
+      <link>https://isanchez.net/posts/2014-10-03-back-from-the-ashes/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2014-10-03-back-from-the-ashes/</guid>
+      <description>It&amp;rsquo;s been over two and a half years I don&amp;rsquo;t post anything here. In the meantime I&amp;rsquo;ve used Github Pages and Jekyll mainly as a backup of my old posts.
+Today I&amp;rsquo;ve found that I was running a version so old of Jekyll that it was breaking this site almost completely, so I&amp;rsquo;ve decided to upgrade it and apply the Lanyon theme so it looks at least half decent.
+All the old posts are still available in the Archive page.</description>
+    </item>
+    
+    <item>
+      <title>Closing the Loop</title>
+      <link>https://isanchez.net/posts/2014-12-01-closing-the-loop/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2014-12-01-closing-the-loop/</guid>
+      <description>As developers we should be experts in feedback: we want to learn about the consequences of our code changes as quickly as possible. For instance:
+ The editor can tell if the new syntax is correct. Unit tests can tell if basic logic and interactions are as expected. Integration and Acceptance tests can tell how the change will affect the rest of the system. Continuous integration can tell if changes coming from different developers will work together.</description>
+    </item>
+    
+    <item>
+      <title>Coaching at codebar.io</title>
+      <link>https://isanchez.net/posts/2014-10-09-coaching-at-codebar/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2014-10-09-coaching-at-codebar/</guid>
+      <description>Last night I had a chance to coach at a Codebar event for the first time. They offer free basic programming and web development workshops to people who are underrepresented in the tech industry.
+For me it was a great reminder of how difficult it is to learn how to code. Even though my student was following a &amp;ldquo;getting started&amp;rdquo; tutorial, the amount and complexity of new concepts involved was overwhelming at times.</description>
+    </item>
+    
+    <item>
+      <title>Diamond Kata using Clojure and TDD</title>
+      <link>https://isanchez.net/posts/2014-12-06-diamond-kata-using-clojure-and-tdd/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://isanchez.net/posts/2014-12-06-diamond-kata-using-clojure-and-tdd/</guid>
+      <description>After seeing Ron Jeffries&amp;rsquo; post about different takes on the Diamond Kata, I&amp;rsquo;ve decided to try it as well.
+This comment on Philip Schwarz&amp;rsquo; solution in particular got my attention:
+ I don’t know Clojure, which certainly made Philip’s solution harder to grok, but one can sort of read it. He added some tests later, which certainly helps.
+ Would a solution driven by tests be easier to understand? I&amp;rsquo;ll let you be the judge.</description>
+    </item>
+    
   </channel>
 </rss>

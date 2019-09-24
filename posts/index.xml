@@ -102,5 +102,1624 @@ As developers, we tend to see source control as the official history of a codeba
 ]]></content>
 		</item>
 		
+		<item>
+			<title>Git will start asking people to explain their merges. Finally!</title>
+			<link>https://isanchez.net/posts/2012-02-28-git-will-start-asking-people-to-explain-their/</link>
+			<pubDate>Tue, 28 Feb 2012 22:01:02 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2012-02-28-git-will-start-asking-people-to-explain-their/</guid>
+			<description>Annoyed by too many pointless merges in your git history? So here&amp;rsquo;s some good news for you:
+ [&amp;hellip;] in 1.7.10 and later, the git merge command [&amp;hellip;] will open an editor before creating a commit to record the merge result, to give the user a chance to explain the merge, just like the git commit command the user runs after resolving a conflicted merge already does.
+ My hope is that this simple change will make people start thinking twice before merging, instead of just doing it because git makes it easy.</description>
+			<content type="html"><![CDATA[<p>Annoyed by too many pointless merges in your git history? So <a href="http://git-blame.blogspot.com/2012/02/anticipating-git-1710.html">here&rsquo;s some good news for you</a>:</p>
+
+<blockquote>
+<p>[&hellip;] in 1.7.10 and later, the git merge command [&hellip;] will open an editor before creating a commit to record the merge result, to give the user a chance to explain the merge, just like the git commit command the user runs after resolving a conflicted merge already does.</p>
+</blockquote>
+
+<p>My hope is that this simple change will make people start thinking twice before merging, instead of just doing it because git makes it easy. And I&rsquo;m glad the git team and I share the same vision about the subject:</p>
+
+<blockquote>
+<p>[&hellip;] Merging updated upstream into your work-in-progress topic without having a good reason is generally considered a bad practice. Such a merge in the wrong direction should be done only when it is absolutely necessary, e.g. your work-in-progress needs to take advantage of recent advancement made on the upstream.  Otherwise, your topic branch will stop being about any particular topic but just a garbage heap that absorbs commits from many sources [&hellip;]</p>
+</blockquote>
+
+<p>Apparently that was a design mistake from the early days of git, for which <a href="https://plus.google.com/102150693225130002912/posts/SrePhcj6XJe">Linus also adds his point of view</a>:</p>
+
+<blockquote>
+<p>[&hellip;] if you don&rsquo;t like explaining your merges, this might be annoying. Of course, if you don&rsquo;t explain your merges, you are annoying, so it all evens out in the end. &ldquo;Karmic balance&rdquo;, so to say.</p>
+</blockquote>
+
+<p> </p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Considering migrating from svn to git?</title>
+			<link>https://isanchez.net/posts/2011-02-21-migrating-from-svn-to-git/</link>
+			<pubDate>Mon, 21 Feb 2011 21:10:00 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2011-02-21-migrating-from-svn-to-git/</guid>
+			<description>In December last year we decided to migrate our whole codebase from Subversion to git. Here is a few tips I&amp;rsquo;d give to someone considering taking the same route:
+Evaluate the reasons for the migration. Think about specific scenarios where Subversion is not meeting your project&amp;rsquo;s requirements. Check if too much time is being spent trying to make the current version control work with your workflow. There must be an opportunity to make things simpler or more efficient by switching to git in order to justify the switch.</description>
+			<content type="html"><![CDATA[<p>In December last year we decided to migrate our whole codebase from <a href="http://subversion.tigris.org/">Subversion</a> to <a href="http://git-scm.com/">git</a>. Here is a few tips I&rsquo;d give to someone considering taking the same route:</p>
+
+<p><strong>Evaluate the reasons for the migration</strong>. Think about specific scenarios where Subversion is not meeting your project&rsquo;s requirements. Check if too much time is being spent trying to make the current version control work with your workflow. There must be an opportunity to make things simpler or more efficient by switching to git in order to justify the switch.</p>
+
+<p>In our case we were already working almost exclusively with <a href="http://martinfowler.com/bliki/FeatureBranch.html">feature branches</a>, which is a great way to isolate our different pieces of work, but was becoming a hell due to <a href="http://svnbook.red-bean.com/nightly/en/svn.tour.treeconflicts.html">svn tree conflicts</a>. Even though that was the single problem we faced with subversion in years of use, the time wasted with merges lately was enough to justify moving all our code to a more &ldquo;branch-friendly&rdquo; system.</p>
+
+<p><strong>Do your homework</strong>. In other words, before starting anything, learn more about git. The best places to start are probably the <a href="http://book.git-scm.com/">Git Community Book</a> for theory and <a href="https://github.com/">GitHub</a> for practice. For me it was really worth learning git&rsquo;s key concepts before moving to practice. It&rsquo;s also a good idea avoiding comparisons with svn until you are comfortable enough with these core concepts. Trying to simply map commands from one tool to another can make life harder, mainly because they don&rsquo;t share the same principles.</p>
+
+<p><strong>Consider not migrating the whole repository history</strong>. Although the process is not necessarily complicated, it&rsquo;ll probably be time consuming. To give an idea, our 4GB codebase took almost 3 weeks (!) to migrate using <a href="http://www.kernel.org/pub/software/scm/git/docs/git-svn.html">git-svn</a>. That&rsquo;s mainly due to the fact it had to magically create git branches (which are copies of the full repository) from svn branches (generally partial copies). If I had to go through that again today I&rsquo;d probably migrate trunk only, or even consider starting fresh by splitting our codebase into smaller git repositories and keeping subversion just for reference.</p>
+
+<p><strong>Spread knowledge before the final switch</strong>. Having the whole team up to speed with the new tool before starting using it on the day-to-day work is a no-brainer. Having a few people willing to train others and help them during the first weeks is also very important to make the transition the less painful as possible.</p>
+
+<p><strong>Accept the fact all version control systems require discipline</strong>. Don&rsquo;t expect git will solve all the problems in your project. What I noticed is that most of the problems with version control systems start when people get to weird workflows and forget that their work needs to be in a shared repository. Mixing branches, merging wrong content, losing uncommited changes and trashing the local repository will happen regardless of the system. We all make mistakes sometimes and it&rsquo;s best to learn from them instead of cursing the tool.</p>
+
+<p>Now, almost two months later, I can say migrating was a good decision. Branching and merging feel more natural in git, and it has some cool features that are surprisingly useful, like <a href="http://www.kernel.org/pub/software/scm/git/docs/git-cherry-pick.html">cherry-picking</a>. There are still some rare cases when a developer ended up having to recreate a local branch or even having to clone the local repository again, but even these operations are simple enough and I imagine they would probably be avoided if they had more experience with the tool and its workflow.</p>
+
+<p>In any case, just the fact of not having to deal with merge nightmares in subversion again makes me really happy.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Newbie&#39;s reviews</title>
+			<link>https://isanchez.net/posts/2010-04-28-newbies-reviews/</link>
+			<pubDate>Wed, 28 Apr 2010 15:13:00 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2010-04-28-newbies-reviews/</guid>
+			<description>It’s been a long time since I had to help a new team member to get familiar with a codebase I’ve been working on for a while. And although this process tends to slow development, I’m really liking the kind of feedback that can emerge from this fresh look at our existing code.
+After months of pairing the team developed a common understand of the system that makes sense for everyone involved, but can be really hard to grasp by an outsider.</description>
+			<content type="html"><![CDATA[<p>It’s been a long time since I had to help a new team member to get familiar with a codebase I’ve been working on for a while. And although this process tends to slow development, I’m really liking the kind of feedback that can emerge from this fresh look at our existing code.</p>
+
+<p>After months of pairing the team developed a common understand of the system that makes sense for everyone involved, but can be really hard to grasp by an outsider. What is interesting is that this lack of familiarity seems to become very useful when it comes to spotting strange design decisions, inconsistencies, naming issues or even simplification and refactoring opportunities that otherwise would be easily neglected.</p>
+
+<p>Maybe that’s something we should be doing more: getting someone who never got close to the code we want to improve and let him play with with it for a short period of time. The feedback this scenario generates is very interesting.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>The Joys of the Craft</title>
+			<link>https://isanchez.net/posts/2010-02-22-the-joys-of-the-craft/</link>
+			<pubDate>Mon, 22 Feb 2010 04:26:00 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2010-02-22-the-joys-of-the-craft/</guid>
+			<description>The Mythical Man-Month is a great book not only because of its insights about software projects. Fred Brooks also writes about the &amp;ldquo;The Joys of the Craft&amp;ldquo;:
+ Why is programming fun? What delights may its practitioner expects as his reward?
+ The first is the sheer joy of making things. [&amp;hellip;] Second is the pleasure of making things that are useful to other people. [&amp;hellip;] Third is the fascination of fashioning complex puzzle-like objects of interlocking moving parts and watching them work in subtle cycles, playing out the consequences of principles built in from the beginning.</description>
+			<content type="html"><![CDATA[<p>The <a href="http://en.wikipedia.org/wiki/The_Mythical_Man-Month">Mythical Man-Month</a> is a great book not only because of its insights about software projects. <a href="http://en.wikipedia.org/wiki/Fred_Brooks">Fred Brooks</a> also writes about the &ldquo;<strong>The Joys of the Craft</strong>&ldquo;:</p>
+
+<blockquote>
+<p>Why is programming fun? What delights may its practitioner expects as his reward?</p>
+
+<ul>
+<li>The first is the sheer joy of making things.</li>
+<li>[&hellip;] Second is the pleasure of making things that are useful to other people.</li>
+<li>[&hellip;] Third is the fascination of fashioning complex puzzle-like objects of interlocking moving parts and watching them work in subtle cycles, playing out the consequences of principles built in from the beginning.</li>
+<li>[&hellip;] Fourth is the joy of always learning, which springs from the non repeating nature of the task.</li>
+<li>[&hellip;] Finally, there is the delight of working in such a tractable medium.</li>
+</ul>
+
+<p>The programmer, like the poet, works only slightly removed from pure thought-stuff.</p>
+</blockquote>
+
+<p>Really worth the reading.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Pomodoro Technique: are we using it wrong?</title>
+			<link>https://isanchez.net/posts/2009-11-26-pomodoro-technique-are-we-using-it-wrong/</link>
+			<pubDate>Thu, 26 Nov 2009 16:29:38 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2009-11-26-pomodoro-technique-are-we-using-it-wrong/</guid>
+			<description>The Pomodoro Techinique has received a lot of attention lately. The reason is simple: it works. It improves focus, removes anxiety because of time and, most of all, help us getting things done.
+But the greatest benefit of the technique in my point of view is that it exposes all the interruptions and bad habits we have when doing our jobs. And that&amp;rsquo;s my reason to believe it should be used as a learning tool instead of a new way of working.</description>
+			<content type="html"><![CDATA[<p>The <a href="http://www.pomodorotechnique.com/">Pomodoro Techinique</a> has received a lot of attention lately. The reason is simple: it works. It improves focus, removes anxiety because of time and, most of all, help us getting things done.</p>
+
+<p>But the greatest benefit of the technique in my point of view is that it exposes all the interruptions and bad habits we have when doing our jobs. And that&rsquo;s my reason to believe it should be used as a learning tool instead of a new way of working.</p>
+
+<p>That means using the technique as temporary assistance, not the end solution. Instead of using the tool to avoid the factors that decrease our focus, we use it to make them visible and then find ways to avoid them.</p>
+
+<p>After all, do we really need a timer all the time to do our job efficiently?</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Behind green bars</title>
+			<link>https://isanchez.net/posts/2009-11-13-behind-green-bars/</link>
+			<pubDate>Fri, 13 Nov 2009 16:40:09 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2009-11-13-behind-green-bars/</guid>
+			<description>Another day of coding is over and you produced some beautiful code. Now what? Do you know exactly how long it will take until that brand-new feature gets to its intended user? A week? A month? Never?
+It&amp;rsquo;s a shame that most code produced out there will park for all that time until is released. Maybe that was normal when it would take days just to compile the whole system. But today, even with all the processing power and automation, new releases are always delayed by deadlines, testing stages, approvals, sign-offs or any other form of bureaucracy.</description>
+			<content type="html"><![CDATA[<p>Another day of coding is over and you produced some beautiful code. Now what? Do you know exactly how long it will take until that brand-new feature gets to its intended user? A week? A month? Never?</p>
+
+<p>It&rsquo;s a shame that most code produced out there will park for all that time until is released. Maybe that was normal when it would take days just to compile the whole system. But today, even with all the processing power and automation, new releases are always delayed by deadlines, testing stages, approvals, sign-offs or any other form of bureaucracy.</p>
+
+<p>If the code is really good it shouldn&rsquo;t have to wait. Maybe it&rsquo;s time for programmers to stop hiding behind the green bars of their builds and start pushing their code out of the door.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Coding dojo etiquette</title>
+			<link>https://isanchez.net/posts/2009-11-06-coding-dojo-etiquette/</link>
+			<pubDate>Fri, 06 Nov 2009 16:32:24 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2009-11-06-coding-dojo-etiquette/</guid>
+			<description>At the Ágiles2009 coding dojo, instead of trying to explain the whole concept of coding dojo, I jumped straight to a quick list of items that attendees should bear in mind during the session:
+ If you know how to code, you should code. If you&amp;rsquo;re coding, everyone else has to understand what you&amp;rsquo;re doing. If you&amp;rsquo;re the next to code, avoid breaking the flow. If you&amp;rsquo;re not coding, don&amp;rsquo;t disturb who is.</description>
+			<content type="html"><![CDATA[<p>At the <a href="http://www.agiles2009.org/pt/session.php?id=63">Ágiles2009 coding dojo</a>, instead of trying to explain the whole concept of <a href="http://codingdojo.org/cgi-bin/wiki.pl?back=WhatIsCodingDojo">coding dojo</a>, I jumped straight to a quick list of items that attendees should bear in mind during the session:</p>
+
+<ul>
+<li>If you know how to code, you should code.</li>
+<li>If you&rsquo;re coding, everyone else has to understand what you&rsquo;re doing.</li>
+<li>If you&rsquo;re the next to code, avoid breaking the flow.</li>
+<li>If you&rsquo;re not coding, don&rsquo;t disturb who is.</li>
+<li>If you have an idea, show it with code.</li>
+<li>If you&rsquo;re stuck, ask for help.</li>
+<li>If you liked the challenge, try it again at home.</li>
+</ul>
+
+<p>Interesting how this simple &ldquo;etiquette&rdquo; helped to make what I consider one of the best dojos I&rsquo;ve participated so far.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Impressions from my first Pair Programming Tour</title>
+			<link>https://isanchez.net/posts/2009-10-27-impressions-from-my-first-pair-programming-tour/</link>
+			<pubDate>Tue, 27 Oct 2009 20:57:58 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2009-10-27-impressions-from-my-first-pair-programming-tour/</guid>
+			<description>It&amp;rsquo;s been exactly one week since I came back from Brazil and now it&amp;rsquo;s time to share some of what happened there. Like I said before, this tour supposed to be a &amp;ldquo;mini&amp;rdquo; tour of three days in companies from Florianópolis, city hosting the Agiles2009 conference. Here are some of my findings:
+It doesn&amp;rsquo;t take long to get to know a company My biggest fear was that the time wouldn&amp;rsquo;t be enough to really get to see people working, but fortunately I was proven wrong.</description>
+			<content type="html"><![CDATA[
+
+<p>It&rsquo;s been exactly one week since I came back from Brazil and now it&rsquo;s time to share some of what happened there. Like I <a href="http://isanchez.net/pair-programming-mini-tour-in-brazil.html">said before</a>, this tour supposed to be a &ldquo;mini&rdquo; tour of three days in companies from <a href="http://en.wikipedia.org/wiki/Florian%C3%B3polis">Florianópolis</a>, city hosting the <a href="http://www.agiles2009.org/">Agiles2009</a> conference. Here are some of my findings:</p>
+
+<h2 id="it-doesn-t-take-long-to-get-to-know-a-company">It doesn&rsquo;t take long to get to know a company</h2>
+
+<p>My biggest fear was that the time wouldn&rsquo;t be enough to really get to see people working, but fortunately I was proven wrong. Even in one of the companies where I didn&rsquo;t manage to actually code, in couple of hours I had a minimal knowledge to not feel lost at all. At the end I managed to visit three different companies and enjoy all of them in very distinct ways, which was great.</p>
+
+<h2 id="bureaucratic-companies-can-waste-your-time">Bureaucratic companies can waste your time</h2>
+
+<p>The company I had planned to visit on the last day wanted me to sign a <a href="http://en.wikipedia.org/wiki/Non-disclosure_agreement">Non-disclosure Agreement</a> before stepping into their doors. And although my contact was keen on the idea of having me there, they couldn&rsquo;t get the paper on time (or didn&rsquo;t want, I&rsquo;m still not sure) and the visit had to get cancelled. Luckily when I got the news I was already in my best friend&rsquo;s <a href="http://en.wikipedia.org/wiki/Micro_ISV">uISV</a> office and working with him turned out to be excellent. In the future I&rsquo;ll definitely skip bureaucratic environments.</p>
+
+<h2 id="every-company-has-cool-tricks-to-share">Every company has cool tricks to share</h2>
+
+<p>The best aspect of this tour was seeing all the interesting stuff those companies are doing in practice, rather than through papers, blog posts or talks. Although I had no idea of what I would see in those places, it has proven to be a very rich experience. Among the things I&rsquo;ve learned or played with are:</p>
+
+<ul>
+<li>Saw a lot of tricks for <a href="http://en.wikipedia.org/wiki/Search_engine_optimization">SEO</a> and how they made a difference for a website</li>
+<li>Participated in a &ldquo;internal workshop&rdquo;, where programmers have to talk about a topic they decided to study during the week (in that case, it was about <a href="http://www.lostechies.com/blogs/chad_myers/archive/2008/03/07/pablo-s-topic-of-the-month-march-solid-principles.aspx">SOLID principles</a>)</li>
+<li>Had a chance to pair program using <a href="http://www.pomodorotechnique.com/">Pomodoros</a> (I had only tried alone before)</li>
+<li>Saw a way to maintain custom versions of a software and incorporate client&rsquo;s specific requests</li>
+<li>Wrote my first lines of production code in C#</li>
+<li>Learned more about <a href="http://en.wikipedia.org/wiki/Web_scraping">web scraping</a></li>
+<li>Realised that the combination of espresso machine and table football in the office can be very addictive!</li>
+</ul>
+
+<h2 id="smart-companies-share-their-problems-too">Smart companies share their problems too</h2>
+
+<p>It wouldn&rsquo;t be polite putting here all the challenges these companies face or practices I don&rsquo;t particularly agree with but, trust me, they were really inspiring. What impressed me is that, maybe because of the nature of my visit, all the companies had no problem talking about or even showing the problems in their code/process, or even the short cuts they&rsquo;ve been taking to deliver their software. And hopefully my thoughts on these problems can help them somehow.</p>
+
+<h2 id="i-can-t-wait-to-do-it-again">I can&rsquo;t wait to do it again</h2>
+
+<p>At this point it&rsquo;s pretty obvious that I enjoyed the tour and hopefully I&rsquo;ll be able to repeat it soon. Maybe reserving more time for each company would be better, but even just for a couple of days experiencing a completely different work environment was definitely worthwhile.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Next time you check-in code, think about it</title>
+			<link>https://isanchez.net/posts/2009-10-22-next-time-you-check-in-code-think-about-it/</link>
+			<pubDate>Thu, 22 Oct 2009 15:18:13 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2009-10-22-next-time-you-check-in-code-think-about-it/</guid>
+			<description>Writing check-in messages is normally a reflection time for me. And lately I&amp;rsquo;ve been inclined to describe why I changed the code, instead of just describing what I&amp;rsquo;ve changed.
+I know I have to consider that all the time, but it can still serve as a last sanity check. It makes me think: &amp;ldquo;Am I really adding a valuable change to the codebase?&amp;rdquo;
+Do you agree with this approach? Think about it next time you check-in and then let me know in the comments.</description>
+			<content type="html"><![CDATA[<p>Writing check-in messages is normally a reflection time for me. And lately I&rsquo;ve been inclined to describe <strong>why</strong> I changed the code, instead of just describing what I&rsquo;ve changed.</p>
+
+<p>I know I have to consider that all the time, but it can still serve as a last sanity check. It makes me think: &ldquo;Am I really adding a valuable change to the codebase?&rdquo;</p>
+
+<p>Do you agree with this approach? Think about it next time you check-in and then let me know in the comments.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>The business minded programmer</title>
+			<link>https://isanchez.net/posts/2009-10-16-the-business-minded-programmer/</link>
+			<pubDate>Fri, 16 Oct 2009 01:49:41 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2009-10-16-the-business-minded-programmer/</guid>
+			<description>Most of recent software development approaches bring code closer to business. According to Agile we should write software with customer collaboration, responding to changes and constantly delivering business value.
+Lean is all about creating a flow of business value and removing waste. Even Domain-Driven Design advocates having an ubiquitous language between programmers and business people.
+It&amp;rsquo;s interesting how most of state-of-art approaches to software development are focusing on business, programming itself is still seen by many as a completely technical discipline.</description>
+			<content type="html"><![CDATA[<p>Most of recent software development approaches bring code closer to business. According to Agile we should write software with customer collaboration, responding to changes and constantly delivering business value.</p>
+
+<p>Lean is all about creating a flow of business value and removing waste. Even Domain-Driven Design advocates having an ubiquitous language between programmers and business people.</p>
+
+<p>It&rsquo;s interesting how most of state-of-art approaches to software development are focusing on business, programming itself is still seen by many as a completely technical discipline. In my point of view it&rsquo;s time for this to change.</p>
+
+<p>Here are some examples of useful things I believe all programmers should be concerned about these days:</p>
+
+<ul>
+<li>Understanding the company&rsquo;s vision and the business model where your software is supposed to fit;</li>
+<li>Knowing how to estimate and prioritise work based on criterion like return of investment (ROI) or competitive advantage;</li>
+<li>Learning about the business domain and becoming an expert in it;</li>
+<li>Questioning the business value of features before start coding;</li>
+<li>Being able to collaborate with whoever is envisioning the solution you&rsquo;re creating;</li>
+</ul>
+
+<p>All these skills represent a new challenge for programmers, and learning some of them can be more helpful than hacking the last open source framework out there.</p>
+
+<p>The best programmers I&rsquo;ve been in touch with lately seem to understand that and can explain not only how good their code is but how their organisations are taking advantage of their tricks.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Pair Programming (mini) Tour in Brazil</title>
+			<link>https://isanchez.net/posts/2009-09-29-pair-programming-mini-tour-in-brazil/</link>
+			<pubDate>Tue, 29 Sep 2009 15:44:31 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2009-09-29-pair-programming-mini-tour-in-brazil/</guid>
+			<description>Tomorrow I&amp;rsquo;m flying to Brazil and will have a chance to do do something I wanted for a long time: a pair programming tour. The goal is simple: work with people in their companies. Not speaking, consulting or running coding dojos. I want to experience the everyday routine, learning their ways and hopefully contributing with some of my skills too.
+This idea came from Corey Haines&amp;rsquo;s programming tours and the work of other craftsmen like Enrique Riepenhausen, Dave Hoover and Antony Marcano from PairWith.</description>
+			<content type="html"><![CDATA[<p>Tomorrow I&rsquo;m flying to Brazil and will have a chance to do do something I wanted for a long time: a pair programming tour. The goal is simple: work with people in their companies. Not speaking, consulting or running coding dojos. I want to experience the everyday routine, learning their ways and hopefully contributing with some of my skills too.</p>
+
+<p>This idea came from <a href="http://www.coreyhaines.com/">Corey Haines</a>&rsquo;s <a href="http://programmingtour.blogspot.com/">programming tours</a> and the work of other craftsmen like <a href="http://blog.nexwerk.com/">Enrique Riepenhausen</a>, <a href="http://nuts.redsquirrel.com/">Dave Hoover</a> and <a href="http://www.testingreflections.com/blog/2">Antony Marcano</a> from <a href="http://www.pairwith.us/">PairWith.us</a>.</p>
+
+<p>Hopefully it will be an interesting way to learn new tricks.</p>
+
+<p>Unfortunately I&rsquo;ll have only three days to accomplish my goal. The good news is that it took less than a day to be contacted by more companies that I&rsquo;ll be able to visit, which shows I&rsquo;m not the only one thinking this can be a very good experience.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>LRUG Coding Dojo</title>
+			<link>https://isanchez.net/posts/2009-09-14-lrug-coding-dojo/</link>
+			<pubDate>Mon, 14 Sep 2009 01:18:55 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2009-09-14-lrug-coding-dojo/</guid>
+			<description>This week I had the chance to help the guys from the London Ruby User Group running a coding dojo for ~50 people. It was the largest dojo I&amp;rsquo;ve been involved so far and it was really interesting.
+To allow everyone to participate, the attendees were divided in three groups: Ninjas, Pirates and Zombies. Each group would solve the minesweeper challenge using the randori approach and at the end each group had a chance to show their solutions.</description>
+			<content type="html"><![CDATA[<p>This week I had the chance to help the guys from the <a href="http://lrug.org/">London Ruby User Group</a> running a <a href="http://lrug.org/meetings/2009/08/18/september-2009-meeting/">coding dojo</a> for ~50 people. It was the largest dojo I&rsquo;ve been involved so far and it was really interesting.</p>
+
+<p>To allow everyone to participate, the attendees were divided in three groups: Ninjas, Pirates and Zombies. Each group would solve the <a href="http://codingdojo.org/cgi-bin/wiki.pl?back=KataMinesweeper">minesweeper challenge</a> using the <a href="http://codingdojo.org/cgi-bin/wiki.pl?back=RandoriKata">randori</a> approach and at the end each group had a chance to show their solutions.</p>
+
+<p>Another interesting approach for this dojo was providing a common set of cucumber stories to guide the development. <a href="http://blog.mattwynne.net/">Matt Wynne</a> wrote them and also provided a rake task to help keeping the TDD flow by encouraging people to solve the tests one-by-one (source code is available <a href="http://github.com/mattwynne/kata-minesweeper">here</a>). As a result, all the groups managed to solve the challenge in less than one hour, giving them enough time to experiment alternative solutions and refactorings.</p>
+
+<p>Although there was no general retrospective at the end of the session, reading the feedback on the <a href="http://lists.lrug.org/listinfo.cgi/chat-lrug.org">LRUG mailing list</a> it seems like people enjoyed the experience. Personally, I really liked the fact that everyone participated, probably because they&rsquo;re used to the language and tools and knew each other from previous LRUG meetings.</p>
+
+<p>Well, maybe is time to start organising public dojos again.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Don&#39;t try to redefine &#39;done&#39;</title>
+			<link>https://isanchez.net/posts/2009-08-30-dont-try-to-redefine-done/</link>
+			<pubDate>Sun, 30 Aug 2009 18:20:41 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2009-08-30-dont-try-to-redefine-done/</guid>
+			<description>Many people tried different ways to define what &amp;ldquo;done&amp;rdquo; means in a software project (as you can see here, here and here).
+My experience, however, is making me believe that the problem may be in the word itself.
+Saying something is &amp;ldquo;done&amp;rdquo; always creates different expectations depending on who we&amp;rsquo;re talking to. And having to create a specific definition for a word means it will only be valid for the people who agree on it, and as long as they remember it.</description>
+			<content type="html"><![CDATA[<p>Many people tried different ways to define what <strong>&ldquo;done&rdquo;</strong> means in a software project (as you can see <a href="http://www.scrumalliance.org/articles/105-what-is-definition-of-done-dod">here</a>, <a href="http://chrissterling.gettingagile.com/2007/10/05/building-a-definition-of-done/">here</a> and <a href="http://www.agile-software-development.com/2007/07/definition-of-done-10-point-checklist.html">here</a>).</p>
+
+<p>My experience, however, is making me believe that the problem may be in the word itself.</p>
+
+<p>Saying something is <strong>&ldquo;done&rdquo;</strong> always creates different expectations depending on who we&rsquo;re talking to. And having to create a specific definition for a word means it will only be valid for the people who agree on it, and as long as they remember it.</p>
+
+<p>The solution? Well, maybe we should simply be using a different word(s). For instance, my gut feeling is that <strong>&ldquo;ready&rdquo;</strong> could probably do a better job. The main reason is that it invites further questions (&ldquo;ready for what?&rdquo;), whereas done ceases the communication (&ldquo;if it&rsquo;s done, let&rsquo;s move on.&rdquo;).</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Coding dojo at the Agiles2009</title>
+			<link>https://isanchez.net/posts/2009-08-18-coding-dojo-at-the-agiles2009/</link>
+			<pubDate>Tue, 18 Aug 2009 03:37:42 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2009-08-18-coding-dojo-at-the-agiles2009/</guid>
+			<description>On October I&amp;rsquo;ll have another great reason to travel: running a coding dojo at the Latin-American Conference on Agile Development Methodologies (or simply Ágiles2009). And if having an event like that in back in Brazil wasn&amp;rsquo;t good enough, the conference will be in Florianópolis, the city where I studied and used to work before moving to London. How cool is that?
+For this session, it seems like once more the challenge will be how to prepare a session for more people than we&amp;rsquo;re used to.</description>
+			<content type="html"><![CDATA[<p>On October I&rsquo;ll have another great reason to travel: running a coding dojo at the <strong>Latin-American Conference on Agile Development Methodologies</strong> (or simply <a href="http://www.agiles2009.org/en/session.php?id=63">Ágiles2009</a>). And if having an event like that in back in Brazil wasn&rsquo;t good enough, the conference will be in <a href="http://en.wikipedia.org/wiki/Florian%C3%B3polis">Florianópolis</a>, the city where I studied and used to work before moving to London. How cool is that?</p>
+
+<p>For <a href="http://www.agiles2009.org/en/session.php?id=63">this session</a>, it seems like once more the challenge will be how to prepare a session for more people than we&rsquo;re used to. So <a href="http://malditacomedia.blogspot.com/">Victor Hugo</a> and I still have to come up with something special for this occasion.</p>
+
+<p>Anyway, If you&rsquo;re lucky enough to be around at the conference, please don&rsquo;t hesitate and come say hi :)</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Stand-up meeting smells</title>
+			<link>https://isanchez.net/posts/2009-06-04-stand-up-meeting-smells/</link>
+			<pubDate>Thu, 04 Jun 2009 04:13:14 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2009-06-04-stand-up-meeting-smells/</guid>
+			<description>After working with stand-up meetings for a while I feel that this practice acts like a thermometer for an agile team. As a constant status report, it demonstrates how most of the other practices are being applied and how good is the team communication in general.
+That&amp;rsquo;s why I believe is important to be conscious about what happens during them. A stand-up meeting may hide problems if:
+ It doesn&amp;rsquo;t have an exact time to start It doesn&amp;rsquo;t happen because someone is not present It&amp;rsquo;s a trigger for technical discussions It&amp;rsquo;s not focused on to the plan It doesn&amp;rsquo;t contribute to continuous improvement It&amp;rsquo;s a report for a single person, not the team People don&amp;rsquo;t stay close to each other It&amp;rsquo;s frequently interrupted It doesn&amp;rsquo;t include the whole team People don&amp;rsquo;t remember what they did on the last day It&amp;rsquo;s moment where most of the problems are raised It takes more than 15 minutes It doesn&amp;rsquo;t happen every day It doesn&amp;rsquo;t feel good  These are all simple issues which can easily be addressed.</description>
+			<content type="html"><![CDATA[<p>After working with stand-up meetings for a while I feel that this practice acts like a thermometer for an agile team. As a constant status report, it demonstrates how most of the other practices are being applied and how good is the team communication in general.</p>
+
+<p>That&rsquo;s why I believe is important to be conscious about what happens during them. A stand-up meeting may hide problems if:</p>
+
+<ul>
+<li>It doesn&rsquo;t have an exact time to start</li>
+<li>It doesn&rsquo;t happen because someone is not present</li>
+<li>It&rsquo;s a trigger for technical discussions</li>
+<li>It&rsquo;s not focused on to the plan</li>
+<li>It doesn&rsquo;t contribute to continuous improvement</li>
+<li>It&rsquo;s a report for a single person, not the team</li>
+<li>People don&rsquo;t stay close to each other</li>
+<li>It&rsquo;s frequently interrupted</li>
+<li>It doesn&rsquo;t include the whole team</li>
+<li>People don&rsquo;t remember what they did on the last day</li>
+<li>It&rsquo;s moment where most of the problems are raised</li>
+<li>It takes more than 15 minutes</li>
+<li>It doesn&rsquo;t happen every day</li>
+<li>It doesn&rsquo;t feel good</li>
+</ul>
+
+<p>These are all simple issues which can easily be addressed. In fact, most of the items on this list are discussed on <a href="http://martinfowler.com/articles/itsNotJustStandingUp.html">Jason Yip&rsquo;s article</a> about stand-up patterns. The most important thing is that it may as well be the a good starting point to identify and improve other aspects of a project.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>ThoughtWorks office in Brazil</title>
+			<link>https://isanchez.net/posts/2009-06-03-thoughtworks-office-in-brazil/</link>
+			<pubDate>Wed, 03 Jun 2009 14:57:34 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2009-06-03-thoughtworks-office-in-brazil/</guid>
+			<description>On the last April&amp;rsquo;s fool, Philip Calcado announced that ThoughtWorks was about to start an office in Brazil.
+At few months later and this message on Martin Fowler&amp;rsquo;s twitter proves the affirmation was not that far from reality:
+ &amp;ldquo;My colleague Sid Pinney is investigating setting up a ThoughtWorks office in Brazil - talk to him at [&amp;hellip;]&amp;rdquo;
+ The interesting thing about this is not the fact itself, but the reaction it&amp;rsquo;s causing.</description>
+			<content type="html"><![CDATA[<p>On the last April&rsquo;s fool, Philip Calcado announced that <a href="http://www.thoughtworks.com/">ThoughtWorks</a> was about to <a href="http://blog.fragmental.com.br/2009/04/01/anunciando-a-thoughtworks-brazil/">start an office in Brazil</a>.</p>
+
+<p>At few months later and this message on <a href="http://twitter.com/martinfowler/status/2009304330">Martin Fowler&rsquo;s twitter</a> proves the affirmation was not that far from reality:</p>
+
+<blockquote>
+<p>&ldquo;My colleague Sid Pinney is investigating setting up a ThoughtWorks office in Brazil - talk to him at [&hellip;]&rdquo;</p>
+</blockquote>
+
+<p>The interesting thing about this is not the fact itself, but the reaction it&rsquo;s causing. Not only dozens of Brazilian developers are forwarding the message, but there are peoplealreadyasking how they can join the company.</p>
+
+<p>The biggest strength of TW is their ability to attract good developers by having on their staff people who influence the whole software development community. In my opinion that&rsquo;s the result of a good recruitment process and giving opportunity for employees to publish and work on their own projects.</p>
+
+<p>I really hope they open a company there because, as far as I know, very few companies have this kind of culture in Brazil. Open a company there and they can probably have the best developers around.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>The three stone cutters</title>
+			<link>https://isanchez.net/posts/2009-06-03-the-three-stone-cutters/</link>
+			<pubDate>Wed, 03 Jun 2009 14:25:26 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2009-06-03-the-three-stone-cutters/</guid>
+			<description>The following parable has made me think about the different views on the software development work:
+ A traveler came across three individuals working with stones. When asked about what he was doing, the first one replied, &amp;ldquo;I&amp;rsquo;m a stone cutter. I cut stones because I need the money to support my family&amp;rdquo;.
+The traveler then decided to ask the second worker, who answered, &amp;ldquo;I&amp;rsquo;m a great stone cutter. I can use all my techniques to produce the best shaped stone&amp;rdquo;.</description>
+			<content type="html"><![CDATA[<p>The following parable has made me think about the different views on the software development work:</p>
+
+<blockquote>
+<p>A traveler came across three individuals working with stones. When asked about what he was doing, the first one replied, &ldquo;<strong>I&rsquo;m a stone cutter. I cut stones because I need the money to support my family</strong>&rdquo;.</p>
+
+<p>The traveler then decided to ask the second worker, who answered, &ldquo;<strong>I&rsquo;m a great stone cutter. I can use all my techniques to produce the best shaped stone</strong>&rdquo;.</p>
+
+<p>Surprised by the two distinct responses, the traveler finally asks the third man what he was doing. The worker stopped for a moment and then said, &ldquo;<strong>I&rsquo;m a stone cutter and I&rsquo;m building a cathedral</strong>&rdquo;.</p>
+</blockquote>
+
+<p>Sometimes I have this feeling that we as professionals are frequently trying to be more like the second stone cutter than the the third one. Am I the only one?</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Ruby coding dojo this week</title>
+			<link>https://isanchez.net/posts/2009-04-20-ruby-coding-dojo-this-week/</link>
+			<pubDate>Mon, 20 Apr 2009 07:19:59 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2009-04-20-ruby-coding-dojo-this-week/</guid>
+			<description>This Wednesday (April 22nd) we&amp;rsquo;ll have another coding dojo at Skillsmatter. This time the challenge will be the Poker Hands:
+ [&amp;hellip;] Your job is to compare several pairs of poker hands and to indicate which, if either, has a higher rank.
+ Here&amp;rsquo;s some initial code generated at a previous dojo that may serve as starting point for the solution. The session format will be a Randori, which means everyone is welcome to code.</description>
+			<content type="html"><![CDATA[<p>This Wednesday (April 22nd) we&rsquo;ll have another coding dojo at Skillsmatter. This time the challenge will be the <a href="http://acm.uva.es/p/v103/10315.html">Poker Hands</a>:</p>
+
+<blockquote>
+<p>[&hellip;] Your job is to compare several pairs of poker hands and to indicate which, if either, has a higher rank.</p>
+</blockquote>
+
+<p><a href="http://github.com/codingdojolondon/sessions/tree/ac6bcb7e3f2f198b61d9b8e2af84e31e99a98fd0/poker_hands">Here</a>&rsquo;s some initial code generated at a previous dojo that may serve as starting point for the solution. The session format will be a <a href="http://codingdojo.org/cgi-bin/wiki.pl?RandoriKata">Randori</a>, which means everyone is welcome to code.</p>
+
+<p>As usual, registration is required and should be done at <a href="http://skillsmatter.com/event/agile-scrum/coding-dojo-233">Skillsmatter&rsquo;s website</a>. If you have any questions or suggestions for this session please feel free to participate in the <a href="http://groups.google.com/group/coding-dojo-london">Coding Dojo London mailing list</a>.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Dodging booleans</title>
+			<link>https://isanchez.net/posts/2009-04-11-dodging-booleans/</link>
+			<pubDate>Sat, 11 Apr 2009 19:12:09 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2009-04-11-dodging-booleans/</guid>
+			<description>Reading Mark Needham&amp;rsquo;s post about how inexpressive an API can be when using booleans in method parameters, another clear example came to my mind.
+A few weeks ago we were using a method similar to the following:
+public List listUsers(boolean showDisabled); We&amp;rsquo;d expect that once you call this method passing false, it would return all enabled users and if the parameter is true it included all the disabled users in this list, right?</description>
+			<content type="html"><![CDATA[<p>Reading <a href="http://www.markhneedham.com/blog/2009/04/08/coding-passing-booleans-into-methods/">Mark Needham&rsquo;s post</a> about how inexpressive an API can be when using booleans in method parameters, another clear example came to my mind.</p>
+
+<p>A few weeks ago  we were using a method similar to the following:</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nf">List</span> <span class="n">listUsers</span><span class="p">(</span><span class="kt">boolean</span> <span class="nf">showDisabled</span><span class="p">);</span></code></pre></div>
+<p>We&rsquo;d expect that once you call this method passing false, it would return all enabled users and if the parameter is true it included all the disabled users in this list, right? Well, not exactly.</p>
+
+<p>Only when we tried passing true we discovered it actually listed ONLY the disabled users. And unfortunately it was simply impossible to predict this behavior by reading the interface.</p>
+
+<p>What if we used a better representation for this boolean instead?</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nf">enum</span> <span class="n">UserFilter</span> <span class="p">{</span>
+    <span class="n">ENABLED_ONLY</span><span class="p">,</span> <span class="n">DISABLED_ONLY</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div>
+<p>And the interface now would look like:</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nf">List</span> <span class="n">listUsers</span><span class="p">(</span><span class="n">UserFilter</span> <span class="nf">filter</span><span class="p">);</span></code></pre></div>
+<p>Notice that I didn&rsquo;t change any behavior, but now it&rsquo;s clear what this method call will return:</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">myUsers</span> <span class="o">=</span> <span class="n">service</span><span class="p">.</span><span class="na">listUsers</span><span class="p">(</span><span class="n">UserFilter</span><span class="p">.</span><span class="na">ENABLED_ONLY</span><span class="p">);</span></code></pre></div>
+<p>Besides, if we were really interested in having a list including ALL the users, we could easily extend the filter without having to change the original method or loosing in readability.</p>
+
+<p>The problem with booleans is that they are intentionally inexpressive. They are an essential part of our code when it comes to evaluate conditions and control the flow of execution, but when it comes to define domain-specific concepts, my gut feeling says in most cases they should be avoided.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Language wars</title>
+			<link>https://isanchez.net/posts/2009-04-09-language-wars/</link>
+			<pubDate>Thu, 09 Apr 2009 03:19:21 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2009-04-09-language-wars/</guid>
+			<description>Is it just me who&amp;rsquo;s loving this whole Ruby vs. Scala debate going on lately? So far it shows that:
+ No language can prevent bad code. There will be never an ultimate language, but there will always be people to defend the one they are using. Java (the language, not the platform) is dead.  I know it&amp;rsquo;s not the first time we have a language war and I have to confess I was missing that a little.</description>
+			<content type="html"><![CDATA[<p>Is it just me who&rsquo;s loving this whole <a href="http://topsecretproject.finitestatemachine.com/2009/04/the-great-twitter-ruby-vs-scala-war-debate/">Ruby vs. Scala</a> debate going on lately? So far it shows that:</p>
+
+<ul>
+<li>No language can prevent bad code.</li>
+<li>There will be never an ultimate language, but there will always be people to defend the one they are using.</li>
+<li>Java (the language, not the platform) is dead.</li>
+</ul>
+
+<p>I know it&rsquo;s not the first time we have a language war and I have to confess I was missing that a little. Years ago it was Visual Basic vs. Delphi, then C++ vs Java, now it&rsquo;s <a href="http://search.twitter.com/search?q=ruby+scala">Ruby vs. Scala</a>.</p>
+
+<p>And I have to confess: I&rsquo;m already curious to see what will be the next one.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Refactoring dojo at Skillsmatter</title>
+			<link>https://isanchez.net/posts/2009-03-19-refactoring-dojo-at-skillsmatter/</link>
+			<pubDate>Thu, 19 Mar 2009 19:39:57 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2009-03-19-refactoring-dojo-at-skillsmatter/</guid>
+			<description>For this dojo, instead of working on a challenge from scratch, we&amp;rsquo;ll start from an existing solution and try to improve it.
+The starting point will be the Minesweeper implementation created on a previous coding dojo. It contains only 272 lines of Java code (source + tests) and a lot of room for improvement.
+Some guidelines for the session:
+ Two programmers will work on the code for 7 minutes. After this period, one of them switch his place with someone from the audience.</description>
+			<content type="html"><![CDATA[<p>For this dojo, instead of working on a challenge from scratch, we&rsquo;ll start from an existing solution and try to improve it.</p>
+
+<p>The starting point will be the <a href="http://isanchez.net/2009/03/04/links-and-slides-from-my-session-at-the-software-craftsmanship-2009/">Minesweeper implementation</a> created on a previous coding dojo. It contains only 272 lines of <strong>Java</strong> code (source + tests) and a lot of room for improvement.</p>
+
+<p>Some guidelines for the session:</p>
+
+<ul>
+<li>Two programmers will work on the code for 7 minutes. After this period, one of them switch his place with someone from the audience.</li>
+<li>The pair decides their next step and make sure the audience understand what they&rsquo;re doing. Discussion with the audience is acceptable, but the final word is always from the pair.</li>
+<li>The pair should follow the <a href="http://butunclebob.com/ArticleS.UncleBob.TheThreeRulesOfTdd">3 Rules of TDD</a>:
+
+<ul>
+<li>You are not allowed to write any production code unless it is to make a failing unit test pass.</li>
+<li>You are not allowed to write any more of a unit test than is sufficient to fail; and compilation failures are failures.</li>
+<li>You are not allowed to write any more production code than is sufficient to pass the one failing unit test.</li>
+</ul></li>
+<li>At the end there will be a retrospective to identify all the lessons learned.</li>
+</ul>
+
+<p>This coding dojo will take place on the 25th March and to participate you need to register at the <a href="http://skillsmatter.com/event/ajax-ria/coding-dojo-231">session page on the Skillsmatter website</a>. If you want to start playing with the code now, it can be downloaded <a href="http://isanchez.net/files/codingdojo_swc2009_src.zip">here</a>.</p>
+
+<p>See you there!</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Time to raise the bar</title>
+			<link>https://isanchez.net/posts/2009-03-08-time-to-raise-the-bar/</link>
+			<pubDate>Sun, 08 Mar 2009 08:02:11 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2009-03-08-time-to-raise-the-bar/</guid>
+			<description>We had some years to digest the Agile Manifesto. Now it seems like the next step is being defined in the Software Craftsmanship Manifesto:
+ As aspiring Software Craftsmen we are raising the bar of professional software development by practicing it and helping others learn the craft. Through this work we have come to value:
+ Not only working software, but also well-crafted software Not only responding to change, but also steadily adding value Not only individuals and interactions, but also a community of professionals Not only customer collaboration, but also productive partnerships  That is, in pursuit of the items on the left we have found the items on the right to be indispensable.</description>
+			<content type="html"><![CDATA[<p>We had some years to digest the <a href="http://agilemanifesto.org/">Agile Manifesto</a>. Now it seems like the next step is being defined in the <a href="http://manifesto.softwarecraftsmanship.org/main">Software Craftsmanship Manifesto</a>:</p>
+
+<blockquote>
+<p>As aspiring Software Craftsmen we are raising the bar of professional software development by practicing it and helping others learn the craft.  Through this work we have come to value:</p>
+
+<ul>
+<li>Not only working software, but also <strong>well-crafted software</strong></li>
+<li>Not only responding to change, but also <strong>steadily adding value</strong></li>
+<li>Not only individuals and interactions, but also a <strong>community of professionals</strong></li>
+<li>Not only customer collaboration, but also <strong>productive partnerships</strong></li>
+</ul>
+
+<p>That is, in pursuit of the items on the left we have found the items on the right to be indispensable.</p>
+</blockquote>
+
+<p>We&rsquo;ve been learning to produce better software for a long time so it seems natural to start asking ourselves to be more <strong>responsible</strong> about what and how we deliver it.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Some reflection about frameworks</title>
+			<link>https://isanchez.net/posts/2009-03-06-some-reflection-about-frameworks/</link>
+			<pubDate>Fri, 06 Mar 2009 04:23:27 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2009-03-06-some-reflection-about-frameworks/</guid>
+			<description>One of the highlights of the Software Craftsmanship Conference 2009 came from outside the original programme. Someone had the excellent idea of proposing the following topic for an open space session: &amp;ldquo;Why I hate frameworks&amp;rdquo;. It was enough to get my attention and before I realised the room was so full that people had to sit on the floor to be able to participate.
+The discussion obviously started with frameworks for Java.</description>
+			<content type="html"><![CDATA[<p>One of the highlights of the <a href="http://parlezuml.com/softwarecraftsmanship/">Software Craftsmanship Conference 2009</a> came from outside the original programme. Someone had the excellent idea of proposing the following topic for an open space session: &ldquo;Why I hate frameworks&rdquo;. It was enough to get my attention and before I realised the room was so full that people had to sit on the floor to be able to participate.</p>
+
+<p>The discussion obviously started with frameworks for Java. It seems everyone agrees that the enterprise culture of Java introduced a huge amount of tools many developers can&rsquo;t live without even though their actual benefits are at least questionable. The next question then was whether developers should be so dependent on such tools.</p>
+
+<p>On one side they allow them to think on an higher level of abstraction and follow standards shared by many other professionals. As consequence it becomes easier to find people to work on these projects, specially if the most popular frameworks were chosen.</p>
+
+<p>On the other hand, this approach produces a great number of programmers who only know how to work with those specific tools without even understanding the problems that are actually being solved. Then it becomes harder and harder to evaluate if a framework make people produce more and better.</p>
+
+<p>A point most people agreed is that in some cases frameworks just move the complexity from one place to another, and the productivity at the end doesn&rsquo;t pay off. And in many cases when people start facing the problems brought by a framework it&rsquo;s normally at a stage where abandonning it means almost recreating the whole system from scratch.</p>
+
+<p>The fact that many projects are trapped by frameworks brought up the question whether developers should be looking for libraries instead. It seems there&rsquo;s a lack of libraries because people prefer to develop their solutions integrated to frameworks and then reach a bigger community instead of just solving a problem in isolation and letting programmers mix and match tools to use.</p>
+
+<p>At the end of the session there was no real conclusion on how justifiable is the hate towards framework. Instead, there was a common sentiment that programmers should be more responsible when choosing frameworks. And maybe a clear list of problems they are solving and comparing them with the new challenges they bring may be a good starting point.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Links and slides from my session at the Software Craftsmanship 2009</title>
+			<link>https://isanchez.net/posts/2009-03-04-links-and-slides-from-my-session-at-the-software-craftsmanship-2009/</link>
+			<pubDate>Wed, 04 Mar 2009 16:28:06 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2009-03-04-links-and-slides-from-my-session-at-the-software-craftsmanship-2009/</guid>
+			<description>This session was a mix of talk and coding dojo, in order to give a hands on experience following the rest of this conference&amp;rsquo;s approach. As a result, this 45-minute dojo became the shortest coding dojo I&amp;rsquo;ve organised so far.
+It was also the first time I&amp;rsquo;ve tried to start a dojo with an existing piece of code. This code was simple, incomplete, naive and desperately asking for refactoring. It helped keeping the session flow since the first minute, mainly because it took only a couple of seconds for the first pair to learn the code and figure out ways to improve it.</description>
+			<content type="html"><![CDATA[<p>This session was a mix of talk and coding dojo, in order to give a hands on experience following the rest of this conference&rsquo;s approach. As a result, this 45-minute dojo became the shortest coding dojo I&rsquo;ve organised so far.</p>
+
+<p>It was also the first time I&rsquo;ve tried to start a dojo with an existing piece of code. This code was simple, incomplete, naive and desperately asking for refactoring. It helped keeping the session flow since the first minute, mainly because it took only a couple of seconds for the first pair to learn the code and figure out ways to improve it.</p>
+
+<p>One fact that surprised me as well was how most of the 20 people present was afraid of participate. Being at a craftsmen conference and knowing the benefits of the coding dojo, I really expected people would compete for a chance to show their skills. At our regular dojos people work in harder problems and new languages and still don&rsquo;t get intimidated. Well, maybe it takes some time to overcome the fear of coding in public.</p>
+
+<p>This session also confirmed my theory that the Minesweeper problem is really one of the best to introduce a coding dojo to new people: it involves simple algorithms, simple data structures and has plenty of room to apply basic OOP and TDD techniques.</p>
+
+<p>Finally, here are some other resources from the session:</p>
+
+<ul>
+<li><a href="http://isanchez.net/files/codingdojo_swc2009.pdf">Slides</a> (quick introduction to coding dojo + randori rules)</li>
+<li><a href="http://acm.uva.es/p/v101/10189.html">Minesweeper</a> problem description</li>
+<li><a href="http://isanchez.net/files/codingdojo_swc2009_src.zip">Source code</a> - initial and final code generated at the session; download and keep playing with it.</li>
+</ul>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Next coding dojo</title>
+			<link>https://isanchez.net/posts/2009-03-02-next-coding-dojo-2/</link>
+			<pubDate>Mon, 02 Mar 2009 21:08:26 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2009-03-02-next-coding-dojo-2/</guid>
+			<description>The next open coding dojo at Skillsmatter will happen on 9th March (Monday).
+The registration is already open and the discussion about the coding challenge will take place on the mailing list.</description>
+			<content type="html"><![CDATA[<p>The next open coding dojo at <a href="http://www.skillsmatter.com">Skillsmatter</a> will happen on <strong>9th March (Monday)</strong>.</p>
+
+<p>The registration is already <a href="http://skillsmatter.com/event/agile-scrum/coding-dojo-230">open</a> and the discussion about the coding challenge will take place on the <a href="http://groups.google.com.br/group/coding-dojo-london">mailing list</a>.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Coding dojo at the Software Craftsmanship 2009</title>
+			<link>https://isanchez.net/posts/2009-02-23-coding-dojo-at-the-software-craftsmanship-2009/</link>
+			<pubDate>Mon, 23 Feb 2009 16:58:20 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2009-02-23-coding-dojo-at-the-software-craftsmanship-2009/</guid>
+			<description>Next Thursday I&amp;rsquo;ll be running a coding dojo at the Software Craftsmanship 2009. My goal is to discuss why people should organise dojos at their companies and learn more about alternative approaches people are using to improve programming skills.
+It seems like it&amp;rsquo;ll be an interesting event:
+ This conference is all about the principles and practices, and the disciplines and habits, that distinguish the best 10% of software professionals from the 90% who are failing their customers and failing their profession by taking no care or pride in their work and delivering buggy, unreliable and unmaintainable code.</description>
+			<content type="html"><![CDATA[<p>Next Thursday I&rsquo;ll be running a coding dojo at the <a href="http://parlezuml.com/softwarecraftsmanship/">Software Craftsmanship 2009</a>. My goal is to discuss <a href="http://www.isanchez.net/archive/5-reasons-to-have-a-coding-dojo-at-your-company.html">why people should organise dojos at their companies</a> and learn more about alternative approaches people are using to improve programming skills.</p>
+
+<p>It seems like it&rsquo;ll be an interesting event:</p>
+
+<blockquote>
+<p>This conference is all about the principles and practices, and the disciplines and habits, that distinguish the best 10% of software           professionals from the 90% who are failing their customers and              failing their profession by taking no care or pride in their work and delivering buggy, unreliable and unmaintainable code.</p>
+</blockquote>
+
+<p>If you managed to save your spot (registration are now closed), see you there!</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Next coding dojo</title>
+			<link>https://isanchez.net/posts/2009-02-10-next-coding-dojo/</link>
+			<pubDate>Tue, 10 Feb 2009 05:54:30 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2009-02-10-next-coding-dojo/</guid>
+			<description>For the people wanting to practice their programming skills, the next open coding dojo will be this Thursday (12th) at the Skillsmatter office.
+After presenting a very interesting kata on the last session, Danilo Sato will be facilitating this dojo.
+Don&amp;rsquo;t forget to register on their website and join our mailing list if you want to know more about the challenge and the session format for this session.</description>
+			<content type="html"><![CDATA[<p>For the people wanting to practice their programming skills, the next <strong>open coding dojo</strong> will be this Thursday (12th) at the <a href="http://skillsmatter.com/">Skillsmatter</a> office.</p>
+
+<p>After presenting a <a href="http://isanchez.net/2009/01/30/one-kata-and-a-lot-of-tricks/">very interesting kata</a> on the last session, <a href="http://dtsato.com/blog">Danilo Sato</a> will be facilitating this dojo.</p>
+
+<p>Don&rsquo;t forget to <a href="http://skillsmatter.com/event/agile-scrum/coding-dojo-228">register</a> on their website and join <a href="http://groups.google.com/group/coding-dojo-london">our mailing list</a> if you want to know more about the challenge and the session format for this session.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Next open coding dojos</title>
+			<link>https://isanchez.net/posts/2009-01-16-next-open-coding-dojos/</link>
+			<pubDate>Fri, 16 Jan 2009 01:32:13 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2009-01-16-next-open-coding-dojos/</guid>
+			<description>Yesterday we had our first dojo in 2009 and once more people asked me when are the next sessions. So here they are:
+ Wednesday, January 28th Thursday, February 12th Wednesday, February 25th Monday, March 9th Wednesday, March 25th  The dates may change (they already did), so that&amp;rsquo;s one more reason to join our group or [subscribe to this blog]() to be informed if that happens.</description>
+			<content type="html"><![CDATA[<p>Yesterday we had our <a href="http://skillsmatter.com/podcast/agile-scrum/coding-dojo">first dojo in 2009</a> and once more people asked me when are the next sessions. So here they are:</p>
+
+<ul>
+<li>Wednesday, January 28th</li>
+<li>Thursday, February 12th</li>
+<li>Wednesday, February 25th</li>
+<li>Monday, March 9th</li>
+<li>Wednesday, March 25th</li>
+</ul>
+
+<p>The dates may change (they already did), so that&rsquo;s one more reason to <a href="http://groups.google.com/group/coding-dojo-london">join our group</a> or [subscribe to this blog]() to be informed if that happens.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Programming by Intention</title>
+			<link>https://isanchez.net/posts/2008-12-06-programming-by-intention/</link>
+			<pubDate>Sat, 06 Dec 2008 12:54:55 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2008-12-06-programming-by-intention/</guid>
+			<description>In an area dominated by acronyms like DRY, YAGNI, FIRST, SMART, KISS or catchy expressions such as Fake It Till You Make It and Baby Steps, a very important practice which is becoming forgotten is Programming By Intention:
+ This is the practice of pretending that classes, functions, procedures etc. exist (even though they do not) as you structure and write your code. This helps a developer think about the overall process and larger steps of software rather than the small details.</description>
+			<content type="html"><![CDATA[<p>In an area dominated by acronyms like <a href="http://en.wikipedia.org/wiki/Don%27t_repeat_yourself">DRY</a>, <a href="http://c2.com/xp/YouArentGonnaNeedIt.html">YAGNI</a>, <a href="http://blog.objectmentor.com/articles/2008/03/06/tdd-on-three-index-cards">FIRST</a>, <a href="http://xp123.com/xplor/xp0308/index.shtml">SMART</a>, <a href="http://en.wikipedia.org/wiki/KISS_principle">KISS</a> or catchy expressions such as <a href="http://en.wikipedia.org/wiki/Fake_it_till_you_make_it">Fake It Till You Make It</a> and <a href="http://agilesoftwaredevelopment.com/baby-steps">Baby Steps</a>, a very important practice which is becoming forgotten is <a href="http://www.ehow.com/how_2001455_write-effective-object-oriented-code.html">Programming By Intention</a>:</p>
+
+<blockquote>
+<p>This is the practice of pretending that classes, functions, procedures etc. exist (even though they do not) as you structure and write your code. This helps a developer think about the overall process and larger steps of software rather than the small details.</p>
+</blockquote>
+
+<p>Although it may sound a little weird, the definition above really points to essence of this practice: pretending a piece of code is there to help you focus on the bigger picture. It forces us to think about what we&rsquo;re trying to achieve instead of going into all the details first. And this small change in priorities makes a huge difference.</p>
+
+<p>As <a href="http://en.wikipedia.org/wiki/Critical_thinking">critical thinkers</a> we are always breaking the problem into smaller pieces and trying to put them together like a puzzle. And sometimes we decide to build these pieces one by one in sequence, and not by importance. By adopting this approach we lose great opportunities to learn early about the solution we&rsquo;re building. We also lose time refactoring and  throwing out code when we realise the pieces could be arranged in a simpler or more understandable way.</p>
+
+<p>And that&rsquo;s where the beauty of <a href="http://www.xprogramming.com/xpmag/acsIntention.htm">Programming By Intention</a> lies: it effectively helps us to make sure we&rsquo;re solving the problem first, and writing all the support for the solution later.</p>
+
+<p>And that&rsquo;s why I wish there was a buzzword for it too.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Impressions of the first open coding dojo at Skillsmatter</title>
+			<link>https://isanchez.net/posts/2008-12-06-impressions-of-the-first-open-coding-dojo/</link>
+			<pubDate>Sat, 06 Dec 2008 03:28:31 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2008-12-06-impressions-of-the-first-open-coding-dojo/</guid>
+			<description>Last Monday we had our first open coding dojo at Skillsmatter. Although we didn&amp;rsquo;t manage to decide all the details beforehand on the mailing list, I believe it worked pretty well for a first session.
+With 11 people attending, this dojo was challenging in different ways. The problem we tried to solve was the BankOCR, which only two or three people had tried to solve beforehand. The language was Ruby, which most people didn&amp;rsquo;t have tried before.</description>
+			<content type="html"><![CDATA[<p>Last Monday we had our <a href="http://skillsmatter.com/event/agile-scrum/first-coding-dojo">first open coding dojo</a> at Skillsmatter. Although we didn&rsquo;t manage to decide all the details beforehand on the <a href="http://groups.google.com/group/coding-dojo-london">mailing list,</a> I believe it worked pretty well for a first session.</p>
+
+<p>With 11 people attending, this dojo was challenging in different ways. The problem we tried to solve was the <a href="http://codingdojo.org/cgi-bin/wiki.pl?back=KataBankOCR">BankOCR</a>, which only two or three people had tried to solve beforehand. The language was Ruby, which most people didn&rsquo;t have tried before. And the environment was MacBook+TextMate, which was also something new for almost everyone there.</p>
+
+<p>The <a href="http://codingdojo.org/cgi-bin/wiki.pl?back=RandoriKata">randori</a> started right after we had some time to read the problem description and had a minimal discussion on how to approach it. The pairs were rotating every 5 minutes and we manage to code for almost 1 and a half hour before running a quick retrospective at the end.</p>
+
+<p>Most of the attendees had been in dojos before, which made things run smoothly most of the time. On the other hand some people felt a bit lost during the session, and that was one of the first things brought up during the retrospective. To avoid that in the the next sessions I&rsquo;ll be in charge of doing a better introduction  to the newcomers about the dojo and its rules.</p>
+
+<p>At some points people also had problems with the keyboard from the Mac, which is something that could be easily avoided and hopefully won&rsquo;t be a problem next time.</p>
+
+<p>From my point of view, one of the highest points during the retrospective was when someone brought to attention the fact that people tend to radically change the approach of the implementation once is their time to actually code. <a href="http://rnalexander.wordpress.com">Ryan</a>&rsquo;s insight was that from many perspectives the dojo is very similar to <a href="http://en.wikipedia.org/wiki/Improv_comedy#Improv_process">improvisational comedy</a>: the current state of the code has be used as a source of inspiration and giving it continuation will definitely keep the audience involved. In simple terms: go with the flow!</p>
+
+<p>In general I was very pleased by the reactions at the end of the session and specially the discussions we had in the pub afterwards.</p>
+
+<p>The generated source from this session is available on the <a href="http://github.com/codingdojolondon/sessions/tree/master/ocr">dojo&rsquo;s repository on github</a>. There is not a lot there, but it may be interesting for people to continue that implementation and keep discussing it on the <a href="http://groups.google.com/group/coding-dojo-london">mailing list</a>.</p>
+
+<p>Although I didn&rsquo;t manage to do it this time, the idea is to discuss the problem and the session style in the list and then publish on the <a href="http://skillsmatter.com/">Skillsmatter website</a> before the event, so people who are not in the list yet can have more details about what we&rsquo;re planning to do. If you decide to <a href="http://groups.google.com/group/coding-dojo-london/subscribe">join</a> now make sure you check the <a href="http://groups.google.com/group/coding-dojo-london/topics">previous topics</a> to know what&rsquo;s going on.</p>
+
+<p>The next session will be on 14 January and <a href="http://skillsmatter.com/event/agile-scrum/coding-dojo">the registration is already open</a>. See you guys next time!</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>It&#39;s all about making yourself accountable</title>
+			<link>https://isanchez.net/posts/2008-11-15-its-all-about-making-yourself-accountable/</link>
+			<pubDate>Sat, 15 Nov 2008 19:01:54 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2008-11-15-its-all-about-making-yourself-accountable/</guid>
+			<description>How do you tell if a team is agile? If the last years trying to follow the principles of the manifesto taught me something is that in a good software project people want to be accountable.
+We&amp;rsquo;re knowledge workers. What we deliver is a direct result of the perception of the problems we are exposed to. Yet, there are a lot of people trying to escape from the responsibilities our job requires.</description>
+			<content type="html"><![CDATA[<p>How do you tell if a team is agile? If the last years trying to follow the principles of the <a href="http://www.agilemanifesto.org">manifesto</a> taught me something is that <strong>in a good software project people want to be accountable</strong>.</p>
+
+<p>We&rsquo;re knowledge workers. What we deliver is a direct result of the perception of the problems we are exposed to. Yet, there are a lot of people trying to escape from the responsibilities our job requires.</p>
+
+<p>Some of these responsibilities include:</p>
+
+<ul>
+<li>Design decisions (TDD)</li>
+<li>Impact of our changes on the rest of the project (CI)</li>
+<li>Sharing knowledge and the code where it&rsquo;s represented (PP/Standards)</li>
+<li>Making sure what is delivered has any value (Reviews/Frequent Releases)</li>
+</ul>
+
+<p>In this context there&rsquo;s no room for <a href="http://en.wikipedia.org/wiki/Peon#Peonage">peonage</a>. Our job is basically to make decisions all the time and being agile is about making sure we can answer (and answer well!) for our actions.</p>
+
+<p>That&rsquo;s why I agree with <a href="http://www.thekua.com/atwork/2008/11/how-do-i-tell-if-a-team-is-agile/">Patrick Kua&rsquo;s post</a> about this topic. We have to understand the business problems and the possible solutions. We have to help each other to build something. We can&rsquo;t stop learning. We can&rsquo;t  be limited by our normal role. And most important: we have to care.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Open coding dojo in London</title>
+			<link>https://isanchez.net/posts/2008-11-09-open-coding-dojo-in-london/</link>
+			<pubDate>Sun, 09 Nov 2008 20:16:37 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2008-11-09-open-coding-dojo-in-london/</guid>
+			<description>Thanks to Gojko and the guys from Skillsmatter I&amp;rsquo;ll be running a regular coding dojo in London. The challenges, languages, session formats and any other related topic will be discussed in the new coding-dojo-london group, so if you&amp;rsquo;re interested in attending any session or learning more about how the dojo works, it&amp;rsquo;s a good idea to subscribe.
+My idea with this group is also help people interested in running other dojos in the city.</description>
+			<content type="html"><![CDATA[<p>Thanks to <a href="http://gojko.net">Gojko</a> and the guys from <a href="http://www.skillsmatter.com">Skillsmatter</a> I&rsquo;ll be running a regular <a href="http://codingdojo.org/">coding dojo</a> in London. The challenges, languages, session formats and any other related topic will be discussed in the new <a href="http://groups.google.com/group/coding-dojo-london">coding-dojo-london</a> group, so if you&rsquo;re interested in attending any session or learning more about how the dojo works, it&rsquo;s a good idea to <a href="http://groups.google.com/group/coding-dojo-london/subscribe">subscribe</a>.</p>
+
+<p>My idea with this group is also help people interested in running other dojos in the city. So far I know <a href="http://www.dtsato.com/blog/2008/08/12/coding-dojo-agile-2008/">Danilo</a> from <a href="http://www.thoughtworks.com">ThoughtWorks</a> and the guys from <a href="https://dev.youdevise.com/YDBlog/index.php?title=code_dojo">YouDevise</a> who are doing that, and I hope to see more next year.</p>
+
+<p>The <a href="http://skillsmatter.com/event/agile-scrum/first-coding-dojo">first session</a> will be on 1st of December and the idea is to have one session every 2 weeks starting in January. All the sessions are free but be aware that some sessions may have limited number of people.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Do you think you have problems writing software? Think again.</title>
+			<link>https://isanchez.net/posts/2008-10-22-do-you-think-you-have-problems-writing-software-think-again/</link>
+			<pubDate>Wed, 22 Oct 2008 06:11:22 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2008-10-22-do-you-think-you-have-problems-writing-software-think-again/</guid>
+			<description>After using TextMate in the last weeks I still miss some Eclipse shortcuts. I want to do a specific task and don&amp;rsquo;t know an easy way to do it without using the mouse or navigating through the menu to find if such shortcut exists. Then today I read an article (in Portuguese) about a blind programmer. Yes, a blind programmer.
+Can you imagine how hard it would be trying to develop a software without seeing it?</description>
+			<content type="html"><![CDATA[<p>After using <a href="http://macromates.com/">TextMate</a> in the last weeks I still miss some <a href="http://eclipse-tools.sourceforge.net/shortcuts.html">Eclipse shortcuts</a>. I want to do a specific task and don&rsquo;t know an easy way to do it without using the mouse or navigating through the menu to find if such shortcut exists. Then today I read an article (in Portuguese) about a <a href="http://aurelio.wordpress.com/2008/10/17/programador-cego/">blind programmer</a>. Yes, a blind programmer.</p>
+
+<p>Can you imagine how hard it would be trying to develop a software without seeing it? Well, this guy not only took the challenge but he wrote about how he actually accomplishes that.</p>
+
+<p>First of all, he needs to hear all the code. He uses a speech software with some tweaks to make PHP keywords sound simpler in Portuguese. He also has to be strict about coding standards. A brace in the wrong position and he may get lost. So he not only isolates them in a new line but also comments the context it&rsquo;s opening or closing.</p>
+
+<p>Indentation is not important for him and in fact it make harder to know where the cursor is. For him reading other people&rsquo;s code becomes a bigger problem too. But apart from that, he doesn&rsquo;t complain and goes on writing software without major problems. He teach PHP classes too (and it&rsquo;s probably being invited to do motivational talks for programmers after that article).</p>
+
+<p>After reading that I gave a second thought about my problems using TextMate. It&rsquo;s relatively easy to write a new bundle, or even switch the text editor. I can even write a new text editor from scratch if I really feel like it. Writing code is easy. Trust me.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Looking for a new way to practice TDD?</title>
+			<link>https://isanchez.net/posts/2008-09-28-looking-for-a-new-way-to-practice-tdd/</link>
+			<pubDate>Sun, 28 Sep 2008 06:53:17 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2008-09-28-looking-for-a-new-way-to-practice-tdd/</guid>
+			<description>Then is time to visit TDD Problems:
+ The aim of this site is to contain a growing collection of software problems well-suited for the TDD-beginner to learn Test-Driven Development through problem solving.
+ Today the site contains 20 different &amp;ldquo;real-life&amp;rdquo; problems, which is probably enough to keep anyone busy for a long time. And since it was announced in the testdrivendevelopment list only a few days ago, it&amp;rsquo;s very likely the list will keep growing.</description>
+			<content type="html"><![CDATA[<p>Then is time to visit <a href="http://sites.google.com/site/tddproblems/">TDD Problems</a>:</p>
+
+<blockquote>
+<p><strong>The aim of this site</strong> is to contain a growing <a href="http://sites.google.com/site/tddproblems/all-problems-1">collection of software problems</a> well-suited for the TDD-beginner to learn Test-Driven Development through problem solving.</p>
+</blockquote>
+
+<p>Today the site contains 20 different &ldquo;real-life&rdquo; problems, which is probably enough to keep anyone busy for a long time. And since it was announced in the <a href="http://groups.yahoo.com/group/testdrivendevelopment">testdrivendevelopment</a> list only a few days ago, it&rsquo;s very likely the list will keep growing.</p>
+
+<p>Enjoy!</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Starting a Coding Dojo</title>
+			<link>https://isanchez.net/posts/2008-09-01-starting-a-coding-dojo/</link>
+			<pubDate>Mon, 01 Sep 2008 06:50:30 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2008-09-01-starting-a-coding-dojo/</guid>
+			<description>In the last months I&amp;rsquo;ve been in touch with a lot of people trying to start their own coding dojos. Here&amp;rsquo;s some tips for those who already started or are considering it:
+Setting up You don&amp;rsquo;t need much more than a place with one computer connected to a projector and enough sits for people attending. A timer to keep track of the pair rotation and a white board or flip chart to discuss the problem are also very useful.</description>
+			<content type="html"><![CDATA[
+
+<p>In the last months I&rsquo;ve been in touch with a lot of people trying to start their own <a href="http://codingdojo.org/">coding dojos</a>. Here&rsquo;s some tips for those who already started or are considering it:</p>
+
+<h2 id="setting-up">Setting up</h2>
+
+<p>You don&rsquo;t need much more than a place with one computer connected to a projector and enough sits for people attending. A timer to keep track of the pair rotation and a white board or flip chart to discuss the problem are also very useful.</p>
+
+<p>If providing foods and drinks is not in the plan, at least don&rsquo;t forget to have enough water for people in the room. Breaks are acceptable, but the idea is to get people focused most of the time.</p>
+
+<h2 id="introducing-the-dojo-to-new-people">Introducing the dojo to new people</h2>
+
+<p>In my experience, the dojo is not suitable for everyone. Not that you have to be special to be part of it. Not at all.</p>
+
+<p>The problem is that people are used to learn in different ways. Some don&rsquo;t like to slow down and see things they already know being done step by step. Those will become inpatient and probably get in the way of those seeing things for the first time. In other cases, people are so used to learn by themselves that is hard to share this process with other people. There&rsquo;s also people who will simply find the problem too easy/hard to solve and therefore useless for them.</p>
+
+<p>My suggestion in this case is start with people who already know how the dojo works. Even if it takes doing a small presentation to explain it. Show that the point is not the problem itself. The point is <a href="http://www.stubbleblog.com/index.php/2008/05/deliberate-practice/">deliberate practice</a>. If people accept that before the meeting starts it should flow way easier.</p>
+
+<h2 id="the-right-style-and-size">The right style and size</h2>
+
+<p>The number of people is also important. Is very hard to run a <a href="http://codingdojo.org/cgi-bin/wiki.pl?back=RandoriKata">randori</a> with more then 10 people. Specially if they are new to the dojo. People approach a problem in different ways and it may become hard to listen to everyone&rsquo;s opinion in this case.</p>
+
+<p>In the other hand a <a href="http://codingdojo.org/cgi-bin/wiki.pl?back=PreparedKata">kata</a> can be done with more people at the same time. This approach requires some effort to prepare and practice the solution for a challenge, but may help to introduce the idea of the dojo before getting everyone involved in the coding.</p>
+
+<h2 id="choosing-the-coding-challenge">Choosing  the coding challenge</h2>
+
+<p>There are load of sources for problems out there. The guys from Dojo São Paulo have <a href="http://groups.google.com/group/dojo_sp/web/fontes-de-problemas">a list</a> in their wiki, but in principle any well known problem is okay. I really like something like <a href="http://en.wikipedia.org/wiki/Minesweeper_(computer_game)">Mine Sweeper</a> to get people started, and then let them help to choose new problems based on that first experience.</p>
+
+<p>Remember that starting with a completely new language is a good idea only if people do their homework and try to learn the basics before the meeting. Otherwise the meeting will be only for reading documentation instead of coding.</p>
+
+<h2 id="don-t-forget-the-retrospective">Don&rsquo;t forget the retrospective!</h2>
+
+<p>The dojo is a place for continuous improvement, and the retrospectives are essential to achieve that. It&rsquo;s normal to have some problems during the meetings, but there&rsquo;s no excuse to discuss them and do things better next time. For the good things is also interesting to discuss to acknowledge what&rsquo;s working and try to keep them.</p>
+
+<p>Try to get everyone&rsquo;s feedback. If people are not motivated to talk, well, that&rsquo;s the first problem to be solved.</p>
+
+<h2 id="now-that-you-ve-started">Now that you&rsquo;ve started&hellip;</h2>
+
+<p>&hellip; It&rsquo;s time to merge with the software community around you. It&rsquo;s easy to find more people to attend to the meetings. Simply invite and they will come. I try to attend all the dojos I&rsquo;m invited because I know how much I learn every time I see other people programming in front of me. For the same reason I&rsquo;d like to always have new people in my dojos.</p>
+
+<p>I hope to be inviting people through here my dojos soon. At the meantime, I&rsquo;d be happy to help anyone interested in starting a dojo. In this case, just <a href="mailto:s4nchez@gmail.com">let me know</a>.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Slides from my talk at SkillsMatter</title>
+			<link>https://isanchez.net/posts/2008-08-29-slides-from-my-talk-at-skillsmatter/</link>
+			<pubDate>Fri, 29 Aug 2008 15:54:05 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2008-08-29-slides-from-my-talk-at-skillsmatter/</guid>
+			<description>If you&amp;rsquo;re interested on the slides I&amp;rsquo;ve used on yesterday&amp;rsquo;s presentation about my tips on Selenium RC, you can download them here.
+If you want to learn more about the practices I mentioned, here are some useful links:
+ The Page Object design pattern in details How to use Selenium Grid on the Amazon EC2 Configuring tests to run in parallel using TestNG  </description>
+			<content type="html"><![CDATA[<p>If you&rsquo;re interested on the slides I&rsquo;ve used on yesterday&rsquo;s presentation about my tips on <a href="http://selenium-rc.openqa.org/">Selenium RC</a>, you can download them <a href="http://isanchez.net/files/seleniumrc.ppt">here</a>.</p>
+
+<p>If you want to learn more about the practices I mentioned,  here are some useful links:</p>
+
+<ul>
+<li><a href="http://code.google.com/p/webdriver/wiki/PageObjects">The Page Object design pattern in details</a></li>
+<li><a href="http://selenium-grid.openqa.org/run_the_demo_on_ec2.html">How to use Selenium Grid on the Amazon EC2</a></li>
+<li><a href="http://testng.org/doc/documentation-main.html#parallel-running">Configuring tests to run in parallel using TestNG</a></li>
+</ul>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Craftmanship</title>
+			<link>https://isanchez.net/posts/2008-08-15-craftmanship/</link>
+			<pubDate>Fri, 15 Aug 2008 04:15:12 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2008-08-15-craftmanship/</guid>
+			<description>In his talk at the Agile2008, Bob Martin proposed an addition to the Agile Manifesto:
+ Craftsmanship over Crap.
+ Although most of us can identify with that statement, it&amp;rsquo;s probably not easy to sell the idea put that way. But now he rephrased it to:
+ Craftsmanship over Execution.
+ I confess the first time a thought about software development being a craft was in a Joel Spolsky&amp;rsquo;s article disagreeing with the use of this term.</description>
+			<content type="html"><![CDATA[<p>In his talk at the <a href="http://www.agile2008.org/">Agile2008</a>, <a href="http://butunclebob.com/ArticleS.UncleBob">Bob Martin</a> proposed an addition to the <a href="http://agilemanifesto.org/">Agile Manifesto</a>:</p>
+
+<blockquote>
+<p><strong>Craftsmanship over Crap.</strong></p>
+</blockquote>
+
+<p>Although most of us can identify with that statement, it&rsquo;s probably not easy to sell the idea put that way. But now he <a href="http://blog.objectmentor.com/articles/2008/08/14/quintessence-the-fifth-element-for-the-agile-manifesto">rephrased it</a> to:</p>
+
+<blockquote>
+<p><strong>Craftsmanship over Execution.</strong></p>
+</blockquote>
+
+<p>I confess the first time a thought about software development being a craft was in a Joel Spolsky&rsquo;s article <a href="http://www.joelonsoftware.com/articles/Craftsmanship.html">disagreeing</a> with the use of this term. In the post he suggests creating software is more related to design than craftsmanship, but he reinforces the idea of software not being simple execution.</p>
+
+<p>After working with a lot of different people, it&rsquo;s easy to distinguish who think about software as being craftsmanship or mere execution. And undoubtedly the best developers and consequently the best software always come from the first category. They care about what they&rsquo;re producing, are passionate about it and never stop learning. They want to become <a href="http://en.wikipedia.org/wiki/Master_craftsman">master craftsmen</a> and know it depends only on their own attitude.</p>
+
+<p>The question is: should the Agile manifesto include that statement? Personally I don&rsquo;t believe so. The <strong>&ldquo;Individual and Interaction over processes and tools</strong>&rdquo; part already implies that. Focus more in processes and you&rsquo;ll end up caring more about execution. Value people and the craftsmanship aspect of building software will become natural.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>5 reasons to have a coding dojo at your company</title>
+			<link>https://isanchez.net/posts/2008-07-15-5-reasons-to-have-a-coding-dojo-at-your-company/</link>
+			<pubDate>Tue, 15 Jul 2008 07:06:00 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2008-07-15-5-reasons-to-have-a-coding-dojo-at-your-company/</guid>
+			<description>1. Is the easiest and cheapest way to invest in training To run a coding dojo people don&amp;rsquo;t need much more than a computer and a projector. Paying for the pizza and some beers for the end of the meetings is not expensive either, and is surely welcome. But if the company is really cool, some dojos can take place during work time to get more developers involved. Note that none of those items take lots of money nor is too complicated.</description>
+			<content type="html"><![CDATA[
+
+<h2 id="1-is-the-easiest-and-cheapest-way-to-invest-in-training">1. Is the easiest and cheapest way to invest in training</h2>
+
+<p>To run a <a href="http://codingdojo.org">coding dojo</a> people don&rsquo;t need much more than a computer and a projector. Paying for the pizza and some beers for the end of the meetings is not expensive either, and is surely welcome. But if the company is really cool, some dojos can take place during work time to get more developers involved. Note that none of those items take lots of money nor is too complicated. The only things needed are some engaged developers and good sense of the company to invest in their professionals.</p>
+
+<h2 id="2-stimulates-social-and-self-organization-skills">2. Stimulates social and self-organization skills</h2>
+
+<p>Many developers have some hard time when talking in public, exposing their ideas or collaborate with other people. Others have problems to self-organize, work in a team or even lead. When does a company invest on those kind of skills of a developer? Rarely. The dojo is a great start for those people, and even who doesn&rsquo;t have any of these difficulties will have a chance to exercise their skills and explore points which may need some improvement.</p>
+
+<h2 id="3-is-good-publicity-for-the-company">3. Is good publicity for the company</h2>
+
+<p>If the company took the first step and the developers are already comfortable running a dojo, why not open the doors for the public? The company name will become associated with the <a href="http://agilemanifesto.org/">agile principles</a> behind the the coding dojo and developers won&rsquo;t have to leave the company to network. Better, if everything goes well the company won&rsquo;t have to publish ads to get new developers since the potential candidates will be part of the company&rsquo;s routine.</p>
+
+<h2 id="4-helps-developers-to-be-active-in-the-community">4. Helps developers to be active in the community</h2>
+
+<p>Discussing the techniques applied in the dojos can be a good incentive for some developers to participate more in the software development community. It can also be a first step help some open source projects, publish articles or participate in conferences.</p>
+
+<h2 id="5-breaks-the-routine">5. Breaks the routine</h2>
+
+<p>Code something different from the daily projects, using other languages, tools and techniques, with other people and in a more relaxed environment may be very stimulating.</p>
+
+<p>So, do you need more reasons?</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Ruby on Rails 2.1 - What’s new</title>
+			<link>https://isanchez.net/posts/2008-06-10-ruby-on-rails-21-whats-new/</link>
+			<pubDate>Tue, 10 Jun 2008 14:29:01 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2008-06-10-ruby-on-rails-21-whats-new/</guid>
+			<description>Carlos Brando released the first book on RoR 2.1.
+More information and download here.</description>
+			<content type="html"><![CDATA[<p><a href="http://www.nomedojogo.com/">Carlos Brando</a> released the first book on <a href="http://weblog.rubyonrails.org/2008/6/1/rails-2-1-time-zones-dirty-caching-gem-dependencies-caching-etc">RoR 2.1</a>.</p>
+
+<p>More information and download <a href="http://www.nomedojogo.com/2008/06/09/new-free-book-ruby-on-rails-21-whats-new/trackback/">here</a>.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>How to measure velocity in software projects</title>
+			<link>https://isanchez.net/posts/2008-03-18-how-to-measure-velocity-in-software-projects/</link>
+			<pubDate>Tue, 18 Mar 2008 20:31:26 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2008-03-18-how-to-measure-velocity-in-software-projects/</guid>
+			<description>Three simple steps to measure velocity in a software project:
+ Estimate your requirements using a size metric. Agree on the concept of done. Define a timebox size.  Then we just need the formula:
+Velocity = Points done / Timebox</description>
+			<content type="html"><![CDATA[<p>Three simple steps to measure velocity in a software project:</p>
+
+<ul>
+<li>Estimate your requirements using a <strong>size</strong> metric.</li>
+<li>Agree on the concept of <strong>done</strong>.</li>
+<li>Define a <strong>timebox</strong> size.</li>
+</ul>
+
+<p>Then we just need the formula:</p>
+
+<p><strong>Velocity = Points done / Timebox</strong></p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Integration versus Integration</title>
+			<link>https://isanchez.net/posts/2008-03-18-integration-versus-integration/</link>
+			<pubDate>Tue, 18 Mar 2008 20:24:53 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2008-03-18-integration-versus-integration/</guid>
+			<description>Just to clarify:
+ Integration test: modules of the system are tested together, as a group.
+ Integration build: modifications made by developers are consolidated through a full build.
+  Although the integration build may include running integration tests, they&amp;rsquo;re are clearly two separate problems.</description>
+			<content type="html"><![CDATA[<p>Just to clarify:</p>
+
+<ul>
+<li><p><strong>Integration test</strong>: modules of the system are tested together, as a group.</p></li>
+
+<li><p><strong>Integration build</strong>: modifications made by developers are consolidated through a full build.</p></li>
+</ul>
+
+<p>Although the integration build may include running integration tests, they&rsquo;re are clearly two separate problems.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Building self managed teams</title>
+			<link>https://isanchez.net/posts/2008-01-10-building-self-managed-teams/</link>
+			<pubDate>Thu, 10 Jan 2008 07:56:04 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2008-01-10-building-self-managed-teams/</guid>
+			<description>Sometimes in a project:
+ People are treated as mere &amp;ldquo;resources&amp;rdquo;, being part of the project only to work on predefined activities and nothing else. The managers want to be sure that everyone is doing exactly what they think it&amp;rsquo;s the best, and forget that people can have good ideas. People prefer to work on tasks defined by someone else because they don&amp;rsquo;t want to be responsible for their work.</description>
+			<content type="html"><![CDATA[
+
+<p>Sometimes in a project:</p>
+
+<ul>
+<li>People are treated as mere &ldquo;resources&rdquo;, being part of the project only to  work on predefined activities and nothing else.</li>
+<li>The managers want to be sure that everyone is doing exactly what they think it&rsquo;s the best, and forget that people can have good ideas.</li>
+<li>People prefer to work on tasks defined by someone else because they don&rsquo;t want to be responsible for their work.</li>
+</ul>
+
+<p>Having self managed teams is a good way to change this reality but to make people capable of managing their own work is a tricky task. With that in mind, the principles I consider most important to achieve it are:</p>
+
+<h2 id="1-shared-vision">1. Shared vision</h2>
+
+<p>The first step to build a self managed team is sharing the project goals. A good start is to define SMART (<strong>S</strong>pecific, <strong>M</strong>easurable, <strong>A</strong>chiveable, <strong>R</strong>ealistic, <strong>T</strong>imed) goals and to make sure that the goals make sense for the whole team.</p>
+
+<h2 id="2-commitment">2. Commitment</h2>
+
+<p>Once the vision is clear, the next step is to build the commitment. When the members of the team agree to work to achieve the defined goals, the perception of the their actions changes and they start thinking about the best solutions to get closer to the goals.</p>
+
+<h2 id="3-trust">3. Trust</h2>
+
+<p>If people trust each other, a bond is created and there&rsquo;s no reason to control other people&rsquo;s work. On the contrary, people start helping each other.</p>
+
+<h2 id="4-support">4. Support</h2>
+
+<p>Every self managed team needs an &ldquo;interface&rdquo; with the rest of the organization. That&rsquo;s why one or more people should be able to help when the solution to a problem depends on external factors. These people should be considered part of the team since they share the vision, are committed and trust the other members of the team.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>Although these principles look very simple, they&rsquo;re forgotten all the time. And they&rsquo;re usually replaced by micromanagement, which on top of wasting people&rsquo;s time frequently becomes the biggest cause of stress to the team.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Looking for testing mantras?</title>
+			<link>https://isanchez.net/posts/2008-01-07-looking-for-some-testing-mantra/</link>
+			<pubDate>Mon, 07 Jan 2008 05:52:42 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2008-01-07-looking-for-some-testing-mantra/</guid>
+			<description>Then it&amp;rsquo;s time to try the Way of Testivus:
+ If you write code, write tests. Don’t get stuck on unit testing dogma. Embrace unit testing karma. Think of code and test as one. The test is more important than the unit. The best time to test is when the code is fresh. Tests not run waste away. An imperfect test today is better than a perfect test someday. An ugly test is better than no test.</description>
+			<content type="html"><![CDATA[<p>Then it&rsquo;s time to try the <a href="http://www.artima.com/weblogs/viewpost.jsp?thread=203994">Way of Testivus</a>:</p>
+
+<ul>
+<li>If you write code, write tests.</li>
+<li>Don’t get stuck on unit testing dogma.</li>
+<li>Embrace unit testing karma.</li>
+<li>Think of code and test as one.</li>
+<li>The test is more important than the unit.</li>
+<li>The best time to test is when the code is fresh.</li>
+<li>Tests not run waste away.</li>
+<li>An imperfect test today is better than a perfect test someday.</li>
+<li>An ugly test is better than no test.</li>
+<li>Sometimes, the test justifies the means.</li>
+<li>Only fools use no tools.</li>
+<li>Good tests fail.</li>
+</ul>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Deploying Ruby on Rails as J2EE application</title>
+			<link>https://isanchez.net/posts/2008-01-02-deploying-ruby-on-rails-as-j2ee-application/</link>
+			<pubDate>Wed, 02 Jan 2008 09:55:42 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2008-01-02-deploying-ruby-on-rails-as-j2ee-application/</guid>
+			<description>If you haven&amp;rsquo;t tried Ruby on Rails because was too busy developing your J2EE applications, now you have no more excuses! It&amp;rsquo;s possible (and surprisingly simple) to deploy a RoR application in your favorite J2EE server just by following these few steps:
+1. Install JRuby on Rails Get JRuby and install the Ruby on Rails gem:
+gem install rails --include-dependencies --no-rdoc --no-ri 2. Create a simple test application Run the following commands to set up your new application:</description>
+			<content type="html"><![CDATA[
+
+<p>If you haven&rsquo;t tried
+<a href="http://www.rubyonrails.org/">Ruby on Rails</a> because was too busy developing your J2EE applications, now you have no more excuses! It&rsquo;s possible (and surprisingly simple) to deploy a RoR application in your favorite J2EE server just by following these few steps:</p>
+
+<h2 id="1-install-jruby-on-rails">1. Install JRuby on Rails</h2>
+
+<p><a href="http://jruby.codehaus.org/Getting+Started">Get JRuby</a> and install the Ruby on Rails
+<a href="http://rubygems.org/read/book/1">gem</a>:</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">gem install rails --include-dependencies --no-rdoc --no-ri</code></pre></div>
+<h2 id="2-create-a-simple-test-application">2. Create a simple test application</h2>
+
+<p>Run the following commands to set up your new application:</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">rails test_app
+<span class="nb">cd</span> test_app</code></pre></div>
+<p>You&rsquo;ll have to edit the first line of the created scripts (<strong>&lsquo;script</strong>&rsquo; directory) to use JRuby:</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1">#!/usr/bin/env jruby</span></code></pre></div>
+<p>And at this point you&rsquo;re ready to test your application:</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">script/server</code></pre></div>
+<p>Open
+<a href="http://localhost:3000">http://localhost:3000</a> and check if your application is running as it should.</p>
+
+<p>Now let&rsquo;s create some functionality. First, edit your <strong>config/database.yml</strong> file, defining your development and production database as it follows. Note that we don&rsquo;t need the test database and we can use the same database for both development and production  for the scope of this example:</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">adapter<span class="p">:</span><span class="w"> </span>mysql<span class="w">
+</span><span class="w"></span>database<span class="p">:</span><span class="w"> </span>test_app<span class="w">
+</span><span class="w"></span>user<span class="p">:</span><span class="w"> </span>root<span class="w">
+</span><span class="w"></span>password<span class="p">:</span><span class="w"> </span>xxx<span class="w">
+</span><span class="w"></span>host<span class="p">:</span><span class="w"> </span>localhost</code></pre></div>
+<p>Create a <a href="http://en.wikipedia.org/wiki/Scaffold_%28programming%29">scaffold</a>:</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">script/generate scaffold Dog name:string
+rake db:drop:all
+rake db:create:all
+rake db:migrate</code></pre></div>
+<p>At this point you&rsquo;re already able to point your browser to <a href="http://localhost:3000/dogs">http://localhost:3000/dogs</a> and start playing with with your database.</p>
+
+<h2 id="3-install-the-jdbc-adapter-and-change-your-application">3. Install the JDBC adapter and change your application</h2>
+
+<p>In order to deploy as a Java web application, you&rsquo;ll have to replace the database adapter by a JDBC one. To achieve this, first you need a new gem:</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">gem install activerecord-jdbc-adapter --no-rdoc --no-ri</code></pre></div>
+<p>You also need to copy your mysql driver (JAR file) to your <strong>JRUBY_HOME/lib</strong> directory and edit your <strong>database.yml</strong> once more:</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">adapter<span class="p">:</span><span class="w"> </span>jdbc<span class="w">
+</span><span class="w"></span>driver<span class="p">:</span><span class="w"> </span>com.mysql.jdbc.Driver<span class="w">
+</span><span class="w"></span>url<span class="p">:</span><span class="w"> </span>jdbc<span class="p">:</span>mysql<span class="p">:</span>//localhost/test_app<span class="w">
+</span><span class="w"></span>username<span class="p">:</span><span class="w"> </span>root<span class="w">
+</span><span class="w"></span>password<span class="p">:</span><span class="w"> </span>xxx<span class="w">
+</span><span class="w"></span>host<span class="p">:</span><span class="w"> </span>localhost</code></pre></div>
+<p>Restart your server and, since we just changed its configuration, everything should be still working exactly as before.</p>
+
+<h2 id="4-install-goldspike-and-create-your-war-file">4. Install Goldspike and create your WAR file</h2>
+
+<p>In your application directory, install the <a href="http://wiki.jruby.org/wiki/Goldspike">plugin</a>:</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">script/plugin install http://jruby-extras.rubyforge.org/svn/trunk/rails-integration/plugins/goldspike</code></pre></div>
+<p>To include your database driver in the generated archive, you have a few options (Maven is one of them), but for now let&rsquo;s just copy it to the &lsquo;<strong>WEB-INF/lib</strong>&rsquo; directory of the application:</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">mkdir WEB-INF/lib
+cp <span class="nv">$JRUBY_HOME</span>/lib/mysql-connector-java-5.0.5-bin.jar WEB-INF/lib</code></pre></div>
+<p>You also need to edit the <strong>app/controllers/application.rb</strong> file and include the line:</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">protect_from_forgery :secret <span class="o">=</span>&gt; <span class="s1">&#39;6dc47d156f8f3724e4634c37bc0f9f94&#39;</span></code></pre></div>
+<p>Finally, to create your WAR file, run:</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">rake war:standalone:create</code></pre></div>
+<p>Deploy the generated file in your favorite J2EE server like Tomcat or WebLogic.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>The integration between Ruby on Rails and Java is easier than most people would expect, and it may become a new option to develop your next web application. That may be also a great motivation to learn JRuby and start taking advantage of its <a href="http://jruby.codehaus.org/Java+Integration">integration with existing Java code</a>.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Dealing with Software Failures</title>
+			<link>https://isanchez.net/posts/2007-06-21-dealing-with-software-failures/</link>
+			<pubDate>Thu, 21 Jun 2007 20:32:23 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2007-06-21-dealing-with-software-failures/</guid>
+			<description>Reading about several things they don&amp;rsquo;t teach you in school, one that sounded me very important is how to deal with failure:
+In school, kid’s learn that “failure” is a negative term. However, it is nothing of the sort. There has never been a single successful person who hasn’t failed numerous times on their journey to success.
+In fact, the most successful people in life are those who have failed the most.</description>
+			<content type="html"><![CDATA[<p>Reading about several
+<a href="http://www.theoptimizedlife.com/self-improvement/what-they-dont-teach-you-in-school/">things they don&rsquo;t teach you in school</a>, one that sounded me very important is
+<strong>how to deal with failure</strong>:</p>
+
+<p>In school, kid’s learn that “failure” is a negative term.
+However, it is nothing of the sort. There has never been a
+single successful person who hasn’t failed numerous times on
+their journey to success.</p>
+
+<p>In fact, the most successful people in life are those who
+have failed the most.</p>
+
+<p>Edison ‘failed’ more than ten thousand times before he
+succeeded in creating the light bulb. As said by Thomas
+Edison: “I have not failed 10,000 times. I have
+successfully found 10,000 ways that will not work.”</p>
+
+<p>In software development, failure is mostly seem as a negative term too. Obviously we don&rsquo;t want to deliver software with bugs to the end users, but I believe that most of the bugs could be avoided if the developers change their view about failure.</p>
+
+<p>When you start doing
+<a href="http://en.wikipedia.org/wiki/Test-driven_development">Test-Driven Development</a>, one of the first lessons you learn is how failures are useful during the development process. Every test that fails is an allied to understand a little more about the problem you&rsquo;re trying to solve. Why don&rsquo;t they tell this in Software Engineering class? I really don&rsquo;t know.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Coding Dojo</title>
+			<link>https://isanchez.net/posts/2007-06-12-coding-dojo/</link>
+			<pubDate>Tue, 12 Jun 2007 19:23:58 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2007-06-12-coding-dojo/</guid>
+			<description>For the last year I&amp;rsquo;ve been involved with the organization of Coding Dojo meetings in Florianopolis/Brazil. This kind of &amp;ldquo;coding meetings&amp;rdquo; started in France and spread to Finland, United States ( Pittsburgh and Houston), United Kingdom, Canada, Brazil and Sweden.
+The sessions are basically about solving a programming challenges using Pair Programming and Test-Driven Development. Everyone is welcome since there&amp;rsquo;s no skill prerequisites for attendees. The main goal is simple: improve coding skills through practice.</description>
+			<content type="html"><![CDATA[<p>For the last year I&rsquo;ve been involved with the organization of
+<a href="http://www.bossavit.com/pivot/pivot/entry.php?id=207">Coding Dojo</a> meetings in Florianopolis/Brazil. This kind of &ldquo;coding meetings&rdquo; started in
+<a href="http://bossavit.com/dojo/">France</a> and spread to
+<a href="http://wiki.agilefinland.com/?CodingDojo">Finland</a>, United States (
+<a href="http://pghcodingdojo.org/index.php/Main_Page">Pittsburgh</a> and
+<a href="http://www.codedojo.org/">Houston</a>),
+<a href="http://codingdojo.futureplatforms.com">United Kingdom</a>, Canada,
+<a href="http://dojofloripa.wordpress.com">Brazil</a> and
+<a href="http://dojo.responsive.se/">Sweden</a>.</p>
+
+<p>The sessions are basically about solving a programming challenges using Pair Programming and Test-Driven Development. Everyone is welcome since there&rsquo;s no skill prerequisites for attendees. The main goal is simple: improve coding skills through practice.</p>
+
+<p>Apparently today when it comes to Agile, there&rsquo;s a
+<a href="http://www.eventyr.co.uk/2007/05/divided.html">huge gap between the software Industry and Academia</a>. I thought it was just in Brazil, but it seems that there&rsquo;s too much students out there finishing their degrees without even heard about it. Well, the Coding Dojo doesn&rsquo;t fill this gap, but it seems to be right at the middle: it&rsquo;s a simple way to learn about some agile concepts and it can benefit both Industry and Academia.</p>
+
+<p>Today I&rsquo;m not living in Florianopolis anymore but I&rsquo;m helping my friends there to keep the sessions running. New people are asking me about the next meetings and in the last weeks I heard about at least more 2 possible Dojos (one more in
+<a href="http://groups.google.com/group/nord-agile/">France</a> and other in
+<a href="http://www.grug.se">Sweden</a>). I think it&rsquo;s just the beginning for the
+<a href="http://codingdojo.org">Coding Dojo Global</a>.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Distributed Agile</title>
+			<link>https://isanchez.net/posts/2007-05-24-distributed-agile/</link>
+			<pubDate>Thu, 24 May 2007 21:32:02 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2007-05-24-distributed-agile/</guid>
+			<description>The first agile principle is about &amp;ldquo;individuals and interactions over processes and tools&amp;rdquo;. How can it be managed when people are not all in the same place?
+Dave Churchville wrote about it and classified distributed team as:
+ Type A: All developers are together, all customers are remote Type B: Multiple development teams in different locations (but each team is together) Type C: &amp;ldquo;Virtual&amp;rdquo; team where nearly everyone works remotely (e.</description>
+			<content type="html"><![CDATA[<p>The first agile principle is about &ldquo;individuals and interactions over processes and tools&rdquo;. How can it be managed when people are not all in the same place?</p>
+
+<p>Dave Churchville
+<a href="http://www.extremeplanner.com/blog/2007/05/agile-variations-for-distributed.html">wrote about it</a> and classified distributed team as:</p>
+
+<ul>
+<li>Type A: All developers are together, all customers are remote</li>
+<li>Type B: Multiple development teams in different locations (but each team is together)</li>
+<li>Type C: &ldquo;Virtual&rdquo; team where nearly everyone works remotely (e.g. from home, in various offices, etc.)</li>
+</ul>
+
+<p>I&rsquo;ve been working in the last years mostly with Type A and Type C teams, and I believe the main goal in these cases should be improving the
+<strong>communication channels</strong>
+ between people to be as effective as if everyone was in the same room. Long story short, this isn&rsquo;t possible, but we can still make it work.</p>
+
+<p>For remote customers, the first challenge is having they available to talk with the development team. It can be painful at the beginning because &ldquo;build software&rdquo; normally is not their priority, but as long as they realize how their contribution is important to get the best results, they will probably change. And in this case, cellphone, skype, IM or even e-mail will become very important for their collaboration, and both customer and team should not underrate these communication tools.</p>
+
+<p>Here&rsquo;s some tips to work with remote customer:</p>
+
+<ul>
+<li>Try to build commitment since the first day.</li>
+<li>Ask for their oppinion during the development and show how their collaboration affect the results.</li>
+<li>Define open communication channels. Give preference for phone calls and instant message over e-mail.</li>
+</ul>
+
+<p>The &ldquo;virtual&rdquo; team is an extension of the previous scenario, and beside there&rsquo;s less people together, it can be surpassed easier if the team already realize how communication is important in an agile project. That&rsquo;s because in this case the communication channels are already open. They can use Skype/IM/e-mail to talk to each other, and even VNC to share their desktops during coding sessions.</p>
+
+<p>This means that if there&rsquo;s lack of communication among team members, the challenges will be similar to the faced with the customer. And probably the approaches to fix it will be similar.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Flexible Software Contracts</title>
+			<link>https://isanchez.net/posts/2007-05-23-flexible-software-contracts/</link>
+			<pubDate>Wed, 23 May 2007 20:41:39 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2007-05-23-flexible-software-contracts/</guid>
+			<description>Software contracts that define all software requirements up-front make your project half-way to failure. The software company will try to do exactly what is in it, and the client will try to believe that none of those requirements will change. And at certain part of the project both will realize they were wrong.
+Let&amp;rsquo;s face it. Software requirements always change. But it doesn&amp;rsquo;t mean that people got they wrong, it means that after seeing a piece of working software people learn more about it and they will always have a lot of new ideas to improve it.</description>
+			<content type="html"><![CDATA[<p>Software contracts that define all software requirements up-front make your project half-way to failure. The software company will try to do exactly what is in it, and the client will try to believe that none of those requirements will change. And at certain part of the project both will realize they were wrong.</p>
+
+<p>Let&rsquo;s face it. Software requirements always change. But it doesn&rsquo;t mean that people got they wrong, it means that after seeing a piece of working software people learn more about it and they will always have a lot of new ideas to improve it.</p>
+
+<p>Let&rsquo;s see how could we change this situation:</p>
+
+<p><strong>Don&rsquo;t define requirements in the contract.</strong>
+Well, this sounds obvious, but the problem is that people most of the time confuse software scope with project scope. The project must define clear vision of the goals to achieve, but should let the software change during this period to get to these goals faster.</p>
+
+<p><strong>Define an initial cost and time</strong>
+. Once you have no requirements in your contract, people can argue that you can&rsquo;t define the project cost and time. That&rsquo;s wrong too. Even with requirements in your contract, project cost and time are just estimates. So, to create those estimates you can think about requirements (the
+<a href="http://www.coleyconsulting.co.uk/moscow.htm">MoSCoW</a> or the
+<a href="http://www.joelonsoftware.com/articles/SetYourPriorities.html">Joelonsoftware</a> technique should help), and you can even keep these written items as initial ideas, but they really should not be written in the contract.</p>
+
+<p><strong>Build the software in short cycles where working software has to be produced</strong>
+. And define that requirements can be changed and the development velocity can be evaluated between those cycles. This way it&rsquo;s possible to guarantee that changes will not scare the development team and the client will be able to check the team productivity. By the way, that&rsquo;s other myth about scope-flexible contracts, that people will work less if they don&rsquo;t have the requirements defined up-front. But this way of thinking ignores the fact that the software company should have interest in get the software done as fast as possible. After all, it&rsquo;s a way to impress the client and get more contracts.</p>
+
+<p><strong>(Bonus) Create a much smaller contract first</strong>
+. If the contractor could not be convinced that this type of contract is better, propose a smaller one (one month, for example). If after this contract he&rsquo;s still not convinced, everybody will be able to evaluate the risks and try to come up with another idea.</p>
+
+<p>See, all those items are not too complicated. And if you ever experienced the stress that a traditional software contract can cause, you should really think about adopting a more flexible one.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Agile: another word for good sense?</title>
+			<link>https://isanchez.net/posts/2007-05-18-agile-another-word-for-good-sense/</link>
+			<pubDate>Fri, 18 May 2007 00:38:14 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2007-05-18-agile-another-word-for-good-sense/</guid>
+			<description>Today a lot of people wants to become agile. Well, not agile in the sense of mentally or physically quick, but Agile (yes, with capital &amp;ldquo;A&amp;rdquo;) as written in the Agile Manifesto. Why? Because it seems like a better way of doing things. This way involves:
+ Empower people Deliver business value Get the client involved Embrace changes  Is the word &amp;ldquo;agile&amp;rdquo; good enough to represent all this? I don&amp;rsquo;t know.</description>
+			<content type="html"><![CDATA[<p>Today a lot of people wants to become agile. Well, not agile in the sense of
+<a href="http://dictionary.cambridge.org/results.asp?searchword=agile&amp;x=0&amp;y=0">mentally or physically quick</a>, but Agile (yes, with capital &ldquo;A&rdquo;)  as written in the
+<a href="http://agilemanifesto.org/">Agile Manifesto</a>. Why? Because it seems like a better way of doing things. This way involves:</p>
+
+<ul>
+<li>Empower people</li>
+<li>Deliver business value</li>
+<li>Get the client involved</li>
+<li>Embrace changes</li>
+</ul>
+
+<p>Is the word &ldquo;agile&rdquo;
+<a href="http://jchyip.blogspot.com/2007/05/agility-is-not-point.html">good enough</a> to represent all this? I don&rsquo;t know. And to be honest, I think we really shouldn&rsquo;t care. As long as people get what it stands for, the word &ldquo;agile&rdquo; is getting the job done.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>3 key skills for software design</title>
+			<link>https://isanchez.net/posts/2014-10-03-3-skills-for-software-design/</link>
+			<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2014-10-03-3-skills-for-software-design/</guid>
+			<description>On his talk at the Java Zone 2014, Kent Beck listed what he considers to be key skills in software design. According to him, they don&amp;rsquo;t come naturally to programmers, but can be learned. Those skills are:
+Tolerance for ambiguity Developers must be able to accept that their design will never be completely clean. There&amp;rsquo;ll always be forces pulling it in different directions and assuming there&amp;rsquo;s only one &amp;ldquo;correct&amp;rdquo; solution will most likely just lead to frustration.</description>
+			<content type="html"><![CDATA[
+
+<p>On his <a href="http://vimeo.com/105771493">talk at the Java Zone 2014</a>, Kent Beck listed what he considers to be key skills in software design. According to him, they don&rsquo;t come naturally to programmers, but can be learned. Those skills are:</p>
+
+<h2 id="tolerance-for-ambiguity">Tolerance for ambiguity</h2>
+
+<p>Developers must be able to accept that their design will never be completely <strong><em>clean</em></strong>. There&rsquo;ll always be forces pulling it in different directions and assuming there&rsquo;s only one &ldquo;correct&rdquo; solution will most likely just lead to frustration.</p>
+
+<h2 id="ability-to-wait">Ability to wait</h2>
+
+<p>Ambiguity can only be tolerated when developers are able to postpone a design decision to the last responsible moment. Many will be tempted to jump to a particular design change too soon. Or worse, ignore relevant design aspects completely.</p>
+
+<h2 id="treating-design-as-a-social-process">Treating design as a social process</h2>
+
+<p>That&rsquo;s what Kent considers to be the biggest cosmical joke on programmers. Effective design requires an understanding of the human side of software. The skills and dynamics of the team will inevitably affect how software is made. And grasping what the next person is going to think when they see the solution requires as much social as technical skills.</p>
+
+<p>Personally, I&rsquo;m not sure if the first two can exist separately. The last I consider to be the most important, and definitely the hardest.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Back from the ashes</title>
+			<link>https://isanchez.net/posts/2014-10-03-back-from-the-ashes/</link>
+			<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2014-10-03-back-from-the-ashes/</guid>
+			<description>It&amp;rsquo;s been over two and a half years I don&amp;rsquo;t post anything here. In the meantime I&amp;rsquo;ve used Github Pages and Jekyll mainly as a backup of my old posts.
+Today I&amp;rsquo;ve found that I was running a version so old of Jekyll that it was breaking this site almost completely, so I&amp;rsquo;ve decided to upgrade it and apply the Lanyon theme so it looks at least half decent.
+All the old posts are still available in the Archive page.</description>
+			<content type="html"><![CDATA[<p>It&rsquo;s been over two and a half years I don&rsquo;t post anything here. In the meantime I&rsquo;ve used <a href="https://pages.github.com/">Github Pages</a> and <a href="http://jekyllrb.com">Jekyll</a> mainly as a backup of my old posts.</p>
+
+<p>Today I&rsquo;ve found that I was running a version so old of Jekyll that it was breaking this site almost completely, so I&rsquo;ve decided to upgrade it and apply the <a href="https://github.com/poole/lanyon">Lanyon</a> theme so it looks at least half decent.</p>
+
+<p>All the old posts are still available in the <a href="archive.html">Archive</a> page.</p>
+
+<p>If you saw this post in your RSS reader:</p>
+
+<ol>
+<li>Thank you for staying around (or for just not cleaning up your feed that often)</li>
+<li>Let me know if anything breaks!</li>
+</ol>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Closing the Loop</title>
+			<link>https://isanchez.net/posts/2014-12-01-closing-the-loop/</link>
+			<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2014-12-01-closing-the-loop/</guid>
+			<description>As developers we should be experts in feedback: we want to learn about the consequences of our code changes as quickly as possible. For instance:
+ The editor can tell if the new syntax is correct. Unit tests can tell if basic logic and interactions are as expected. Integration and Acceptance tests can tell how the change will affect the rest of the system. Continuous integration can tell if changes coming from different developers will work together.</description>
+			<content type="html"><![CDATA[<p>As developers we should be experts in feedback: we want to learn about the consequences of our code changes as quickly as possible. For instance:</p>
+
+<ul>
+<li>The editor can tell if the new syntax is correct.</li>
+<li>Unit tests can tell if basic logic and interactions are as expected.</li>
+<li>Integration and Acceptance tests can tell how the change will affect the rest of the system.</li>
+<li>Continuous integration can tell if changes coming from different developers will work together.</li>
+<li>Build pipeline can tell if the changed system can be deployed and run after each change.</li>
+<li>Production monitoring can tell if the system is healthy and alert us otherwise.</li>
+</ul>
+
+<p>Those are great techniques for <strong>building things right</strong>, but they don&rsquo;t tell if we are <strong>building the right things</strong>.</p>
+
+<p>For that we should be trying harder to close the feedback loop of <strong>Planning, Building, Measuring and Learning</strong>. So far I&rsquo;ve noticed the following approaches have the tendency to help:</p>
+
+<ul>
+<li>Make sure requirements are created from meaningful conversations (<a href="http://www.impactmapping.org">Impact Mapping</a>)</li>
+<li>Include relevant data gathering into each feature (<a href="http://www.amazon.co.uk/How-Measure-Anything-Intangibles-Business/dp/0470539399">How to Measure Anything</a>) and make business key performance indicators (KPI) part of the system monitoring</li>
+<li>Use <a href="http://retrospectivewiki.org/index.php?title=Main_Page">Retrospectives</a> to reflect on the data collected and general KPIs.</li>
+<li>Question any feature about to be built if it doesn&rsquo;t carry a clear purpose.</li>
+</ul>
+
+<p>Unfortunately the most important feedback loop in software development is not purely technical, thus developers should have a more active role trying to make sure the loop is always closed.</p>
+
+<p>I&rsquo;d be interest to hear what other people are trying on that front.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Coaching at codebar.io</title>
+			<link>https://isanchez.net/posts/2014-10-09-coaching-at-codebar/</link>
+			<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2014-10-09-coaching-at-codebar/</guid>
+			<description>Last night I had a chance to coach at a Codebar event for the first time. They offer free basic programming and web development workshops to people who are underrepresented in the tech industry.
+For me it was a great reminder of how difficult it is to learn how to code. Even though my student was following a &amp;ldquo;getting started&amp;rdquo; tutorial, the amount and complexity of new concepts involved was overwhelming at times.</description>
+			<content type="html"><![CDATA[<p>Last night I had a chance to coach at a <a href="http://codebar.io/">Codebar</a> event for the first time. They offer free basic programming and web development workshops to people who are underrepresented in the tech industry.</p>
+
+<p>For me it was a great reminder of how difficult it is to learn how to code. Even though my student was following a &ldquo;getting started&rdquo; <a href="http://tutorials.jumpstartlab.com/projects/ruby_in_100_minutes.html">tutorial</a>, the amount and complexity of new concepts involved was overwhelming at times. Luckily there were always small rewards (for both of us, mind) when each new concept &ldquo;clicked&rdquo; after getting a particular set of commands working.</p>
+
+<p>For example:</p>
+<div class="highlight"><pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="n">basket</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&#34;apple&#34;</span> <span class="o">=&gt;</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&#34;banana&#34;</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">}</span>
+<span class="n">cities</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&#34;London&#34;</span><span class="p">,</span> <span class="s2">&#34;New York&#34;</span><span class="o">]</span>
+
+<span class="nb">puts</span> <span class="n">basket</span><span class="o">[</span><span class="s2">&#34;apple&#34;</span><span class="o">]</span>
+<span class="nb">puts</span> <span class="n">cities</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>
+
+<span class="n">cities</span><span class="o">.</span><span class="n">each</span> <span class="p">{</span> <span class="o">|</span><span class="n">city</span><span class="o">|</span> <span class="nb">puts</span> <span class="n">city</span> <span class="p">}</span></code></pre></div>
+<p>Looking at this simple piece of code, there are many syntax concepts we just take for granted:</p>
+
+<ul>
+<li>The <code>[</code> and <code>]</code> can be used to define an Array and to access elements in both Arrays and Hashes.</li>
+<li>Sometimes <code>{</code> and <code>}</code> are used to define Hashes. Other times those are actually blocks.</li>
+<li>The <code>|city|</code> is a parameter to that block, but for methods we define parameters using <code>(</code> and <code>)</code>.</li>
+</ul>
+
+<p>Even the words I&rsquo;ve just used to describe them (access, element, define, parameter, block etc) are a whole new vocabulary to people new to programming. The tutorials do their best to introduce them gently, but there&rsquo;s no escape that programming at the beginning will be challenging.</p>
+
+<p>I can&rsquo;t remember the last time I had a chance to see someone take their first steps in programming but being there to make their path easier was definitely worth it.</p>
+
+<p>Also, thanks to <a href="https://twitter.com/samirtalwar">Samir</a> for mentioning it and <a href="https://twitter.com/despo">despo</a> for organising it. I hope to be able to do it again soon.</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Diamond Kata using Clojure and TDD</title>
+			<link>https://isanchez.net/posts/2014-12-06-diamond-kata-using-clojure-and-tdd/</link>
+			<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+			
+			<guid>https://isanchez.net/posts/2014-12-06-diamond-kata-using-clojure-and-tdd/</guid>
+			<description>After seeing Ron Jeffries&amp;rsquo; post about different takes on the Diamond Kata, I&amp;rsquo;ve decided to try it as well.
+This comment on Philip Schwarz&amp;rsquo; solution in particular got my attention:
+ I don’t know Clojure, which certainly made Philip’s solution harder to grok, but one can sort of read it. He added some tests later, which certainly helps.
+ Would a solution driven by tests be easier to understand? I&amp;rsquo;ll let you be the judge.</description>
+			<content type="html"><![CDATA[
+
+<p>After seeing <a href="http://ronjeffries.com/articles/diamond3/three-of-diamonds.html">Ron Jeffries&rsquo; post</a> about different takes on the Diamond Kata, I&rsquo;ve decided to try it as well.</p>
+
+<p>This comment on <a href="https://github.com/philipschwarz/diamond-problem-in-clojure">Philip Schwarz&rsquo; solution</a> in particular got my attention:</p>
+
+<blockquote>
+<p>I don’t know Clojure, which certainly made Philip’s solution harder to grok, but one can sort of read it. He added some tests later, which certainly helps.</p>
+</blockquote>
+
+<p>Would a solution driven by tests be easier to understand? I&rsquo;ll let you be the judge. Check out <a href="https://github.com/s4nchez/diamond-kata-clojure-tdd">my solution on GitHub</a> now, or keep reading for a detailed description (spoilers) of how I got to it.</p>
+
+<h2 id="my-solution-step-by-step">My solution step-by-step</h2>
+
+<p>To avoid spoiling my take on it, I decided not to read other solutions beforehand. I used <a href="http://claysnow.co.uk/recycling-tests-in-tdd/">Seb Rose&rsquo;s initial article</a> as a reference and tried to start with the simplest test I could think of:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">deftest</span> <span class="nv">diamond-building</span>
+  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;Diamond for A&#34;</span>
+    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="o">&#39;</span><span class="p">(</span><span class="s">&#34;A&#34;</span><span class="p">)</span> <span class="p">(</span><span class="nf">diamond</span> <span class="s">&#34;A&#34;</span><span class="p">)))))</span></code></pre></div>
+<p>Followed by a fake implementation:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">diamond</span> <span class="p">[</span><span class="nv">letter</span><span class="p">]</span> <span class="o">&#39;</span><span class="p">(</span><span class="s">&#34;A&#34;</span><span class="p">))</span></code></pre></div>
+<p>So with my initial test passing I tried to jump to something a bit more meaningful like:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;Diamond for B&#34;</span>
+    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="o">&#39;</span><span class="p">(</span><span class="s">&#34;-A-&#34;</span>, <span class="s">&#34;B-B&#34;</span>, <span class="s">&#34;-A-&#34;</span><span class="p">)</span> <span class="p">(</span><span class="nf">diamond</span> <span class="s">&#34;B&#34;</span><span class="p">))))</span></code></pre></div>
+<p>And that was enough to get me stuck! I felt overwhelmed by the amount of complexity that the proper solution for the second test required and saw myself forced to step back and try to break the problem into smaller parts that I could fit into my head.</p>
+
+<p>To decide how to split the problem, I&rsquo;ve looked at another example, the diamond for <code>C</code>:</p>
+
+<pre><code>--A--
+-B-B-
+C---C
+-B-B-
+--A--
+</code></pre>
+
+<p>I noticed I could try to tackle a few parts of the problem independently:</p>
+
+<ol>
+<li>The amount of spaces outside the diamond for each letter</li>
+<li>The amount of spaces inside the diamond for each letter</li>
+<li>Putting a line of the diamond together</li>
+<li>The letter sequence to compose the rows diamond</li>
+</ol>
+
+<p>I&rsquo;ve decided to start with #2 because it looked simpler than #1: the inner part of the diamond does not depend on the size of the diamond itself (e.g. <code>B-B</code> and <code>C---C</code> will always have the same amount of spaces inside).</p>
+
+<h3 id="the-inner-part-of-the-diamond">The inner part of the diamond</h3>
+
+<p>It also happens that the number of spaces inside the diamond follow a simple formula: <code>(2 * n) - 1</code>, where <code>n</code> is the index of the letter in the diamond. The only exception is the letter <code>A</code> that doesn&rsquo;t contain any space and is not repeated on its line.</p>
+
+<p>So I&rsquo;ve parked my initial tests and wrote a new one to help me implement just the inner part of a line:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">deftest</span> <span class="nv">inner-part-building</span>  
+  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;A&#34;</span>
+    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="s">&#34;A&#34;</span> <span class="p">(</span><span class="nf">inner-part</span> <span class="s">&#34;A&#34;</span><span class="p">))))</span></code></pre></div>
+<p>That was easy enough to fake as well:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">inner-part</span> <span class="p">[</span><span class="nv">letter</span><span class="p">]</span> <span class="s">&#34;A&#34;</span><span class="p">)</span></code></pre></div>
+<p>So again, I&rsquo;ve added a few more test cases:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">deftest</span> <span class="nv">inner-part-building</span>
+  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;A&#34;</span>
+    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="s">&#34;A&#34;</span> <span class="p">(</span><span class="nf">inner-part</span> <span class="s">&#34;A&#34;</span><span class="p">))))</span>
+  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;B&#34;</span>
+    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="s">&#34;B-B&#34;</span> <span class="p">(</span><span class="nf">inner-part</span> <span class="s">&#34;B&#34;</span><span class="p">)))))</span></code></pre></div>
+<p>Then I could start splitting the logic for <code>A</code> and the other letters by introducing a conditional:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">inner-part</span> <span class="p">[</span><span class="nv">letter</span><span class="p">]</span>
+  <span class="p">(</span><span class="nb">cond </span><span class="p">(</span><span class="nb">= </span><span class="s">&#34;A&#34;</span> <span class="nv">letter</span><span class="p">)</span> <span class="nv">letter</span>
+        <span class="ss">:else</span> <span class="s">&#34;B-B&#34;</span><span class="p">)</span></code></pre></div>
+<p>At this point I decided to replace the <code>B-B</code> from my solution by the actual implementation.</p>
+
+<p>So I added the test case for <code>C</code> and realised I still didn&rsquo;t have a function to give me the index of a particular letter (<code>A -&gt; 0</code>, <code>B -&gt; 1</code>, <code>C -&gt; 2</code> and so on) to use in the formula mentioned above.</p>
+
+<p>After a few more red-green cycles (which I&rsquo;ll omit from now on as it gets boring really quickly), I&rsquo;ve ended up with this two functions:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">char-index</span> <span class="p">[</span><span class="nv">letter</span><span class="p">]</span> <span class="p">(</span><span class="nb">- </span><span class="p">(</span><span class="nb">int </span><span class="p">(</span><span class="nb">first </span><span class="p">(</span><span class="nf">char-array</span> <span class="nv">letter</span><span class="p">)))</span> <span class="mi">65</span><span class="p">))</span>
+
+<span class="p">(</span><span class="kd">defn </span><span class="nv">inner-part</span> <span class="p">[</span><span class="nv">letter</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nb">index </span><span class="p">(</span><span class="nf">char-index</span> <span class="nv">letter</span><span class="p">)]</span>
+    <span class="p">(</span><span class="nb">cond </span><span class="p">(</span><span class="nb">= </span><span class="mi">0</span> <span class="nv">index</span><span class="p">)</span> <span class="nv">letter</span>
+          <span class="ss">:else</span> <span class="p">(</span><span class="nb">str </span><span class="nv">letter</span> <span class="p">(</span><span class="nf">string/join</span> <span class="s">&#34;&#34;</span> <span class="p">(</span><span class="nb">repeat </span><span class="p">(</span><span class="nb">- </span><span class="p">(</span><span class="nb">* </span><span class="mi">2</span> <span class="nv">index</span><span class="p">)</span> <span class="mi">1</span><span class="p">)</span> <span class="s">&#34;-&#34;</span><span class="p">))</span> <span class="nv">letter</span><span class="p">))))</span></code></pre></div>
+<p>The <code>char-index</code> function calculates the index of the letter by converting it to int and using the difference from the int value of <code>A</code> which is 65.</p>
+
+<p>The inner part is then created by concatenating the <code>letter</code> + <code>((2 * n) -1) dashes</code> + <code>letter</code>.</p>
+
+<h3 id="the-outer-part-of-the-diamond">The outer part of the diamond</h3>
+
+<p>To calculate the outer part of the diamond I started once more with the simplest case:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">deftest</span> <span class="nv">outer-part-building</span>
+  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;A for A diamond&#34;</span>
+    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="s">&#34;&#34;</span> <span class="p">(</span><span class="nf">outer-part</span> <span class="s">&#34;A&#34;</span> <span class="s">&#34;A&#34;</span><span class="p">))))</span></code></pre></div>
+<p>In this case I&rsquo;ve used two parameters: one to represent the letter of the line, another one to represent the letter of the diamond. Again, the first implementation was pretty much a stub:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">outer-part</span> <span class="p">[</span><span class="nv">current-letter</span> <span class="nv">diamond-letter</span><span class="p">]</span> <span class="s">&#34;&#34;</span><span class="p">)</span></code></pre></div>
+<p>Then I&rsquo;ve moved to more test cases for the letter <code>A</code>:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">deftest</span> <span class="nv">outer-part-building</span>
+  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;A for A diamond&#34;</span>
+    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="s">&#34;&#34;</span> <span class="p">(</span><span class="nf">outer-part</span> <span class="s">&#34;A&#34;</span> <span class="s">&#34;A&#34;</span><span class="p">))))</span>
+  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;A for B diamond&#34;</span>
+    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="s">&#34;-&#34;</span> <span class="p">(</span><span class="nf">outer-part</span> <span class="s">&#34;A&#34;</span> <span class="s">&#34;B&#34;</span><span class="p">))))</span>
+  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;A for C diamond&#34;</span>
+    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="s">&#34;--&#34;</span> <span class="p">(</span><span class="nf">outer-part</span> <span class="s">&#34;A&#34;</span> <span class="s">&#34;C&#34;</span><span class="p">)))))</span></code></pre></div>
+<p>At this point I could tell that the number of spaces depended on the second parameter, so I&rsquo;ve implemented it accordingly:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">outer-part</span> <span class="p">[</span><span class="nv">current-letter</span> <span class="nv">diamond-letter</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">final-index</span> <span class="p">(</span><span class="nf">char-index</span> <span class="nv">diamond-letter</span><span class="p">)]</span>
+    <span class="p">(</span><span class="nf">string/join</span> <span class="s">&#34;&#34;</span> <span class="p">(</span><span class="nb">repeat </span><span class="nv">final-index</span> <span class="s">&#34;-&#34;</span><span class="p">))))</span></code></pre></div>
+<p>All the tests were passing but I was pretty sure it wouldn&rsquo;t work for other letters, so I&rsquo;ve added another test to show I needed to use the formula <code>index of diamond letter - index of current letter</code> to figure out the correct number of spaces:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;B for F diamond&#34;</span>
+    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="s">&#34;----&#34;</span> <span class="p">(</span><span class="nf">outer-part</span> <span class="s">&#34;B&#34;</span> <span class="s">&#34;F&#34;</span><span class="p">))))</span></code></pre></div>
+<p>Surely enough it failed because my function was just using the diamond index.</p>
+
+<p>By fixing that I&rsquo;ve ended up with the final version of the function:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">outer-part</span> <span class="p">[</span><span class="nv">current-letter</span> <span class="nv">diamond-letter</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">current-index</span> <span class="p">(</span><span class="nf">char-index</span> <span class="nv">current-letter</span><span class="p">)</span>
+        <span class="nv">final-index</span> <span class="p">(</span><span class="nf">char-index</span> <span class="nv">diamond-letter</span><span class="p">)]</span>
+    <span class="p">(</span><span class="nf">string/join</span> <span class="s">&#34;&#34;</span> <span class="p">(</span><span class="nb">repeat </span><span class="p">(</span><span class="nb">- </span><span class="nv">final-index</span> <span class="nv">current-index</span><span class="p">)</span> <span class="s">&#34;-&#34;</span><span class="p">))))</span></code></pre></div>
+<h3 id="creating-the-rows">Creating the rows</h3>
+
+<p>With the basic parts of my solution implemented, now it was time to start putting the pieces together. I&rsquo;ve started by the simplest case of single diamond line. The test ended up like:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">deftest</span> <span class="nv">line-building</span>
+  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;A for A diamond&#34;</span>
+    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="s">&#34;A&#34;</span> <span class="p">(</span><span class="nf">line-for</span> <span class="s">&#34;A&#34;</span> <span class="s">&#34;A&#34;</span><span class="p">))))</span>
+  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;A for C diamond&#34;</span>
+    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="s">&#34;--A--&#34;</span> <span class="p">(</span><span class="nf">line-for</span> <span class="s">&#34;A&#34;</span> <span class="s">&#34;C&#34;</span><span class="p">))))</span>
+  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;C for C diamond&#34;</span>
+    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="s">&#34;C---C&#34;</span> <span class="p">(</span><span class="nf">line-for</span> <span class="s">&#34;C&#34;</span> <span class="s">&#34;C&#34;</span><span class="p">)))))</span></code></pre></div>
+<p>And the implementation was very simple:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">line-for</span> <span class="p">[</span><span class="nv">current-letter</span> <span class="nv">diamond-letter</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">outer</span> <span class="p">(</span><span class="nf">outer-part</span> <span class="nv">current-letter</span> <span class="nv">diamond-letter</span><span class="p">)</span>
+        <span class="nv">inner</span> <span class="p">(</span><span class="nf">inner-part</span> <span class="nv">current-letter</span><span class="p">)]</span>
+    <span class="p">(</span><span class="nb">str </span><span class="nv">outer</span> <span class="nv">inner</span> <span class="nv">outer</span><span class="p">)))</span></code></pre></div>
+<h3 id="the-diamond-letter-sequence">The diamond letter sequence</h3>
+
+<p>Now the final big challenge was to create the sequence of the letters for the diamond. I wanted something to produce:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">deftest</span> <span class="nv">diamond-letters-building</span>
+  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;A diamond&#34;</span>
+    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="o">&#39;</span><span class="p">(</span><span class="s">&#34;A&#34;</span><span class="p">)</span> <span class="p">(</span><span class="nf">letter-sequence</span> <span class="s">&#34;A&#34;</span><span class="p">))))</span>
+  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;D diamond&#34;</span>
+    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="o">&#39;</span><span class="p">(</span><span class="s">&#34;A&#34;</span> <span class="s">&#34;B&#34;</span> <span class="s">&#34;C&#34;</span> <span class="s">&#34;D&#34;</span> <span class="s">&#34;C&#34;</span> <span class="s">&#34;B&#34;</span> <span class="s">&#34;A&#34;</span><span class="p">)</span> <span class="p">(</span><span class="nf">letter-sequence</span> <span class="s">&#34;D&#34;</span><span class="p">)))))</span></code></pre></div>
+<p>Once again the easiest way I could find to achieve that was to use <code>char -&gt; int</code> conversions, which allowed me to create the following function:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">letter-sequence</span> <span class="p">[</span><span class="nv">diamond-letter</span><span class="p">]</span>
+  <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">value-a</span> <span class="mi">65</span>
+        <span class="nv">value-letter</span> <span class="p">(</span><span class="nb">+ </span><span class="nv">value-a</span> <span class="p">(</span><span class="nf">char-index</span> <span class="nv">diamond-letter</span><span class="p">))]</span>
+    <span class="p">(</span><span class="nb">map </span><span class="o">#</span><span class="p">(</span><span class="nb">str </span><span class="p">(</span><span class="nb">char </span><span class="nv">%</span><span class="p">))</span> <span class="p">(</span><span class="nb">concat </span><span class="p">(</span><span class="nb">range </span><span class="nv">value-a</span> <span class="nv">value-letter</span><span class="p">)</span> <span class="p">(</span><span class="nb">range </span><span class="nv">value-letter</span> <span class="p">(</span><span class="nb">- </span><span class="nv">value-a</span> <span class="mi">1</span><span class="p">)</span> <span class="mi">-1</span><span class="p">)))))</span></code></pre></div>
+<p>The result is created by:</p>
+
+<ul>
+<li>Creating a first list of ints, from <code>A</code> up to one letter before the diamond letter (<code>(range value-a value-letter)</code> part)</li>
+<li>Creating a second list from the diamond letter back to <code>A</code> (<code>(range value-letter (- value-a 1) -1))</code>)</li>
+<li>Merge the two lists using <code>concat</code></li>
+<li>Use <code>map</code> to convert the ints back to strings.</li>
+</ul>
+
+<h3 id="putting-everything-together">Putting everything together</h3>
+
+<p>At this stage I could go back to my initial tests:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">deftest</span> <span class="nv">diamond-building</span>
+  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;Diamond for A&#34;</span>
+    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="o">&#39;</span><span class="p">(</span><span class="s">&#34;A&#34;</span><span class="p">)</span> <span class="p">(</span><span class="nf">diamond</span> <span class="s">&#34;A&#34;</span><span class="p">))))</span>
+  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;Diamond for B&#34;</span>
+    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="o">&#39;</span><span class="p">(</span><span class="s">&#34;-A-&#34;</span>, <span class="s">&#34;B-B&#34;</span>, <span class="s">&#34;-A-&#34;</span><span class="p">)</span> <span class="p">(</span><span class="nf">diamond</span> <span class="s">&#34;B&#34;</span><span class="p">))))</span>
+  <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;Diamond for C&#34;</span>
+    <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="o">&#39;</span><span class="p">(</span><span class="s">&#34;--A--&#34;</span>, <span class="s">&#34;-B-B-&#34;</span>, <span class="s">&#34;C---C&#34;</span>, <span class="s">&#34;-B-B-&#34;</span>, <span class="s">&#34;--A--&#34;</span><span class="p">)</span> <span class="p">(</span><span class="nf">diamond</span> <span class="s">&#34;C&#34;</span><span class="p">))))</span></code></pre></div>
+<p>The implementation of the <code>diamond</code> function became trivial:</p>
+<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">diamond</span> <span class="p">[</span><span class="nv">letter</span><span class="p">]</span>
+  <span class="p">(</span><span class="nb">map </span><span class="o">#</span><span class="p">(</span><span class="nf">line-for</span> <span class="nv">%</span> <span class="nv">letter</span><span class="p">)</span> <span class="p">(</span><span class="nf">letter-sequence</span> <span class="nv">letter</span><span class="p">)))</span></code></pre></div>
+<p>And that was it. By mapping the <code>line-for</code> function to each of the letters produced by <code>letter-sequence</code> I could create the final structure of the diamond.</p>
+
+<h3 id="conclusion">Conclusion</h3>
+
+<p>Using TDD forced me to realise early on that the problem was not as simple as I thought initially. Using output examples helped me to understand the problem a bit more and breaking it into smaller parts made the red-green-refactor flow very easy.</p>
+
+<p>It was specially fun to see the problem become simpler and simpler as the parts of it were being implemented.</p>
+
+<p>The final solution also became simpler than I expected. Comparing to <a href="https://github.com/philipschwarz/diamond-problem-in-clojure">Philip&rsquo;s solution</a> it&rsquo;s also required half of his lines of code.</p>
+
+<p>I can&rsquo;t decide if that was just luck on my approach or was a side-effect of TDD. It was definitely not because my Clojure skills, as I&rsquo;m relatively new to the language.</p>
+
+<p>Overall it was a very fun exercise. Now is time to go back and read how other people have done it.</p>
+]]></content>
+		</item>
+		
 	</channel>
 </rss>
