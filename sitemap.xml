@@ -3,23 +3,23 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://isanchez.net/posts/2018-10-30-deployments-vs-releases/</loc>
-    <lastmod>2019-09-24T21:24:03+01:00</lastmod>
+    <loc>https://isanchez.net/about/</loc>
+    <lastmod>2019-09-24T21:03:59+01:00</lastmod>
   </url>
   
   <url>
     <loc>https://isanchez.net/</loc>
-    <lastmod>2019-09-24T21:24:03+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://isanchez.net/about/</loc>
     <lastmod>2019-09-24T21:03:59+01:00</lastmod>
   </url>
   
   <url>
     <loc>https://isanchez.net/posts/</loc>
     <lastmod>2019-09-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://isanchez.net/posts/2018-10-30-deployments-vs-releases/</loc>
+    <lastmod>2018-10-30T21:00:00+01:00</lastmod>
   </url>
   
   <url>

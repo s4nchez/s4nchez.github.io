@@ -12,7 +12,7 @@
 		<item>
 			<title>Deployments vs Releases</title>
 			<link>https://isanchez.net/posts/2018-10-30-deployments-vs-releases/</link>
-			<pubDate>Tue, 24 Sep 2019 21:24:03 +0100</pubDate>
+			<pubDate>Tue, 30 Oct 2018 21:00:00 +0100</pubDate>
 			
 			<guid>https://isanchez.net/posts/2018-10-30-deployments-vs-releases/</guid>
 			<description>When a team is looking to move towards Continuous Delivery, it comes a time when it’s essential to differentiate deployment from release.
