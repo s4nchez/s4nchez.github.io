@@ -21,5 +21,15 @@
       <description>Hi, this is my page.</description>
     </item>
     
+    <item>
+      <title>Learning a new codebase from its history beyond the code</title>
+      <link>https://isanchez.net/posts/2018-08-20-learning-a-new-codebase-from-its-history-beyond-the-code/</link>
+      <pubDate>Mon, 20 Aug 2018 21:00:00 +0100</pubDate>
+      
+      <guid>https://isanchez.net/posts/2018-08-20-learning-a-new-codebase-from-its-history-beyond-the-code/</guid>
+      <description>One of the most challenging aspects of learning a new codebase is to understand how things got to be the way they are now. Rather than viewing the current code/documentation as the current representation of reality, I find useful to see them as the result of many internal and external influences over time.
+As developers, we tend to see source control as the official history of a codebase. Unfortunately, just looking at the previous commits, no matter how well organised they are, is barely enough to understand the decisions that shaped the system.</description>
+    </item>
+    
   </channel>
 </rss>
