@@ -7,10 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Tue, 24 Sep 2019 21:48:15 +0100</lastBuildDate>
+    <lastBuildDate>Wed, 25 Sep 2019 21:03:38 +0100</lastBuildDate>
     
 	<atom:link href="https://isanchez.net/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>The hard truth about testing with databases</title>
+      <link>https://isanchez.net/posts/2019-09-23-the-hard-truth-about-testing-with-databases/</link>
+      <pubDate>Wed, 25 Sep 2019 21:03:38 +0100</pubDate>
+      
+      <guid>https://isanchez.net/posts/2019-09-23-the-hard-truth-about-testing-with-databases/</guid>
+      <description>When your tests depend on a database, you accept (most times unintentionally) that they&amp;rsquo;ll be slower, harder to maintain, and more fragile than your average unit tests.
+For a start, you&amp;rsquo;ll need an actual database to connect to, up and running and listening to the right port, with the correct permissions and the correct version of the schema.
+You also need to make sure the state of the data is as expected before each test.</description>
+    </item>
     
     <item>
       <title>Training</title>
