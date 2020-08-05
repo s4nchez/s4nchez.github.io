@@ -11,11 +11,9 @@
 <meta itemprop="description" content="If you haven&rsquo;t tried Ruby on Rails because was too busy developing your J2EE applications, now you have no more excuses! It&rsquo;s possible (and surprisingly simple) to deploy a RoR application in your favorite J2EE server just by following these few steps:
 1. Install JRuby on Rails Get JRuby and install the Ruby on Rails gem:
 gem install rails --include-dependencies --no-rdoc --no-ri 2. Create a simple test application Run the following commands to set up your new application:">
-
-
-<meta itemprop="datePublished" content="2008-01-02T09:55:42&#43;00:00" />
-<meta itemprop="dateModified" content="2008-01-02T09:55:42&#43;00:00" />
-<meta itemprop="wordCount" content="427">
+<meta itemprop="datePublished" content="2008-01-02T09:55:42+00:00" />
+<meta itemprop="dateModified" content="2008-01-02T09:55:42+00:00" />
+<meta itemprop="wordCount" content="425">
 
 
 
@@ -42,7 +40,7 @@ gem install rails --include-dependencies --no-rdoc --no-ri 2. Create a simple te
 	<link rel="shortcut icon" href="/favicon.ico">
 
 	<title>Deploying Ruby on Rails as J2EE application</title>
-	<link rel="stylesheet" href="https://isanchez.net/css/style.min.5ee5e7976cd09872c64e40a582206543f6aa38c69a8c43898aadc70040344b92.css" integrity="sha256-XuXnl2zQmHLGTkClgiBlQ/aqOMaajEOJiq3HAEA0S5I=" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://isanchez.net/css/style.min.adb4e738c83b4cc0eea8000ca83f72188a2ac1fd188a1e6f7cea8a7fa75cd7b1.css" integrity="sha256-rbTnOMg7TMDuqAAMqD9yGIoqwf0Yih5vfOqKf6dc17E=" crossorigin="anonymous">
 	
 </head>
 
@@ -83,75 +81,63 @@ gem install rails --include-dependencies --no-rdoc --no-ri 2. Create a simple te
 				<h1>Deploying Ruby on Rails as J2EE application</h1>
 			</header>
 			<div class="content">
-				
-
-<p>If you haven&rsquo;t tried
+				<p>If you haven&rsquo;t tried
 <a href="http://www.rubyonrails.org/">Ruby on Rails</a> because was too busy developing your J2EE applications, now you have no more excuses! It&rsquo;s possible (and surprisingly simple) to deploy a RoR application in your favorite J2EE server just by following these few steps:</p>
-
 <h2 id="1-install-jruby-on-rails">1. Install JRuby on Rails<a href="#1-install-jruby-on-rails" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
-
 <p><a href="http://jruby.codehaus.org/Getting+Started">Get JRuby</a> and install the Ruby on Rails
 <a href="http://rubygems.org/read/book/1">gem</a>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">gem install rails --include-dependencies --no-rdoc --no-ri</code></pre></div>
-<h2 id="2-create-a-simple-test-application">2. Create a simple test application<a href="#2-create-a-simple-test-application" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
-
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">gem install rails --include-dependencies --no-rdoc --no-ri
+</code></pre></div><h2 id="2-create-a-simple-test-application">2. Create a simple test application<a href="#2-create-a-simple-test-application" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
 <p>Run the following commands to set up your new application:</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">rails test_app
-<span class="nb">cd</span> test_app</code></pre></div>
-<p>You&rsquo;ll have to edit the first line of the created scripts (<strong>&lsquo;script</strong>&rsquo; directory) to use JRuby:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1">#!/usr/bin/env jruby</span></code></pre></div>
-<p>And at this point you&rsquo;re ready to test your application:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">script/server</code></pre></div>
-<p>Open
+<span class="nb">cd</span> test_app
+</code></pre></div><p>You&rsquo;ll have to edit the first line of the created scripts (<strong>&lsquo;script</strong>&rsquo; directory) to use JRuby:</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/usr/bin/env jruby
+</span></code></pre></div><p>And at this point you&rsquo;re ready to test your application:</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">script/server
+</code></pre></div><p>Open
 <a href="http://localhost:3000">http://localhost:3000</a> and check if your application is running as it should.</p>
-
 <p>Now let&rsquo;s create some functionality. First, edit your <strong>config/database.yml</strong> file, defining your development and production database as it follows. Note that we don&rsquo;t need the test database and we can use the same database for both development and production  for the scope of this example:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">adapter<span class="p">:</span><span class="w"> </span>mysql<span class="w">
-</span><span class="w"></span>database<span class="p">:</span><span class="w"> </span>test_app<span class="w">
-</span><span class="w"></span>user<span class="p">:</span><span class="w"> </span>root<span class="w">
-</span><span class="w"></span>password<span class="p">:</span><span class="w"> </span>xxx<span class="w">
-</span><span class="w"></span>host<span class="p">:</span><span class="w"> </span>localhost</code></pre></div>
-<p>Create a <a href="http://en.wikipedia.org/wiki/Scaffold_%28programming%29">scaffold</a>:</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">adapter</span><span class="p">:</span><span class="w"> </span>mysql<span class="w">
+</span><span class="w"></span><span class="k">database</span><span class="p">:</span><span class="w"> </span>test_app<span class="w">
+</span><span class="w"></span><span class="k">user</span><span class="p">:</span><span class="w"> </span>root<span class="w">
+</span><span class="w"></span><span class="k">password</span><span class="p">:</span><span class="w"> </span>xxx<span class="w">
+</span><span class="w"></span><span class="k">host</span><span class="p">:</span><span class="w"> </span>localhost<span class="w">
+</span></code></pre></div><p>Create a <a href="http://en.wikipedia.org/wiki/Scaffold_%28programming%29">scaffold</a>:</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">script/generate scaffold Dog name:string
 rake db:drop:all
 rake db:create:all
-rake db:migrate</code></pre></div>
-<p>At this point you&rsquo;re already able to point your browser to <a href="http://localhost:3000/dogs">http://localhost:3000/dogs</a> and start playing with with your database.</p>
-
+rake db:migrate
+</code></pre></div><p>At this point you&rsquo;re already able to point your browser to <a href="http://localhost:3000/dogs">http://localhost:3000/dogs</a> and start playing with with your database.</p>
 <h2 id="3-install-the-jdbc-adapter-and-change-your-application">3. Install the JDBC adapter and change your application<a href="#3-install-the-jdbc-adapter-and-change-your-application" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
-
 <p>In order to deploy as a Java web application, you&rsquo;ll have to replace the database adapter by a JDBC one. To achieve this, first you need a new gem:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">gem install activerecord-jdbc-adapter --no-rdoc --no-ri</code></pre></div>
-<p>You also need to copy your mysql driver (JAR file) to your <strong>JRUBY_HOME/lib</strong> directory and edit your <strong>database.yml</strong> once more:</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">adapter<span class="p">:</span><span class="w"> </span>jdbc<span class="w">
-</span><span class="w"></span>driver<span class="p">:</span><span class="w"> </span>com.mysql.jdbc.Driver<span class="w">
-</span><span class="w"></span>url<span class="p">:</span><span class="w"> </span>jdbc<span class="p">:</span>mysql<span class="p">:</span>//localhost/test_app<span class="w">
-</span><span class="w"></span>username<span class="p">:</span><span class="w"> </span>root<span class="w">
-</span><span class="w"></span>password<span class="p">:</span><span class="w"> </span>xxx<span class="w">
-</span><span class="w"></span>host<span class="p">:</span><span class="w"> </span>localhost</code></pre></div>
-<p>Restart your server and, since we just changed its configuration, everything should be still working exactly as before.</p>
-
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">gem install activerecord-jdbc-adapter --no-rdoc --no-ri
+</code></pre></div><p>You also need to copy your mysql driver (JAR file) to your <strong>JRUBY_HOME/lib</strong> directory and edit your <strong>database.yml</strong> once more:</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">adapter</span><span class="p">:</span><span class="w"> </span>jdbc<span class="w">
+</span><span class="w"></span><span class="k">driver</span><span class="p">:</span><span class="w"> </span>com.mysql.jdbc.Driver<span class="w">
+</span><span class="w"></span><span class="k">url</span><span class="p">:</span><span class="w"> </span>jdbc<span class="p">:</span>mysql<span class="p">:</span>//localhost/test_app<span class="w">
+</span><span class="w"></span><span class="k">username</span><span class="p">:</span><span class="w"> </span>root<span class="w">
+</span><span class="w"></span><span class="k">password</span><span class="p">:</span><span class="w"> </span>xxx<span class="w">
+</span><span class="w"></span><span class="k">host</span><span class="p">:</span><span class="w"> </span>localhost<span class="w">
+</span></code></pre></div><p>Restart your server and, since we just changed its configuration, everything should be still working exactly as before.</p>
 <h2 id="4-install-goldspike-and-create-your-war-file">4. Install Goldspike and create your WAR file<a href="#4-install-goldspike-and-create-your-war-file" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
-
 <p>In your application directory, install the <a href="http://wiki.jruby.org/wiki/Goldspike">plugin</a>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">script/plugin install http://jruby-extras.rubyforge.org/svn/trunk/rails-integration/plugins/goldspike</code></pre></div>
-<p>To include your database driver in the generated archive, you have a few options (Maven is one of them), but for now let&rsquo;s just copy it to the &lsquo;<strong>WEB-INF/lib</strong>&rsquo; directory of the application:</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">script/plugin install http://jruby-extras.rubyforge.org/svn/trunk/rails-integration/plugins/goldspike
+</code></pre></div><p>To include your database driver in the generated archive, you have a few options (Maven is one of them), but for now let&rsquo;s just copy it to the &lsquo;<strong>WEB-INF/lib</strong>&rsquo; directory of the application:</p>
 <div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">mkdir WEB-INF/lib
-cp <span class="nv">$JRUBY_HOME</span>/lib/mysql-connector-java-5.0.5-bin.jar WEB-INF/lib</code></pre></div>
-<p>You also need to edit the <strong>app/controllers/application.rb</strong> file and include the line:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">protect_from_forgery :secret <span class="o">=</span>&gt; <span class="s1">&#39;6dc47d156f8f3724e4634c37bc0f9f94&#39;</span></code></pre></div>
-<p>Finally, to create your WAR file, run:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">rake war:standalone:create</code></pre></div>
-<p>Deploy the generated file in your favorite J2EE server like Tomcat or WebLogic.</p>
-
+cp <span class="nv">$JRUBY_HOME</span>/lib/mysql-connector-java-5.0.5-bin.jar WEB-INF/lib
+</code></pre></div><p>You also need to edit the <strong>app/controllers/application.rb</strong> file and include the line:</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">protect_from_forgery :secret <span class="o">=</span>&gt; <span class="s1">&#39;6dc47d156f8f3724e4634c37bc0f9f94&#39;</span>
+</code></pre></div><p>Finally, to create your WAR file, run:</p>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">rake war:standalone:create
+</code></pre></div><p>Deploy the generated file in your favorite J2EE server like Tomcat or WebLogic.</p>
 <h2 id="conclusion">Conclusion<a href="#conclusion" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
-
 <p>The integration between Ruby on Rails and Java is easier than most people would expect, and it may become a new option to develop your next web application. That may be also a great motivation to learn JRuby and start taking advantage of its <a href="http://jruby.codehaus.org/Java+Integration">integration with existing Java code</a>.</p>
 
 			</div>
 			<hr class="post-end">
 			<footer class="post-info">
-				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>427 Words</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>425 Words</p>
 				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2008-01-02 09:55 &#43;0000</p>
 			</footer>
 		</article>
@@ -168,7 +154,7 @@ cp <span class="nv">$JRUBY_HOME</span>/lib/mysql-connector-java-5.0.5-bin.jar WE
 	</main>
 
 	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
-		<p>&copy; 2019 <a href="https://isanchez.net/">Ivan Sanchez</a> &#183; <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></p>
+		<p>&copy; 2020 <a href="https://isanchez.net/">Ivan Sanchez</a> &#183; <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></p>
 		<p>
 			Made with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &#183; Theme <a href="https://github.com/Track3/hermit" target="_blank" rel="noopener">Hermit</a> &#183; <a href="https://isanchez.net/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a>
 		</p>

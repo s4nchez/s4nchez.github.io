@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Ivan Sanchez</title>
@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Wed, 25 Sep 2019 21:03:38 +0100</lastBuildDate>
+    <lastBuildDate>Thu, 23 Jul 2020 20:00:00 +0100</lastBuildDate>
     
 	<atom:link href="https://isanchez.net/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Two Bold Rules to get meetings right before they even start</title>
+      <link>https://isanchez.net/posts/2020-07-23-two-bold-rules/</link>
+      <pubDate>Thu, 23 Jul 2020 20:00:00 +0100</pubDate>
+      
+      <guid>https://isanchez.net/posts/2020-07-23-two-bold-rules/</guid>
+      <description>There aren’t many teams where meetings don’t become a contentious subject at some point or another. Regardless of the topic and even before any meeting takes place, the way a team manages meetings says a lot about how they operate and how invested in self-organisation they are.
+The main contention I see is around attendance: often people feel they’re invited to too many meetings, or that they’ve been excluded from the important ones.</description>
+    </item>
     
     <item>
       <title>The hard truth about testing with databases</title>
@@ -145,7 +155,7 @@ After months of pairing the team developed a common understand of the system tha
       <pubDate>Mon, 22 Feb 2010 04:26:00 +0000</pubDate>
       
       <guid>https://isanchez.net/posts/2010-02-22-the-joys-of-the-craft/</guid>
-      <description>The Mythical Man-Month is a great book not only because of its insights about software projects. Fred Brooks also writes about the &amp;ldquo;The Joys of the Craft&amp;ldquo;:
+      <description>The Mythical Man-Month is a great book not only because of its insights about software projects. Fred Brooks also writes about the &amp;ldquo;The Joys of the Craft&amp;quot;:
  Why is programming fun? What delights may its practitioner expects as his reward?
  The first is the sheer joy of making things. [&amp;hellip;] Second is the pleasure of making things that are useful to other people. [&amp;hellip;] Third is the fascination of fashioning complex puzzle-like objects of interlocking moving parts and watching them work in subtle cycles, playing out the consequences of principles built in from the beginning.</description>
     </item>
@@ -401,7 +411,7 @@ Don&amp;rsquo;t forget to register on their website and join our mailing list if
       
       <guid>https://isanchez.net/posts/2009-01-16-next-open-coding-dojos/</guid>
       <description>Yesterday we had our first dojo in 2009 and once more people asked me when are the next sessions. So here they are:
- Wednesday, January 28th Thursday, February 12th Wednesday, February 25th Monday, March 9th Wednesday, March 25th  The dates may change (they already did), so that&amp;rsquo;s one more reason to join our group or [subscribe to this blog]() to be informed if that happens.</description>
+ Wednesday, January 28th Thursday, February 12th Wednesday, February 25th Monday, March 9th Wednesday, March 25th  The dates may change (they already did), so that&amp;rsquo;s one more reason to join our group or subscribe to this blog to be informed if that happens.</description>
     </item>
     
     <item>
@@ -536,8 +546,8 @@ Velocity = Points done / Timebox</description>
       
       <guid>https://isanchez.net/posts/2008-03-18-integration-versus-integration/</guid>
       <description>Just to clarify:
- Integration test: modules of the system are tested together, as a group.
- Integration build: modifications made by developers are consolidated through a full build.
+  Integration test: modules of the system are tested together, as a group.
+  Integration build: modifications made by developers are consolidated through a full build.
   Although the integration build may include running integration tests, they&amp;rsquo;re are clearly two separate problems.</description>
     </item>
     
@@ -548,7 +558,7 @@ Velocity = Points done / Timebox</description>
       
       <guid>https://isanchez.net/posts/2008-01-10-building-self-managed-teams/</guid>
       <description>Sometimes in a project:
- People are treated as mere &amp;ldquo;resources&amp;rdquo;, being part of the project only to work on predefined activities and nothing else. The managers want to be sure that everyone is doing exactly what they think it&amp;rsquo;s the best, and forget that people can have good ideas. People prefer to work on tasks defined by someone else because they don&amp;rsquo;t want to be responsible for their work.</description>
+ People are treated as mere &amp;ldquo;resources&amp;rdquo;, being part of the project only to work on predefined activities and nothing else. The managers want to be sure that everyone is doing exactly what they think it&amp;rsquo;s the best, and forget that people can have good ideas. People prefer to work on tasks defined by someone else because they don&amp;rsquo;t want to be responsible for their work.  Having self managed teams is a good way to change this reality but to make people capable of managing their own work is a tricky task.</description>
     </item>
     
     <item>

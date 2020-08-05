@@ -10,10 +10,8 @@
 <meta itemprop="name" content="Considering migrating from svn to git?">
 <meta itemprop="description" content="In December last year we decided to migrate our whole codebase from Subversion to git. Here is a few tips I&rsquo;d give to someone considering taking the same route:
 Evaluate the reasons for the migration. Think about specific scenarios where Subversion is not meeting your project&rsquo;s requirements. Check if too much time is being spent trying to make the current version control work with your workflow. There must be an opportunity to make things simpler or more efficient by switching to git in order to justify the switch.">
-
-
-<meta itemprop="datePublished" content="2011-02-21T21:10:00&#43;00:00" />
-<meta itemprop="dateModified" content="2011-02-21T21:10:00&#43;00:00" />
+<meta itemprop="datePublished" content="2011-02-21T21:10:00+00:00" />
+<meta itemprop="dateModified" content="2011-02-21T21:10:00+00:00" />
 <meta itemprop="wordCount" content="584">
 
 
@@ -39,7 +37,7 @@ Evaluate the reasons for the migration. Think about specific scenarios where Sub
 	<link rel="shortcut icon" href="/favicon.ico">
 
 	<title>Considering migrating from svn to git?</title>
-	<link rel="stylesheet" href="https://isanchez.net/css/style.min.5ee5e7976cd09872c64e40a582206543f6aa38c69a8c43898aadc70040344b92.css" integrity="sha256-XuXnl2zQmHLGTkClgiBlQ/aqOMaajEOJiq3HAEA0S5I=" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://isanchez.net/css/style.min.adb4e738c83b4cc0eea8000ca83f72188a2ac1fd188a1e6f7cea8a7fa75cd7b1.css" integrity="sha256-rbTnOMg7TMDuqAAMqD9yGIoqwf0Yih5vfOqKf6dc17E=" crossorigin="anonymous">
 	
 </head>
 
@@ -81,21 +79,13 @@ Evaluate the reasons for the migration. Think about specific scenarios where Sub
 			</header>
 			<div class="content">
 				<p>In December last year we decided to migrate our whole codebase from <a href="http://subversion.tigris.org/">Subversion</a> to <a href="http://git-scm.com/">git</a>. Here is a few tips I&rsquo;d give to someone considering taking the same route:</p>
-
 <p><strong>Evaluate the reasons for the migration</strong>. Think about specific scenarios where Subversion is not meeting your project&rsquo;s requirements. Check if too much time is being spent trying to make the current version control work with your workflow. There must be an opportunity to make things simpler or more efficient by switching to git in order to justify the switch.</p>
-
 <p>In our case we were already working almost exclusively with <a href="http://martinfowler.com/bliki/FeatureBranch.html">feature branches</a>, which is a great way to isolate our different pieces of work, but was becoming a hell due to <a href="http://svnbook.red-bean.com/nightly/en/svn.tour.treeconflicts.html">svn tree conflicts</a>. Even though that was the single problem we faced with subversion in years of use, the time wasted with merges lately was enough to justify moving all our code to a more &ldquo;branch-friendly&rdquo; system.</p>
-
 <p><strong>Do your homework</strong>. In other words, before starting anything, learn more about git. The best places to start are probably the <a href="http://book.git-scm.com/">Git Community Book</a> for theory and <a href="https://github.com/">GitHub</a> for practice. For me it was really worth learning git&rsquo;s key concepts before moving to practice. It&rsquo;s also a good idea avoiding comparisons with svn until you are comfortable enough with these core concepts. Trying to simply map commands from one tool to another can make life harder, mainly because they don&rsquo;t share the same principles.</p>
-
 <p><strong>Consider not migrating the whole repository history</strong>. Although the process is not necessarily complicated, it&rsquo;ll probably be time consuming. To give an idea, our 4GB codebase took almost 3 weeks (!) to migrate using <a href="http://www.kernel.org/pub/software/scm/git/docs/git-svn.html">git-svn</a>. That&rsquo;s mainly due to the fact it had to magically create git branches (which are copies of the full repository) from svn branches (generally partial copies). If I had to go through that again today I&rsquo;d probably migrate trunk only, or even consider starting fresh by splitting our codebase into smaller git repositories and keeping subversion just for reference.</p>
-
 <p><strong>Spread knowledge before the final switch</strong>. Having the whole team up to speed with the new tool before starting using it on the day-to-day work is a no-brainer. Having a few people willing to train others and help them during the first weeks is also very important to make the transition the less painful as possible.</p>
-
 <p><strong>Accept the fact all version control systems require discipline</strong>. Don&rsquo;t expect git will solve all the problems in your project. What I noticed is that most of the problems with version control systems start when people get to weird workflows and forget that their work needs to be in a shared repository. Mixing branches, merging wrong content, losing uncommited changes and trashing the local repository will happen regardless of the system. We all make mistakes sometimes and it&rsquo;s best to learn from them instead of cursing the tool.</p>
-
 <p>Now, almost two months later, I can say migrating was a good decision. Branching and merging feel more natural in git, and it has some cool features that are surprisingly useful, like <a href="http://www.kernel.org/pub/software/scm/git/docs/git-cherry-pick.html">cherry-picking</a>. There are still some rare cases when a developer ended up having to recreate a local branch or even having to clone the local repository again, but even these operations are simple enough and I imagine they would probably be avoided if they had more experience with the tool and its workflow.</p>
-
 <p>In any case, just the fact of not having to deal with merge nightmares in subversion again makes me really happy.</p>
 
 			</div>
@@ -118,7 +108,7 @@ Evaluate the reasons for the migration. Think about specific scenarios where Sub
 	</main>
 
 	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
-		<p>&copy; 2019 <a href="https://isanchez.net/">Ivan Sanchez</a> &#183; <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></p>
+		<p>&copy; 2020 <a href="https://isanchez.net/">Ivan Sanchez</a> &#183; <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></p>
 		<p>
 			Made with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &#183; Theme <a href="https://github.com/Track3/hermit" target="_blank" rel="noopener">Hermit</a> &#183; <a href="https://isanchez.net/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a>
 		</p>
