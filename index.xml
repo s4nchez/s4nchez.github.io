@@ -7,10 +7,33 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Mon, 03 Aug 2020 20:00:00 +0100</lastBuildDate>
+    <lastBuildDate>Wed, 09 Sep 2020 20:00:00 +0100</lastBuildDate>
     
 	<atom:link href="https://isanchez.net/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Speaking</title>
+      <link>https://isanchez.net/speaking/</link>
+      <pubDate>Mon, 14 Sep 2020 09:00:00 +0000</pubDate>
+      
+      <guid>https://isanchez.net/speaking/</guid>
+      <description>Kotliners Conference (Jun/2020, Budapest, Hungary - Remote) - Writing Test-Driven apps with http4k (presented with David Denton, video)
+  KotlinConf (Oct/2018, Amsterdam, Netherlands) - Server as a Function. In Kotlin. (presented with David Denton, video)
+  SPA Conference (Jul/2018, London, UK) - Building a &amp;ldquo;development for non-developers&amp;rdquo; Course. (workshop slides)
+  XP2018 (May/2018, Porto, Portugal) - Building a &amp;ldquo;development for non-developers&amp;rdquo;. (talk slides)
+  Kotlin Sao Paulo Meetup (Jan/2018, Sao Paulo, Brazil) - Server as a Function.</description>
+    </item>
+    
+    <item>
+      <title>Engage everyone in your Zoom call using 1-2-4-All</title>
+      <link>https://isanchez.net/posts/2020-09-09-virtual-1-2-4-all/</link>
+      <pubDate>Wed, 09 Sep 2020 20:00:00 +0100</pubDate>
+      
+      <guid>https://isanchez.net/posts/2020-09-09-virtual-1-2-4-all/</guid>
+      <description>One of the challenges of running meetings over Zoom is including every single participant. Without some structure, only the most vocal people will share their thoughts, and the whole group will miss the opportunity to hear perhaps the most innovative ideas that may come from quiet people, individual contemplation or smaller conversations.
+We can solve most of these issues using a Liberating Structure called 1-2-4-All. In this article, I&amp;rsquo;ll share an adapted way to use this structure with Zoom + Breakout Rooms + any collaborative note-taking tool (e.</description>
+    </item>
     
     <item>
       <title>Eight Behaviours for Smarter Teams</title>
@@ -54,8 +77,7 @@ You also need to make sure the state of the data is as expected before each test
       
       <guid>https://isanchez.net/training/</guid>
       <description>Real World Kotlin Development Workshop A hands-on session to get you up to speed with the best parts of Kotlin as well as learning effective approaches to safely and incrementally migrate from existing Java codebases.
-Upcoming sessions:
- 22-23 October 2019 @ Skills Matter 27-28 January 2020 @ Skills Matter  Please get in touch for alternative dates or on-site training.</description>
+No public offerings at the moment. Please get in touch for alternative dates or on-site training.</description>
     </item>
     
     <item>
@@ -65,9 +87,10 @@ Upcoming sessions:
       
       <guid>https://isanchez.net/about/</guid>
       <description>Hi, Ivan Sanchez here.
-Things I tend to be asked to do these days: programming, coaching, facilitation, training, consulting, speaking.
-My focus is around best ways to deliver software, collaborate, and create effective learning environments.
-I&amp;rsquo;m also one of the creators of http4k, a lightweight Kotlin library that allows serving and consuming HTTP services, with focus on simplicity and testability.</description>
+I&amp;rsquo;m continuously looking for better ways to deliver software, collaborate, and create effective learning environments.
+Things people ask me to do these days include programming, coaching, facilitation, training, consulting, and speaking.
+I&amp;rsquo;m also one of the creators of http4k, a lightweight Kotlin library that allows serving and consuming HTTP services, with focus on simplicity and testability.
+You can reach out to me via email, twitter, or linkedin.</description>
     </item>
     
     <item>
