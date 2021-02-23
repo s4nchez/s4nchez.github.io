@@ -10,6 +10,46 @@
 		<atom:link href="https://isanchez.net/posts/index.xml" rel="self" type="application/rss+xml" />
 		
 		<item>
+			<title>Perks for adult developers</title>
+			<link>https://isanchez.net/posts/2021-02-21-perks-for-adult-developers/</link>
+			<pubDate>Mon, 22 Feb 2021 20:00:00 +0100</pubDate>
+			
+			<guid>https://isanchez.net/posts/2021-02-21-perks-for-adult-developers/</guid>
+			<description>In addition to good salary, there are many ways companies try to attract and retain good people.
+Those benefits tend to say a lot about the organisation culture, which explains why companies bragging about their ping-pong tables have become a running joke in the industry.
+Here are some tips in case your company intends to treat developers like actual adults, as in Chris Argyris&amp;rsquo; Theory of Adult Personality:
+Give the best tools for the job, no questions asked Just provide the best hardware (laptop, chairs, cameras, etc.</description>
+			<content type="html"><![CDATA[<p>In addition to good salary, there are many ways companies try to attract and retain good people.</p>
+<p>Those benefits tend to say a lot about the organisation culture, which explains why companies bragging about their ping-pong tables have become a running joke in the industry.</p>
+<p>Here are some tips in case your company intends to treat developers like actual adults, as in <a href="https://en.wikipedia.org/wiki/Chris_Argyris#Adult_personality">Chris Argyris&rsquo; Theory of Adult Personality</a>:</p>
+<h2 id="give-the-best-tools-for-the-job-no-questions-asked">Give the best tools for the job, no questions asked</h2>
+<p>Just provide the best hardware (laptop, chairs, cameras, etc.) and software the team considers appropriate without making a big deal out of it.</p>
+<p>If the team can&rsquo;t agree on what those are, work with them first to define a shortlist, publish it internally, and invite them to refer to that.</p>
+<p>It&rsquo;s surprising how many companies still forget that tools are cheap compared to people&rsquo;s salary and (hopefully) the value they can create if only they&rsquo;re allowed to be effective.</p>
+<h2 id="remove-general-friction">Remove general friction</h2>
+<p>Many levels of approval to get hardware or access to internal systems? Detailed justification to take a day off or a more extended holiday? No access to install other software in their work laptops?</p>
+<p>Be mindful of adding any friction like that. Unless people are onboard with the trade-off a restriction represents, it&rsquo;ll just be another source of complaint and comparison when looking for another job.</p>
+<p>In many cases, a <a href="https://en.wikipedia.org/wiki/Trust,_but_verify">Trust But Verify</a> approach would be more suitable for reducing issues while still keeping people productive.</p>
+<h2 id="allow-and-encourage-to-continuously-improve-things">Allow and encourage to continuously improve things</h2>
+<p>Like any other person in the organisation, developers are well placed to identify their work issues. Not giving them space and autonomy to fix them is missing valuable opportunities to make the whole organisation better.</p>
+<p>That shouldn&rsquo;t be limited to improvements to the code. Better tools, processes, and working practices should also be up for grabs for those who see areas to improve.</p>
+<h2 id="allow-and-encourage-to-work-with-the-broader-organisation">Allow and encourage to work with the broader organisation</h2>
+<p>It&rsquo;s still common for organisations to treat software development as an isolated function that turns requirements from team A into software that team B will run and C will maintain.</p>
+<p>Adult developers want to understand the &ldquo;why&rdquo;, help defining the &ldquo;what&rdquo;, and direct the &ldquo;how&rdquo;. That means collaborating with all the people impacted by their work.</p>
+<p>At a minimum, the information flow needs to be available so they can make well-informed decisions. And in return, developers should be able to share constraints and implications of those directions in a way others can understand.</p>
+<p>High-performance organisations require cross-discipline/team collaboration, and great developers are well aware that their best output will come from working with other people.</p>
+<h2 id="support-career-development">Support career development</h2>
+<p>Most adult developers don&rsquo;t enjoy the Personal Development Plans (PDPs) their employers force them to define and follow. That becomes even worse when those become tied to career progression and salary reviews.</p>
+<p>On the other hand, developers appreciate having good coaches or mentors they can refer to when they need support.</p>
+<p>For more senior developers, this support often means providing a light-touch approach of giving them space to grow on their own but still giving feedback when asked or needed.</p>
+<p>An appropriate allowance for learning (books, courses, going to conferences, etc.) is also welcome by developers at any level.</p>
+<h2 id="summary">Summary</h2>
+<p>Hopefully, if those ideas sound like common sense, it probably means your company is already on the right track.</p>
+<p>On the other hand, if those sound too hard or even impossible in your context, your organisation may be past the stage where treating developers like an adult is possible.</p>
+]]></content>
+		</item>
+		
+		<item>
 			<title>Engage everyone in your Zoom call using 1-2-4-All</title>
 			<link>https://isanchez.net/posts/2020-09-09-virtual-1-2-4-all/</link>
 			<pubDate>Wed, 09 Sep 2020 20:00:00 +0100</pubDate>
