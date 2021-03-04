@@ -10,6 +10,83 @@
 		<atom:link href="https://isanchez.net/posts/index.xml" rel="self" type="application/rss+xml" />
 		
 		<item>
+			<title>Reasons Java server-side developers are not adopting Kotlin</title>
+			<link>https://isanchez.net/posts/2021-02-28-kotlin-adoption-on-server-side/</link>
+			<pubDate>Sun, 28 Feb 2021 20:00:00 +0100</pubDate>
+			
+			<guid>https://isanchez.net/posts/2021-02-28-kotlin-adoption-on-server-side/</guid>
+			<description>TL;DR - What I see in the wild is that Kotlin adoption on the server-side is slow due to a mix of complacency, career self-preservation, and lack of Kotlin visibility. In some specific cases, though, avoiding the adoption is entirely justified.
+It&amp;rsquo;s now almost five years since I wrote my first lines of Kotlin, after using Java for over fifteen years.
+Our team didn&amp;rsquo;t follow the typical Java playbook: we used Utterlyidle instead of Spring and embraced a Functional Programming approach with Totallylazy.</description>
+			<content type="html"><![CDATA[<p><img src="/images/jump.jpg" alt="alt text" title="Person jumping off a cliff"></p>
+<p><em><strong>TL;DR - What I see in the wild is that Kotlin adoption on the server-side is slow due to a mix of complacency, career self-preservation, and lack of Kotlin visibility. In some specific cases, though, avoiding the adoption is entirely justified.</strong></em></p>
+<p>It&rsquo;s now almost five years since I wrote my first lines of Kotlin, after using Java for over fifteen years.</p>
+<p>Our team didn&rsquo;t follow the typical Java playbook: we used <a href="https://github.com/bodar/utterlyidle">Utterlyidle</a> instead of Spring and embraced a Functional Programming approach with <a href="https://totallylazy.com/">Totallylazy</a>. We were big fans of IntelliJ and tried to take full advantage of the tooling it provided for Java.</p>
+<p>At that time, we were already looking beyond Java. There was some interest in Scala by some teams, and we had a few services already written in it. But the complexity, pain to work alongside a Java codebase, and slow build times made that language unappealing to most of us.</p>
+<p>When Google <a href="https://blog.jetbrains.com/kotlin/2017/05/kotlin-on-android-now-official/">announced</a> Kotlin was becoming an official language for Android development in 2017, another team close to us evaluated the language for their server-side development. Eventually, most of us were giving it a try.</p>
+<p>I was blown away by the impact Kotlin had on our codebase. It felt more productive, safer, and the tooling, although not anywhere as mature as Java&rsquo;s, was good enough to make the adoption worth it.</p>
+<p>It was also fun to move away from a language that felt old and verbose, and discover what coding styles fit well with Kotlin&rsquo;s features. The excellent interoperability with Java meant that we could rely on the existing ecosystem and transition systems incrementally, without significant disruption to getting things done.</p>
+<p>Soon, my interest in Kotlin resulted in co-creating <a href="https://http4k.org">http4k</a>, a Functional toolkit for Kotlin HTTP applications, and running the <a href="http://web.archive.org/web/20191105124733/https://skillsmatter.com/courses/602-real-world-kotlin-development-workshop">Real World Kotlin Development workshop</a> to help other teams attempting to make the same transition.</p>
+<p>Eventually, I&rsquo;ve moved to other positions but was lucky enough to see Kotlin used on the server-side in various other projects. And I also experienced firsthand a number of reasons for teams to be strongly reluctant to adopt Kotlin.</p>
+<p>It&rsquo;s curious to see that the resistance doesn&rsquo;t always arise from the merits of the actual language. So why hasn&rsquo;t the Java server-side community adopted Kotlin more heavily?</p>
+<p>Here are some reasons my colleagues and I have encountered:</p>
+<h2 id="we-dont-have-time-to-learn-a-new-language">&ldquo;We don&rsquo;t have time to learn a new language.&rdquo;</h2>
+<p>That&rsquo;s a variation of &ldquo;too busy chopping wood to sharpen the axe&rdquo; we commonly see in software projects. It&rsquo;s usually a sign of deeper issues like mounting technical debt and general productivity issues.</p>
+<p>Healthy software projects always involve a fair amount of learning. And a competent Java developer can get the basics of Kotlin in hours and will be reasonably productive in days.</p>
+<p>A worthwhile investment once the productivity gains kick in when they write simpler code an deal with fewer issues because of the new language.</p>
+<h2 id="java-is-getting-better-with-each-release">&ldquo;Java is getting better with each release.&rdquo;</h2>
+<p>That is true: Java is getting better. And releases are coming out faster. On the other hand, it&rsquo;s still miles behind Kotlin in simple things like dealing with nullability.</p>
+<p>Maybe the Java community is used to the language&rsquo;s evolution pace. Still, Kotlin provides a way to take advantage of many of those features (and more) in their projects today rather than tomorrow.</p>
+<h2 id="we-are-happy-as-java-developers">&ldquo;We are happy as Java developers.&rdquo;</h2>
+<p>This kind of resistance is the trickiest one. There&rsquo;s not much one can do if a programmer ties their professional identity to a single programming language.</p>
+<p>On the one hand, I understand if Java developers don&rsquo;t want to gamble their careers by jumping into a new language&rsquo;s unknown waters. Or they want to be a long-term specialist. And that&rsquo;s fair enough.</p>
+<p>On the other hand, I&rsquo;m yet to see a Java developer &ldquo;fall behind&rdquo; because they were using Kotlin. On the contrary, it shows they are continuously looking for the best tool for their jobs, which is a positive trait, at least on the people I help hiring.</p>
+<h2 id="kotlin-is-a-hyped-language-with-an-unknown-future">&ldquo;Kotlin is a hyped language with an unknown future.&rdquo;</h2>
+<p>That was a common objection we saw around 2017. In that year, Google embraced Kotlin as a first-class language for Android development, reassuring us that big players are interested in the language&rsquo;s longevity.</p>
+<p>Today, this is probably less common, given that popular frameworks like <a href="https://spring.io/guides/tutorials/spring-boot-kotlin/">Spring</a> and <a href="https://guides.micronaut.io/creating-your-first-micronaut-app-kotlin/guide/index.html">Micronaut</a> seem to have embraced the new language.</p>
+<p>Hopefully, that&rsquo;ll give enough visibility to the language for more server-side people to give it a try.</p>
+<h2 id="im-using-eclipse-and-dont-want-to-switch-to-intellij">&ldquo;I&rsquo;m using Eclipse and don&rsquo;t want to switch to IntelliJ.&rdquo;</h2>
+<p>It&rsquo;s fair to say that the Kotlin experience in Eclipse probably doesn&rsquo;t match JetBrains IDEA.</p>
+<p>That&rsquo;s understandable since JetBrains business model includes selling their developer tools. And that&rsquo;s unlikely to change anytime soon.</p>
+<p>The only hope for those is Kotlin reaching a critical mass that justifies the further investment in Eclipse support. Until then, the best developer experience for Kotlin developers will remain on JetBrains products.</p>
+<p>My very biased view is that IntelliJ is already a better IDE for Java anyway, so it may be worth giving the switch a try too.</p>
+<h2 id="kotlin-developers-are-too-expensive-and-hard-to-come-by">&ldquo;Kotlin developers are too expensive and hard to come by.&rdquo;</h2>
+<p>This one is hard to assess: looking at <a href="https://www.itjobswatch.co.uk/default.aspx?q=kotlin%2C+java">salary websites</a>, one could conclude that Kotlin salaries are slightly higher overall.</p>
+<p>That&rsquo;s a hard comparison to make if we want to consider server-side developers only. In general, that&rsquo;s the Java area that pays the highest, and there&rsquo;s not enough data on the Kotlin side to compare.</p>
+<p>Anecdotally, we see in practice that senior Java developers are often the first ones adopting Kotlin, which may give the impression that Kotlin developers are expensive.</p>
+<p>On the recruiting side, we haven&rsquo;t seen issues attracting Kotlin developers. We are clear that the job requires the new language and accept that developers will learn it on the job.</p>
+<p>That seems to put Java developers at ease and attract those keen to learn new things, which is also a good indicator of potential fit.</p>
+<h2 id="kotlin-is-too-complicated">&ldquo;Kotlin is too complicated.&rdquo;</h2>
+<p>One of the reasons Kotlin makes for a compelling alternative to languages like Scala is that it struck a decent balance between developer ease of use and advanced features to make operability with Java and adoption by popular frameworks possible.</p>
+<p>In practice, this kind of objection tends to be related to the individual team&rsquo;s skills, style, and conventions.</p>
+<p>Beginners tend to start writing Kotlin just like they&rsquo;d write Java. As they get more comfortable with the language, they&rsquo;ll likely push some features (e.g. extensions and inline functions) too far, making the codebase impenetrable to newcomers.</p>
+<p>Until a team is fully competent in the new language, we strongly advocate using Boring Kotlin(TM) for as long as possible. Eventually, most of the team will be comfortable enough to find the balance between picking cool language features and making the code accessible to the whole team.</p>
+<h2 id="its-confusing-having-two-languages-in-one-codebase">&ldquo;It&rsquo;s confusing having two languages in one codebase.&rdquo;</h2>
+<p>That&rsquo;s a common fear from people who haven&rsquo;t tried Kotlin in a real project.</p>
+<p>In practice, as long as the team is on board and mindful that the new Kotlin code needs to co-exist with Java at first, using the two languages in a single project doesn&rsquo;t bring significant pain.</p>
+<p>A rule that can help is: &ldquo;if a change touching the two languages, first start by converting the old code to Kotlin&rdquo;.</p>
+<p>That way, the team can avoid a big-bang rewrite and incrementally migrate the areas where they need to add new value.</p>
+<p>If some code remains in Java, that&rsquo;s also ok. Most likely, it&rsquo;s because the code works, and there&rsquo;s no pressing need to refactor it.</p>
+<h2 id="we-are-more-comfortable-in-java">&ldquo;We are more comfortable in Java.&rdquo;</h2>
+<p>In practice, it may be that a given context doesn&rsquo;t call for the new language. Everything is working fine; the team is getting things done at an acceptable pace and has a good grip on the issue that Kotlin would help address.</p>
+<p>In our experience, however, that&rsquo;s the exception and not the rule. More often than not, this kind of resistance originates from a general lack of time or interest in learning rather than a lack of areas to improve.</p>
+<p>It&rsquo;s also hard to experience the benefits of Kotlin until trying on a real project, and introducing a new language, even as an experiment, can cause a lot of anxiety.</p>
+<p>In those cases, we recommend <a href="https://deming.org/institute-training-on-the-job/">&ldquo;Learning on the Job&rdquo;</a> (in the form of coding dojos, brown-bag sessions, etc.) to create a safe environment where this kind of experimentation can happen.</p>
+<p>This approach allows the team to assess both their use of Java and if it&rsquo;s worth investing in Kotlin.</p>
+<h2 id="i-dont-see-what-advantages-kotlin-would-bring">&ldquo;I don&rsquo;t see what advantages Kotlin would bring.&rdquo;</h2>
+<p>Sometimes Java developers are unaware of the language limitations or are too used to them. Other times, they&rsquo;ll dismiss any alternative that makes them question their current language of choice.</p>
+<p>Without getting into details, we could say that Kotlin&rsquo;s conciseness and safety are its <a href="https://kotlinlang.org/#why-kotlin">main advantages</a>. However, some will claim they don&rsquo;t see an issue with Java&rsquo;s verbosity and write safe code already.</p>
+<p>It&rsquo;s easy to dismiss Kotlin before trying it, and when faced with the option, a few people will continue to look for reasons not to try.</p>
+<h3 id="final-thoughts">Final thoughts</h3>
+<p>Adopting a new programming language, especially on ongoing projects, poses a challenge for most teams. It&rsquo;s also important to accept that the resistance to change is highly context-specific and will come from project needs and personal reasons, as well the language itself.</p>
+<p>Having said that, I&rsquo;d still encourage more developers working on Java server-side to give Kotlin a try if they get a chance. If nothing else, it may highlight other areas of improvement beyond the code.</p>
+<hr>
+<p>Thank you <a href="https://twitter.com/ramtop">Uberto Barbini</a>, <a href="https://twitter.com/dmitrykandalov">Dmitry Kandalov</a>, <a href="http://dentondav.id/">David Denton</a>, and <a href="https://github.com/ToastShaman">Kevin Denver</a> for the extra ideas and review of this post.</p>
+<p>Image credit to <a href="https://unsplash.com/photos/pWOdBS_l9LQ">Victor Rodriguez @ Unsplash</a></p>
+]]></content>
+		</item>
+		
+		<item>
 			<title>Perks for adult developers</title>
 			<link>https://isanchez.net/posts/2021-02-21-perks-for-adult-developers/</link>
 			<pubDate>Mon, 22 Feb 2021 20:00:00 +0100</pubDate>

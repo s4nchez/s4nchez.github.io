@@ -7,10 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Mon, 22 Feb 2021 20:00:00 +0100</lastBuildDate>
+    <lastBuildDate>Sun, 28 Feb 2021 20:00:00 +0100</lastBuildDate>
     
 	<atom:link href="https://isanchez.net/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Reasons Java server-side developers are not adopting Kotlin</title>
+      <link>https://isanchez.net/posts/2021-02-28-kotlin-adoption-on-server-side/</link>
+      <pubDate>Sun, 28 Feb 2021 20:00:00 +0100</pubDate>
+      
+      <guid>https://isanchez.net/posts/2021-02-28-kotlin-adoption-on-server-side/</guid>
+      <description>TL;DR - What I see in the wild is that Kotlin adoption on the server-side is slow due to a mix of complacency, career self-preservation, and lack of Kotlin visibility. In some specific cases, though, avoiding the adoption is entirely justified.
+It&amp;rsquo;s now almost five years since I wrote my first lines of Kotlin, after using Java for over fifteen years.
+Our team didn&amp;rsquo;t follow the typical Java playbook: we used Utterlyidle instead of Spring and embraced a Functional Programming approach with Totallylazy.</description>
+    </item>
     
     <item>
       <title>Perks for adult developers</title>
