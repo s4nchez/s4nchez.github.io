@@ -7,10 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Sun, 28 Feb 2021 20:00:00 +0100</lastBuildDate>
+    <lastBuildDate>Sat, 25 Sep 2021 09:00:00 +0100</lastBuildDate>
     
 	<atom:link href="https://isanchez.net/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>App Anatomy</title>
+      <link>https://isanchez.net/posts/2021-09-25-app-anatomy/</link>
+      <pubDate>Sat, 25 Sep 2021 09:00:00 +0100</pubDate>
+      
+      <guid>https://isanchez.net/posts/2021-09-25-app-anatomy/</guid>
+      <description>Problem Organisations building multiple applications (services, websites, apps, etc) and adopting Continuous Delivery are required to maintain the infrastructure required to build, configure, and deploy each application.
+This Continuous Delivery Infrastructure (CDI) covers aspects such as:
+ Continuous Integration (pipeline definitions) Deployment Procedures (encoded in pipelines or separate tooling) Application/environment configuration for deployment Observability &amp;amp; Monitoring (external applications and dashboards)  As the number of applications and teams grow, those should be standardised across the organisation so teams don’t have to reinvent the wheel and good practices can spread.</description>
+    </item>
     
     <item>
       <title>Reasons Java server-side developers are not adopting Kotlin</title>
