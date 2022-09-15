@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Ivan Sanchez</title>
     <link>https://isanchez.net/</link>
@@ -7,20 +7,14 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-gb</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Sat, 25 Sep 2021 09:00:00 +0100</lastBuildDate>
-    
-	<atom:link href="https://isanchez.net/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sat, 25 Sep 2021 09:00:00 +0100</lastBuildDate><atom:link href="https://isanchez.net/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>App Anatomy: a sociotechnical pattern for continuous delivery infrastructure</title>
       <link>https://isanchez.net/posts/2021-09-25-app-anatomy/</link>
       <pubDate>Sat, 25 Sep 2021 09:00:00 +0100</pubDate>
       
       <guid>https://isanchez.net/posts/2021-09-25-app-anatomy/</guid>
-      <description>Problem Organisations building multiple applications (services, websites, apps, etc) and adopting Continuous Delivery are required to maintain the infrastructure required to build, configure, and deploy each application.
-This Continuous Delivery Infrastructure (CDI) covers aspects such as:
- Continuous Integration (pipeline definitions) Deployment Procedures (encoded in pipelines or separate tooling) Application/environment configuration for deployment Observability &amp;amp; Monitoring (external applications and dashboards)  As the number of applications and teams grow, those should be standardised across the organisation so teams don’t have to reinvent the wheel and good practices can spread.</description>
+      <description>App Anatomy - a sociotechnical pattern for continuous delivery infrastructure</description>
     </item>
     
     <item>
@@ -29,9 +23,7 @@ This Continuous Delivery Infrastructure (CDI) covers aspects such as:
       <pubDate>Sun, 28 Feb 2021 20:00:00 +0100</pubDate>
       
       <guid>https://isanchez.net/posts/2021-02-28-kotlin-adoption-on-server-side/</guid>
-      <description>TL;DR - What I see in the wild is that Kotlin adoption on the server-side is slow due to a mix of complacency, career self-preservation, and lack of Kotlin visibility. In some specific cases, though, avoiding the adoption is entirely justified.
-It&amp;rsquo;s now almost five years since I wrote my first lines of Kotlin, after using Java for over fifteen years.
-Our team didn&amp;rsquo;t follow the typical Java playbook: we used Utterlyidle instead of Spring and embraced a Functional Programming approach with Totallylazy.</description>
+      <description>The Java server-side community hasn&amp;#39;t adopted Kotlin heavily yet, and the resistance doesn&amp;#39;t always arise from the actual language merits.</description>
     </item>
     
     <item>
@@ -40,10 +32,7 @@ Our team didn&amp;rsquo;t follow the typical Java playbook: we used Utterlyidle 
       <pubDate>Mon, 22 Feb 2021 20:00:00 +0100</pubDate>
       
       <guid>https://isanchez.net/posts/2021-02-21-perks-for-adult-developers/</guid>
-      <description>In addition to a good salary, there are many ways companies try to attract and retain good people.
-Those benefits tend to say a lot about the organisation culture, which explains why companies bragging about their ping-pong tables have become a running joke in the industry.
-Here are some tips in case your company intends to treat developers like actual adults, as in Chris Argyris&amp;rsquo; Theory of Adult Personality:
-Give the best tools for the job, no questions asked Just provide the best hardware (laptop, chairs, cameras, etc.</description>
+      <description>Tips to attract and retain adult developers</description>
     </item>
     
     <item>
@@ -65,8 +54,7 @@ Give the best tools for the job, no questions asked Just provide the best hardwa
       <pubDate>Wed, 09 Sep 2020 20:00:00 +0100</pubDate>
       
       <guid>https://isanchez.net/posts/2020-09-09-virtual-1-2-4-all/</guid>
-      <description>One of the challenges of running meetings over Zoom is including every single participant. Without some structure, only the most vocal people will share their thoughts, and the whole group will miss the opportunity to hear perhaps the most innovative ideas that may come from quiet people, individual contemplation or smaller conversations.
-We can solve most of these issues using a Liberating Structure called 1-2-4-All. In this article, I&amp;rsquo;ll share an adapted way to use this structure with Zoom + Breakout Rooms + any collaborative note-taking tool (e.</description>
+      <description>How to adapt the 1-2-4-All Liberating structure to engage all participants and produce better ideass</description>
     </item>
     
     <item>
@@ -153,8 +141,8 @@ As developers, we tend to see source control as the official history of a codeba
       <pubDate>Sat, 06 Dec 2014 21:00:00 +0100</pubDate>
       
       <guid>https://isanchez.net/posts/2014-12-06-diamond-kata-using-clojure-and-tdd/</guid>
-      <description>After seeing Ron Jeffries&amp;rsquo; post about different takes on the Diamond Kata, I&amp;rsquo;ve decided to try it as well.
-This comment on Philip Schwarz&amp;rsquo; solution in particular got my attention:
+      <description>After seeing Ron Jeffries&#39; post about different takes on the Diamond Kata, I&amp;rsquo;ve decided to try it as well.
+This comment on Philip Schwarz&#39; solution in particular got my attention:
  I don’t know Clojure, which certainly made Philip’s solution harder to grok, but one can sort of read it. He added some tests later, which certainly helps.
  Would a solution driven by tests be easier to understand? I&amp;rsquo;ll let you be the judge.</description>
     </item>

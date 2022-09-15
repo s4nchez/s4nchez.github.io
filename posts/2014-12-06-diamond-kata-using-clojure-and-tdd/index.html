@@ -1,110 +1,239 @@
 <!DOCTYPE html>
-<html lang="en-gb">
+<html lang="en" dir="auto">
 
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<meta name="theme-color" content="#494f5c">
-	<meta name="msapplication-TileColor" content="#494f5c">
-<meta itemprop="name" content="Diamond Kata using Clojure and TDD">
-<meta itemprop="description" content="After seeing Ron Jeffries&rsquo; post about different takes on the Diamond Kata, I&rsquo;ve decided to try it as well.
-This comment on Philip Schwarz&rsquo; solution in particular got my attention:
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Diamond Kata using Clojure and TDD | Ivan Sanchez</title>
+<meta name="keywords" content="">
+<meta name="description" content="After seeing Ron Jeffries&#39; post about different takes on the Diamond Kata, I&rsquo;ve decided to try it as well.
+This comment on Philip Schwarz&#39; solution in particular got my attention:
  I don’t know Clojure, which certainly made Philip’s solution harder to grok, but one can sort of read it. He added some tests later, which certainly helps.
  Would a solution driven by tests be easier to understand? I&rsquo;ll let you be the judge.">
-<meta itemprop="datePublished" content="2014-12-06T21:00:00+01:00" />
-<meta itemprop="dateModified" content="2014-12-06T21:00:00+01:00" />
-<meta itemprop="wordCount" content="1390">
+<meta name="author" content="">
+<link rel="canonical" href="https://isanchez.net/posts/2014-12-06-diamond-kata-using-clojure-and-tdd/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.bc1149f4a72aa4858d3a9f71462f75e5884ffe8073ea9d6d5761d5663d651e20.css" integrity="sha256-vBFJ9KcqpIWNOp9xRi915YhP/oBz6p1tV2HVZj1lHiA=" rel="preload stylesheet" as="style">
+<script defer crossorigin="anonymous" src="/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js" integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG&#43;9vmJ0cTS&#43;ovo0FeA="
+    onload="hljs.initHighlightingOnLoad();"></script>
+<link rel="icon" href="https://isanchez.net/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://isanchez.net/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://isanchez.net/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://isanchez.net/apple-touch-icon.png">
+<link rel="mask-icon" href="https://isanchez.net/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
 
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --hljs-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
 
+            .list {
+                background: var(--theme);
+            }
 
-<meta itemprop="keywords" content="" />
-<meta property="og:title" content="Diamond Kata using Clojure and TDD" />
-<meta property="og:description" content="After seeing Ron Jeffries&rsquo; post about different takes on the Diamond Kata, I&rsquo;ve decided to try it as well.
-This comment on Philip Schwarz&rsquo; solution in particular got my attention:
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-6583325-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script><meta property="og:title" content="Diamond Kata using Clojure and TDD" />
+<meta property="og:description" content="After seeing Ron Jeffries&#39; post about different takes on the Diamond Kata, I&rsquo;ve decided to try it as well.
+This comment on Philip Schwarz&#39; solution in particular got my attention:
  I don’t know Clojure, which certainly made Philip’s solution harder to grok, but one can sort of read it. He added some tests later, which certainly helps.
  Would a solution driven by tests be easier to understand? I&rsquo;ll let you be the judge." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://isanchez.net/posts/2014-12-06-diamond-kata-using-clojure-and-tdd/" />
+<meta property="og:url" content="https://isanchez.net/posts/2014-12-06-diamond-kata-using-clojure-and-tdd/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2014-12-06T21:00:00+01:00" />
 <meta property="article:modified_time" content="2014-12-06T21:00:00+01:00" />
+
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Diamond Kata using Clojure and TDD"/>
-<meta name="twitter:description" content="After seeing Ron Jeffries&rsquo; post about different takes on the Diamond Kata, I&rsquo;ve decided to try it as well.
-This comment on Philip Schwarz&rsquo; solution in particular got my attention:
+<meta name="twitter:description" content="After seeing Ron Jeffries&#39; post about different takes on the Diamond Kata, I&rsquo;ve decided to try it as well.
+This comment on Philip Schwarz&#39; solution in particular got my attention:
  I don’t know Clojure, which certainly made Philip’s solution harder to grok, but one can sort of read it. He added some tests later, which certainly helps.
  Would a solution driven by tests be easier to understand? I&rsquo;ll let you be the judge."/>
 
-	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-	<link rel="manifest" href="/site.webmanifest">
-	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
-	<link rel="shortcut icon" href="/favicon.ico">
 
-	<title>Diamond Kata using Clojure and TDD</title>
-	<link rel="stylesheet" href="https://isanchez.net/css/style.min.adb4e738c83b4cc0eea8000ca83f72188a2ac1fd188a1e6f7cea8a7fa75cd7b1.css" integrity="sha256-rbTnOMg7TMDuqAAMqD9yGIoqwf0Yih5vfOqKf6dc17E=" crossorigin="anonymous">
-	
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://isanchez.net/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Diamond Kata using Clojure and TDD",
+      "item": "https://isanchez.net/posts/2014-12-06-diamond-kata-using-clojure-and-tdd/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Diamond Kata using Clojure and TDD",
+  "name": "Diamond Kata using Clojure and TDD",
+  "description": "After seeing Ron Jeffries' post about different takes on the Diamond Kata, I\u0026rsquo;ve decided to try it as well.\nThis comment on Philip Schwarz' solution in particular got my attention:\n I don’t know Clojure, which certainly made Philip’s solution harder to grok, but one can sort of read it. He added some tests later, which certainly helps.\n Would a solution driven by tests be easier to understand? I\u0026rsquo;ll let you be the judge.",
+  "keywords": [
+    
+  ],
+  "articleBody": "After seeing Ron Jeffries' post about different takes on the Diamond Kata, I’ve decided to try it as well.\nThis comment on Philip Schwarz' solution in particular got my attention:\n I don’t know Clojure, which certainly made Philip’s solution harder to grok, but one can sort of read it. He added some tests later, which certainly helps.\n Would a solution driven by tests be easier to understand? I’ll let you be the judge. Check out my solution on GitHub now, or keep reading for a detailed description (spoilers) of how I got to it.\nMy solution step-by-step To avoid spoiling my take on it, I decided not to read other solutions beforehand. I used Seb Rose’s initial article as a reference and tried to start with the simplest test I could think of:\n(deftest diamond-building (testing \"Diamond for A\" (is (= '(\"A\") (diamond \"A\"))))) Followed by a fake implementation:\n(defn diamond [letter] '(\"A\")) So with my initial test passing I tried to jump to something a bit more meaningful like:\n(testing \"Diamond for B\" (is (= '(\"-A-\", \"B-B\", \"-A-\") (diamond \"B\")))) And that was enough to get me stuck! I felt overwhelmed by the amount of complexity that the proper solution for the second test required and saw myself forced to step back and try to break the problem into smaller parts that I could fit into my head.\nTo decide how to split the problem, I’ve looked at another example, the diamond for C:\n--A-- -B-B- C---C -B-B- --A-- I noticed I could try to tackle a few parts of the problem independently:\n The amount of spaces outside the diamond for each letter The amount of spaces inside the diamond for each letter Putting a line of the diamond together The letter sequence to compose the rows diamond  I’ve decided to start with #2 because it looked simpler than #1: the inner part of the diamond does not depend on the size of the diamond itself (e.g. B-B and C---C will always have the same amount of spaces inside).\nThe inner part of the diamond It also happens that the number of spaces inside the diamond follow a simple formula: (2 * n) - 1, where n is the index of the letter in the diamond. The only exception is the letter A that doesn’t contain any space and is not repeated on its line.\nSo I’ve parked my initial tests and wrote a new one to help me implement just the inner part of a line:\n(deftest inner-part-building (testing \"A\" (is (= \"A\" (inner-part \"A\")))) That was easy enough to fake as well:\n(defn inner-part [letter] \"A\") So again, I’ve added a few more test cases:\n(deftest inner-part-building (testing \"A\" (is (= \"A\" (inner-part \"A\")))) (testing \"B\" (is (= \"B-B\" (inner-part \"B\"))))) Then I could start splitting the logic for A and the other letters by introducing a conditional:\n(defn inner-part [letter] (cond (= \"A\" letter) letter :else \"B-B\") At this point I decided to replace the B-B from my solution by the actual implementation.\nSo I added the test case for C and realised I still didn’t have a function to give me the index of a particular letter (A - 0, B - 1, C - 2 and so on) to use in the formula mentioned above.\nAfter a few more red-green cycles (which I’ll omit from now on as it gets boring really quickly), I’ve ended up with this two functions:\n(defn char-index [letter] (- (int (first (char-array letter))) 65)) (defn inner-part [letter] (let [index (char-index letter)] (cond (= 0 index) letter :else (str letter (string/join \"\" (repeat (- (* 2 index) 1) \"-\")) letter)))) The char-index function calculates the index of the letter by converting it to int and using the difference from the int value of A which is 65.\nThe inner part is then created by concatenating the letter + ((2 * n) -1) dashes + letter.\nThe outer part of the diamond To calculate the outer part of the diamond I started once more with the simplest case:\n(deftest outer-part-building (testing \"A for A diamond\" (is (= \"\" (outer-part \"A\" \"A\")))) In this case I’ve used two parameters: one to represent the letter of the line, another one to represent the letter of the diamond. Again, the first implementation was pretty much a stub:\n(defn outer-part [current-letter diamond-letter] \"\") Then I’ve moved to more test cases for the letter A:\n(deftest outer-part-building (testing \"A for A diamond\" (is (= \"\" (outer-part \"A\" \"A\")))) (testing \"A for B diamond\" (is (= \"-\" (outer-part \"A\" \"B\")))) (testing \"A for C diamond\" (is (= \"--\" (outer-part \"A\" \"C\"))))) At this point I could tell that the number of spaces depended on the second parameter, so I’ve implemented it accordingly:\n(defn outer-part [current-letter diamond-letter] (let [final-index (char-index diamond-letter)] (string/join \"\" (repeat final-index \"-\")))) All the tests were passing but I was pretty sure it wouldn’t work for other letters, so I’ve added another test to show I needed to use the formula index of diamond letter - index of current letter to figure out the correct number of spaces:\n(testing \"B for F diamond\" (is (= \"----\" (outer-part \"B\" \"F\")))) Surely enough it failed because my function was just using the diamond index.\nBy fixing that I’ve ended up with the final version of the function:\n(defn outer-part [current-letter diamond-letter] (let [current-index (char-index current-letter) final-index (char-index diamond-letter)] (string/join \"\" (repeat (- final-index current-index) \"-\")))) Creating the rows With the basic parts of my solution implemented, now it was time to start putting the pieces together. I’ve started by the simplest case of single diamond line. The test ended up like:\n(deftest line-building (testing \"A for A diamond\" (is (= \"A\" (line-for \"A\" \"A\")))) (testing \"A for C diamond\" (is (= \"--A--\" (line-for \"A\" \"C\")))) (testing \"C for C diamond\" (is (= \"C---C\" (line-for \"C\" \"C\"))))) And the implementation was very simple:\n(defn line-for [current-letter diamond-letter] (let [outer (outer-part current-letter diamond-letter) inner (inner-part current-letter)] (str outer inner outer))) The diamond letter sequence Now the final big challenge was to create the sequence of the letters for the diamond. I wanted something to produce:\n(deftest diamond-letters-building (testing \"A diamond\" (is (= '(\"A\") (letter-sequence \"A\")))) (testing \"D diamond\" (is (= '(\"A\" \"B\" \"C\" \"D\" \"C\" \"B\" \"A\") (letter-sequence \"D\"))))) Once again the easiest way I could find to achieve that was to use char - int conversions, which allowed me to create the following function:\n(defn letter-sequence [diamond-letter] (let [value-a 65 value-letter (+ value-a (char-index diamond-letter))] (map #(str (char %)) (concat (range value-a value-letter) (range value-letter (- value-a 1) -1))))) The result is created by:\n Creating a first list of ints, from A up to one letter before the diamond letter ((range value-a value-letter) part) Creating a second list from the diamond letter back to A ((range value-letter (- value-a 1) -1))) Merge the two lists using concat Use map to convert the ints back to strings.  Putting everything together At this stage I could go back to my initial tests:\n(deftest diamond-building (testing \"Diamond for A\" (is (= '(\"A\") (diamond \"A\")))) (testing \"Diamond for B\" (is (= '(\"-A-\", \"B-B\", \"-A-\") (diamond \"B\")))) (testing \"Diamond for C\" (is (= '(\"--A--\", \"-B-B-\", \"C---C\", \"-B-B-\", \"--A--\") (diamond \"C\")))) The implementation of the diamond function became trivial:\n(defn diamond [letter] (map #(line-for % letter) (letter-sequence letter))) And that was it. By mapping the line-for function to each of the letters produced by letter-sequence I could create the final structure of the diamond.\nConclusion Using TDD forced me to realise early on that the problem was not as simple as I thought initially. Using output examples helped me to understand the problem a bit more and breaking it into smaller parts made the red-green-refactor flow very easy.\nIt was specially fun to see the problem become simpler and simpler as the parts of it were being implemented.\nThe final solution also became simpler than I expected. Comparing to Philip’s solution it’s also required half of his lines of code.\nI can’t decide if that was just luck on my approach or was a side-effect of TDD. It was definitely not because my Clojure skills, as I’m relatively new to the language.\nOverall it was a very fun exercise. Now is time to go back and read how other people have done it.\n",
+  "wordCount" : "1390",
+  "inLanguage": "en",
+  "datePublished": "2014-12-06T21:00:00+01:00",
+  "dateModified": "2014-12-06T21:00:00+01:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://isanchez.net/posts/2014-12-06-diamond-kata-using-clojure-and-tdd/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Ivan Sanchez",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://isanchez.net/favicon.ico"
+    }
+  }
+}
+</script>
 </head>
 
-<body id="page">
-	
-	<header id="site-header" class="animated slideInUp faster">
-		<div class="hdr-wrapper section-inner">
-			<div class="hdr-left">
-				<div class="site-branding">
-					<a href="https://isanchez.net/">Ivan Sanchez</a>
-				</div>
-				<nav class="site-nav hide-in-mobile">
-					
-				<a href="https://isanchez.net/posts/">Blog</a>
-				<a href="https://isanchez.net/training/">Training</a>
-				<a href="https://isanchez.net/speaking/">Speaking</a>
-				<a href="https://isanchez.net/about/">About</a>
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
 
-				</nav>
-			</div>
-			<div class="hdr-right hdr-icons">
-				<span class="hdr-social hide-in-mobile"><a href="https://twitter.com/s4nchez" target="_blank" rel="noopener me" title="Twitter"><svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg></a><a href="https://github.com/s4nchez" target="_blank" rel="noopener me" title="Github"><svg xmlns="http://www.w3.org/2000/svg" class="feather" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a></span><button id="menu-btn" class="hdr-btn" title="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
-			</div>
-		</div>
-	</header>
-	<div id="mobile-menu" class="animated fast">
-		<ul>
-			<li><a href="https://isanchez.net/posts/">Blog</a></li>
-			<li><a href="https://isanchez.net/training/">Training</a></li>
-			<li><a href="https://isanchez.net/speaking/">Speaking</a></li>
-			<li><a href="https://isanchez.net/about/">About</a></li>
-		</ul>
-	</div>
+</script>
 
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://isanchez.net/" accesskey="h" title="Ivan Sanchez (Alt + H)">Ivan Sanchez</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://isanchez.net/posts/" title="Blog">
+                    <span>Blog</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://isanchez.net/training/" title="Training">
+                    <span>Training</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://isanchez.net/speaking/" title="Speaking">
+                    <span>Speaking</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://isanchez.net/about/" title="About">
+                    <span>About</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
 
-	<main class="site-main section-inner animated fadeIn faster">
-		<article class="thin">
-			<header class="post-header">
-				<div class="post-meta"><span>6 Dec 2014</span></div>
-				<h1>Diamond Kata using Clojure and TDD</h1>
-			</header>
-			<div class="content">
-				<p>After seeing <a href="http://ronjeffries.com/articles/diamond3/three-of-diamonds.html">Ron Jeffries&rsquo; post</a> about different takes on the Diamond Kata, I&rsquo;ve decided to try it as well.</p>
-<p>This comment on <a href="https://github.com/philipschwarz/diamond-problem-in-clojure">Philip Schwarz&rsquo; solution</a> in particular got my attention:</p>
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title">
+      Diamond Kata using Clojure and TDD
+    </h1>
+    <div class="post-meta"><span title='2014-12-06 21:00:00 +0100 +0100'>December 6, 2014</span>
+
+</div>
+  </header> 
+  <div class="post-content"><p>After seeing <a href="http://ronjeffries.com/articles/diamond3/three-of-diamonds.html">Ron Jeffries' post</a> about different takes on the Diamond Kata, I&rsquo;ve decided to try it as well.</p>
+<p>This comment on <a href="https://github.com/philipschwarz/diamond-problem-in-clojure">Philip Schwarz' solution</a> in particular got my attention:</p>
 <blockquote>
 <p>I don’t know Clojure, which certainly made Philip’s solution harder to grok, but one can sort of read it. He added some tests later, which certainly helps.</p>
 </blockquote>
 <p>Would a solution driven by tests be easier to understand? I&rsquo;ll let you be the judge. Check out <a href="https://github.com/s4nchez/diamond-kata-clojure-tdd">my solution on GitHub</a> now, or keep reading for a detailed description (spoilers) of how I got to it.</p>
-<h2 id="my-solution-step-by-step">My solution step-by-step<a href="#my-solution-step-by-step" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+<h2 id="my-solution-step-by-step">My solution step-by-step<a hidden class="anchor" aria-hidden="true" href="#my-solution-step-by-step">#</a></h2>
 <p>To avoid spoiling my take on it, I decided not to read other solutions beforehand. I used <a href="http://claysnow.co.uk/recycling-tests-in-tdd/">Seb Rose&rsquo;s initial article</a> as a reference and tried to start with the simplest test I could think of:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">deftest</span> <span class="nv">diamond-building</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">deftest</span> <span class="nv">diamond-building</span>
   <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;Diamond for A&#34;</span>
     <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="o">&#39;</span><span class="p">(</span><span class="s">&#34;A&#34;</span><span class="p">)</span> <span class="p">(</span><span class="nf">diamond</span> <span class="s">&#34;A&#34;</span><span class="p">)))))</span>
 </code></pre></div><p>Followed by a fake implementation:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">diamond</span> <span class="p">[</span><span class="nv">letter</span><span class="p">]</span> <span class="o">&#39;</span><span class="p">(</span><span class="s">&#34;A&#34;</span><span class="p">))</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">diamond</span> <span class="p">[</span><span class="nv">letter</span><span class="p">]</span> <span class="o">&#39;</span><span class="p">(</span><span class="s">&#34;A&#34;</span><span class="p">))</span>
 </code></pre></div><p>So with my initial test passing I tried to jump to something a bit more meaningful like:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;Diamond for B&#34;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;Diamond for B&#34;</span>
     <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="o">&#39;</span><span class="p">(</span><span class="s">&#34;-A-&#34;</span>, <span class="s">&#34;B-B&#34;</span>, <span class="s">&#34;-A-&#34;</span><span class="p">)</span> <span class="p">(</span><span class="nf">diamond</span> <span class="s">&#34;B&#34;</span><span class="p">))))</span>
 </code></pre></div><p>And that was enough to get me stuck! I felt overwhelmed by the amount of complexity that the proper solution for the second test required and saw myself forced to step back and try to break the problem into smaller parts that I could fit into my head.</p>
 <p>To decide how to split the problem, I&rsquo;ve looked at another example, the diamond for <code>C</code>:</p>
-<pre><code>--A--
+<pre tabindex="0"><code>--A--
 -B-B-
 C---C
 -B-B-
@@ -117,28 +246,28 @@ C---C
 <li>The letter sequence to compose the rows diamond</li>
 </ol>
 <p>I&rsquo;ve decided to start with #2 because it looked simpler than #1: the inner part of the diamond does not depend on the size of the diamond itself (e.g. <code>B-B</code> and <code>C---C</code> will always have the same amount of spaces inside).</p>
-<h3 id="the-inner-part-of-the-diamond">The inner part of the diamond<a href="#the-inner-part-of-the-diamond" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+<h3 id="the-inner-part-of-the-diamond">The inner part of the diamond<a hidden class="anchor" aria-hidden="true" href="#the-inner-part-of-the-diamond">#</a></h3>
 <p>It also happens that the number of spaces inside the diamond follow a simple formula: <code>(2 * n) - 1</code>, where <code>n</code> is the index of the letter in the diamond. The only exception is the letter <code>A</code> that doesn&rsquo;t contain any space and is not repeated on its line.</p>
 <p>So I&rsquo;ve parked my initial tests and wrote a new one to help me implement just the inner part of a line:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">deftest</span> <span class="nv">inner-part-building</span>  
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">deftest</span> <span class="nv">inner-part-building</span>  
   <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;A&#34;</span>
     <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="s">&#34;A&#34;</span> <span class="p">(</span><span class="nf">inner-part</span> <span class="s">&#34;A&#34;</span><span class="p">))))</span>
 </code></pre></div><p>That was easy enough to fake as well:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">inner-part</span> <span class="p">[</span><span class="nv">letter</span><span class="p">]</span> <span class="s">&#34;A&#34;</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">inner-part</span> <span class="p">[</span><span class="nv">letter</span><span class="p">]</span> <span class="s">&#34;A&#34;</span><span class="p">)</span>
 </code></pre></div><p>So again, I&rsquo;ve added a few more test cases:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">deftest</span> <span class="nv">inner-part-building</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">deftest</span> <span class="nv">inner-part-building</span>
   <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;A&#34;</span>
     <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="s">&#34;A&#34;</span> <span class="p">(</span><span class="nf">inner-part</span> <span class="s">&#34;A&#34;</span><span class="p">))))</span>
   <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;B&#34;</span>
     <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="s">&#34;B-B&#34;</span> <span class="p">(</span><span class="nf">inner-part</span> <span class="s">&#34;B&#34;</span><span class="p">)))))</span>
 </code></pre></div><p>Then I could start splitting the logic for <code>A</code> and the other letters by introducing a conditional:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">inner-part</span> <span class="p">[</span><span class="nv">letter</span><span class="p">]</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">inner-part</span> <span class="p">[</span><span class="nv">letter</span><span class="p">]</span>
   <span class="p">(</span><span class="nb">cond </span><span class="p">(</span><span class="nb">= </span><span class="s">&#34;A&#34;</span> <span class="nv">letter</span><span class="p">)</span> <span class="nv">letter</span>
         <span class="ss">:else</span> <span class="s">&#34;B-B&#34;</span><span class="p">)</span>
 </code></pre></div><p>At this point I decided to replace the <code>B-B</code> from my solution by the actual implementation.</p>
 <p>So I added the test case for <code>C</code> and realised I still didn&rsquo;t have a function to give me the index of a particular letter (<code>A -&gt; 0</code>, <code>B -&gt; 1</code>, <code>C -&gt; 2</code> and so on) to use in the formula mentioned above.</p>
 <p>After a few more red-green cycles (which I&rsquo;ll omit from now on as it gets boring really quickly), I&rsquo;ve ended up with this two functions:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">char-index</span> <span class="p">[</span><span class="nv">letter</span><span class="p">]</span> <span class="p">(</span><span class="nb">- </span><span class="p">(</span><span class="nb">int </span><span class="p">(</span><span class="nb">first </span><span class="p">(</span><span class="nf">char-array</span> <span class="nv">letter</span><span class="p">)))</span> <span class="mi">65</span><span class="p">))</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">char-index</span> <span class="p">[</span><span class="nv">letter</span><span class="p">]</span> <span class="p">(</span><span class="nb">- </span><span class="p">(</span><span class="nb">int </span><span class="p">(</span><span class="nb">first </span><span class="p">(</span><span class="nf">char-array</span> <span class="nv">letter</span><span class="p">)))</span> <span class="mi">65</span><span class="p">))</span>
 
 <span class="p">(</span><span class="kd">defn </span><span class="nv">inner-part</span> <span class="p">[</span><span class="nv">letter</span><span class="p">]</span>
   <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nb">index </span><span class="p">(</span><span class="nf">char-index</span> <span class="nv">letter</span><span class="p">)]</span>
@@ -147,16 +276,16 @@ C---C
 
 </code></pre></div><p>The <code>char-index</code> function calculates the index of the letter by converting it to int and using the difference from the int value of <code>A</code> which is 65.</p>
 <p>The inner part is then created by concatenating the <code>letter</code> + <code>((2 * n) -1) dashes</code> + <code>letter</code>.</p>
-<h3 id="the-outer-part-of-the-diamond">The outer part of the diamond<a href="#the-outer-part-of-the-diamond" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+<h3 id="the-outer-part-of-the-diamond">The outer part of the diamond<a hidden class="anchor" aria-hidden="true" href="#the-outer-part-of-the-diamond">#</a></h3>
 <p>To calculate the outer part of the diamond I started once more with the simplest case:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">deftest</span> <span class="nv">outer-part-building</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">deftest</span> <span class="nv">outer-part-building</span>
   <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;A for A diamond&#34;</span>
     <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="s">&#34;&#34;</span> <span class="p">(</span><span class="nf">outer-part</span> <span class="s">&#34;A&#34;</span> <span class="s">&#34;A&#34;</span><span class="p">))))</span>
 </code></pre></div><p>In this case I&rsquo;ve used two parameters: one to represent the letter of the line, another one to represent the letter of the diamond. Again, the first implementation was pretty much a stub:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">outer-part</span> <span class="p">[</span><span class="nv">current-letter</span> <span class="nv">diamond-letter</span><span class="p">]</span> <span class="s">&#34;&#34;</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">outer-part</span> <span class="p">[</span><span class="nv">current-letter</span> <span class="nv">diamond-letter</span><span class="p">]</span> <span class="s">&#34;&#34;</span><span class="p">)</span>
 
 </code></pre></div><p>Then I&rsquo;ve moved to more test cases for the letter <code>A</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">deftest</span> <span class="nv">outer-part-building</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">deftest</span> <span class="nv">outer-part-building</span>
   <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;A for A diamond&#34;</span>
     <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="s">&#34;&#34;</span> <span class="p">(</span><span class="nf">outer-part</span> <span class="s">&#34;A&#34;</span> <span class="s">&#34;A&#34;</span><span class="p">))))</span>
   <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;A for B diamond&#34;</span>
@@ -164,21 +293,21 @@ C---C
   <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;A for C diamond&#34;</span>
     <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="s">&#34;--&#34;</span> <span class="p">(</span><span class="nf">outer-part</span> <span class="s">&#34;A&#34;</span> <span class="s">&#34;C&#34;</span><span class="p">)))))</span>
 </code></pre></div><p>At this point I could tell that the number of spaces depended on the second parameter, so I&rsquo;ve implemented it accordingly:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">outer-part</span> <span class="p">[</span><span class="nv">current-letter</span> <span class="nv">diamond-letter</span><span class="p">]</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">outer-part</span> <span class="p">[</span><span class="nv">current-letter</span> <span class="nv">diamond-letter</span><span class="p">]</span>
   <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">final-index</span> <span class="p">(</span><span class="nf">char-index</span> <span class="nv">diamond-letter</span><span class="p">)]</span>
     <span class="p">(</span><span class="nf">string/join</span> <span class="s">&#34;&#34;</span> <span class="p">(</span><span class="nb">repeat </span><span class="nv">final-index</span> <span class="s">&#34;-&#34;</span><span class="p">))))</span>
 </code></pre></div><p>All the tests were passing but I was pretty sure it wouldn&rsquo;t work for other letters, so I&rsquo;ve added another test to show I needed to use the formula <code>index of diamond letter - index of current letter</code> to figure out the correct number of spaces:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;B for F diamond&#34;</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;B for F diamond&#34;</span>
     <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="s">&#34;----&#34;</span> <span class="p">(</span><span class="nf">outer-part</span> <span class="s">&#34;B&#34;</span> <span class="s">&#34;F&#34;</span><span class="p">))))</span>
 </code></pre></div><p>Surely enough it failed because my function was just using the diamond index.</p>
 <p>By fixing that I&rsquo;ve ended up with the final version of the function:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">outer-part</span> <span class="p">[</span><span class="nv">current-letter</span> <span class="nv">diamond-letter</span><span class="p">]</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">outer-part</span> <span class="p">[</span><span class="nv">current-letter</span> <span class="nv">diamond-letter</span><span class="p">]</span>
   <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">current-index</span> <span class="p">(</span><span class="nf">char-index</span> <span class="nv">current-letter</span><span class="p">)</span>
         <span class="nv">final-index</span> <span class="p">(</span><span class="nf">char-index</span> <span class="nv">diamond-letter</span><span class="p">)]</span>
     <span class="p">(</span><span class="nf">string/join</span> <span class="s">&#34;&#34;</span> <span class="p">(</span><span class="nb">repeat </span><span class="p">(</span><span class="nb">- </span><span class="nv">final-index</span> <span class="nv">current-index</span><span class="p">)</span> <span class="s">&#34;-&#34;</span><span class="p">))))</span>
-</code></pre></div><h3 id="creating-the-rows">Creating the rows<a href="#creating-the-rows" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+</code></pre></div><h3 id="creating-the-rows">Creating the rows<a hidden class="anchor" aria-hidden="true" href="#creating-the-rows">#</a></h3>
 <p>With the basic parts of my solution implemented, now it was time to start putting the pieces together. I&rsquo;ve started by the simplest case of single diamond line. The test ended up like:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">deftest</span> <span class="nv">line-building</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">deftest</span> <span class="nv">line-building</span>
   <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;A for A diamond&#34;</span>
     <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="s">&#34;A&#34;</span> <span class="p">(</span><span class="nf">line-for</span> <span class="s">&#34;A&#34;</span> <span class="s">&#34;A&#34;</span><span class="p">))))</span>
   <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;A for C diamond&#34;</span>
@@ -186,19 +315,19 @@ C---C
   <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;C for C diamond&#34;</span>
     <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="s">&#34;C---C&#34;</span> <span class="p">(</span><span class="nf">line-for</span> <span class="s">&#34;C&#34;</span> <span class="s">&#34;C&#34;</span><span class="p">)))))</span>
 </code></pre></div><p>And the implementation was very simple:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">line-for</span> <span class="p">[</span><span class="nv">current-letter</span> <span class="nv">diamond-letter</span><span class="p">]</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">line-for</span> <span class="p">[</span><span class="nv">current-letter</span> <span class="nv">diamond-letter</span><span class="p">]</span>
   <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">outer</span> <span class="p">(</span><span class="nf">outer-part</span> <span class="nv">current-letter</span> <span class="nv">diamond-letter</span><span class="p">)</span>
         <span class="nv">inner</span> <span class="p">(</span><span class="nf">inner-part</span> <span class="nv">current-letter</span><span class="p">)]</span>
     <span class="p">(</span><span class="nb">str </span><span class="nv">outer</span> <span class="nv">inner</span> <span class="nv">outer</span><span class="p">)))</span>
-</code></pre></div><h3 id="the-diamond-letter-sequence">The diamond letter sequence<a href="#the-diamond-letter-sequence" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+</code></pre></div><h3 id="the-diamond-letter-sequence">The diamond letter sequence<a hidden class="anchor" aria-hidden="true" href="#the-diamond-letter-sequence">#</a></h3>
 <p>Now the final big challenge was to create the sequence of the letters for the diamond. I wanted something to produce:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">deftest</span> <span class="nv">diamond-letters-building</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">deftest</span> <span class="nv">diamond-letters-building</span>
   <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;A diamond&#34;</span>
     <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="o">&#39;</span><span class="p">(</span><span class="s">&#34;A&#34;</span><span class="p">)</span> <span class="p">(</span><span class="nf">letter-sequence</span> <span class="s">&#34;A&#34;</span><span class="p">))))</span>
   <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;D diamond&#34;</span>
     <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="o">&#39;</span><span class="p">(</span><span class="s">&#34;A&#34;</span> <span class="s">&#34;B&#34;</span> <span class="s">&#34;C&#34;</span> <span class="s">&#34;D&#34;</span> <span class="s">&#34;C&#34;</span> <span class="s">&#34;B&#34;</span> <span class="s">&#34;A&#34;</span><span class="p">)</span> <span class="p">(</span><span class="nf">letter-sequence</span> <span class="s">&#34;D&#34;</span><span class="p">)))))</span>
 </code></pre></div><p>Once again the easiest way I could find to achieve that was to use <code>char -&gt; int</code> conversions, which allowed me to create the following function:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">letter-sequence</span> <span class="p">[</span><span class="nv">diamond-letter</span><span class="p">]</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">letter-sequence</span> <span class="p">[</span><span class="nv">diamond-letter</span><span class="p">]</span>
   <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">value-a</span> <span class="mi">65</span>
         <span class="nv">value-letter</span> <span class="p">(</span><span class="nb">+ </span><span class="nv">value-a</span> <span class="p">(</span><span class="nf">char-index</span> <span class="nv">diamond-letter</span><span class="p">))]</span>
     <span class="p">(</span><span class="nb">map </span><span class="o">#</span><span class="p">(</span><span class="nb">str </span><span class="p">(</span><span class="nb">char </span><span class="nv">%</span><span class="p">))</span> <span class="p">(</span><span class="nb">concat </span><span class="p">(</span><span class="nb">range </span><span class="nv">value-a</span> <span class="nv">value-letter</span><span class="p">)</span> <span class="p">(</span><span class="nb">range </span><span class="nv">value-letter</span> <span class="p">(</span><span class="nb">- </span><span class="nv">value-a</span> <span class="mi">1</span><span class="p">)</span> <span class="mi">-1</span><span class="p">)))))</span>
@@ -209,9 +338,9 @@ C---C
 <li>Merge the two lists using <code>concat</code></li>
 <li>Use <code>map</code> to convert the ints back to strings.</li>
 </ul>
-<h3 id="putting-everything-together">Putting everything together<a href="#putting-everything-together" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+<h3 id="putting-everything-together">Putting everything together<a hidden class="anchor" aria-hidden="true" href="#putting-everything-together">#</a></h3>
 <p>At this stage I could go back to my initial tests:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">deftest</span> <span class="nv">diamond-building</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="nf">deftest</span> <span class="nv">diamond-building</span>
   <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;Diamond for A&#34;</span>
     <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="o">&#39;</span><span class="p">(</span><span class="s">&#34;A&#34;</span><span class="p">)</span> <span class="p">(</span><span class="nf">diamond</span> <span class="s">&#34;A&#34;</span><span class="p">))))</span>
   <span class="p">(</span><span class="nf">testing</span> <span class="s">&#34;Diamond for B&#34;</span>
@@ -220,58 +349,94 @@ C---C
     <span class="p">(</span><span class="nf">is</span> <span class="p">(</span><span class="nb">= </span><span class="o">&#39;</span><span class="p">(</span><span class="s">&#34;--A--&#34;</span>, <span class="s">&#34;-B-B-&#34;</span>, <span class="s">&#34;C---C&#34;</span>, <span class="s">&#34;-B-B-&#34;</span>, <span class="s">&#34;--A--&#34;</span><span class="p">)</span> <span class="p">(</span><span class="nf">diamond</span> <span class="s">&#34;C&#34;</span><span class="p">))))</span>
 
 </code></pre></div><p>The implementation of the <code>diamond</code> function became trivial:</p>
-<div class="highlight"><pre class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">diamond</span> <span class="p">[</span><span class="nv">letter</span><span class="p">]</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-clojure" data-lang="clojure"><span class="p">(</span><span class="kd">defn </span><span class="nv">diamond</span> <span class="p">[</span><span class="nv">letter</span><span class="p">]</span>
   <span class="p">(</span><span class="nb">map </span><span class="o">#</span><span class="p">(</span><span class="nf">line-for</span> <span class="nv">%</span> <span class="nv">letter</span><span class="p">)</span> <span class="p">(</span><span class="nf">letter-sequence</span> <span class="nv">letter</span><span class="p">)))</span>
 </code></pre></div><p>And that was it. By mapping the <code>line-for</code> function to each of the letters produced by <code>letter-sequence</code> I could create the final structure of the diamond.</p>
-<h3 id="conclusion">Conclusion<a href="#conclusion" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+<h3 id="conclusion">Conclusion<a hidden class="anchor" aria-hidden="true" href="#conclusion">#</a></h3>
 <p>Using TDD forced me to realise early on that the problem was not as simple as I thought initially. Using output examples helped me to understand the problem a bit more and breaking it into smaller parts made the red-green-refactor flow very easy.</p>
 <p>It was specially fun to see the problem become simpler and simpler as the parts of it were being implemented.</p>
 <p>The final solution also became simpler than I expected. Comparing to <a href="https://github.com/philipschwarz/diamond-problem-in-clojure">Philip&rsquo;s solution</a> it&rsquo;s also required half of his lines of code.</p>
 <p>I can&rsquo;t decide if that was just luck on my approach or was a side-effect of TDD. It was definitely not because my Clojure skills, as I&rsquo;m relatively new to the language.</p>
 <p>Overall it was a very fun exercise. Now is time to go back and read how other people have done it.</p>
 
-			</div>
-			<hr class="post-end">
-			<footer class="post-info">
-				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1390 Words</p>
-				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2014-12-06 18:00 -0200</p>
-			</footer>
-		</article>
-		<div class="post-nav thin">
-			<a class="next-post" href="https://isanchez.net/posts/2018-08-20-learning-a-new-codebase-from-its-history-beyond-the-code/">
-				<span class="post-nav-label"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>&nbsp;Newer</span><br><span>Learning a new codebase from its history beyond the code</span>
-			</a>
-			<a class="prev-post" href="https://isanchez.net/posts/2014-12-01-closing-the-loop/">
-				<span class="post-nav-label">Older&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><br><span>Closing the Loop</span>
-			</a>
-		</div>
-		<div id="comments" class="thin">
-</div>
-	</main>
 
-	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
-		<p>&copy; 2021 <a href="https://isanchez.net/">Ivan Sanchez</a> &#183; <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></p>
-		<p>
-			Made with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &#183; Theme <a href="https://github.com/Track3/hermit" target="_blank" rel="noopener">Hermit</a> &#183; <a href="https://isanchez.net/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a>
-		</p>
-	</footer>
+  </div>
 
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+    <span>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</span>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
 
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
 
-	<script src="https://isanchez.net/js/bundle.min.4a9a0ac3d2217822c7865b4161e6c2a71de1d70492264337755427898dd718f6.js" integrity="sha256-SpoKw9IheCLHhltBYebCpx3h1wSSJkM3dVQniY3XGPY=" crossorigin="anonymous"></script>
-	
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-6583325-1', 'auto');
-	
-	ga('send', 'pageview');
-}
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
 </script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
 
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
 
+</script>
 </body>
 
 </html>
